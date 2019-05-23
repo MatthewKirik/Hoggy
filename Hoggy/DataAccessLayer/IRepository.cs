@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public interface IRepository<T> : IDisposable
-        where T : class
+    public interface IRepository : IDisposable
     {
-        IEnumerable<T> GetList();
-        T GetItem(int id);
-        void Add(T item);
-        void Update(T item);
-        void Delete(int id);
+        IEnumerable<T> GetList<T>();
+        T GetItem<T> (int id);
+        void Add<T> (T item);
+        void Update<T> (T item);
+        void Delete<T> (int id);
         void Save();
     }
 }
