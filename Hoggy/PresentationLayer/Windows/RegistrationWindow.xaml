@@ -71,6 +71,6 @@
                          custom:PasswordBoxAssistant.BindPassword="true"  
                          custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <Button Grid.Row="3" Content="Sign up"/>
+        <Button Grid.Row="3" Content="Sign up" Command="{Binding SignUpCommand}"/>
     </Grid>
 </metro:MetroWindow>
