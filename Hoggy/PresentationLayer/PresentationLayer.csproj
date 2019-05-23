@@ -91,6 +91,14 @@
     <Compile Include="XamlAssistants\PasswordBoxAssistant.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BoardModel.cs" />
+    <Compile Include="Models\CardModel.cs" />
+    <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\HistoryEventModel.cs" />
+    <Compile Include="Models\HistoryEventTypeModel.cs" />
+    <Compile Include="Models\TagModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +137,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
