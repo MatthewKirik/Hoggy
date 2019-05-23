@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
 {
-    class HistoryEventTypeEntity
+    public class HistoryEventTypeEntity
     {
         public int Id { get; set; }
-        [Required]
-        public virtual HistoryEventTypeEntity EventType { get; set; }
-        [Required]
-        public virtual UserEntity Producer { get; set; }
-        public virtual CardEntity Card { get; set; }
-        public virtual UserEntity User { get; set; }
-        public virtual ColumnEntity Column { get; set; }
+        public string Name { get; set; }
+        public string Text { get; set; }
     }
 }
