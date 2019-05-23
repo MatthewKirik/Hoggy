@@ -47,7 +47,7 @@
                 <ColumnDefinition Width="70*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Login" Grid.Column="0"/>
-            <TextBox Text="{Binding Path=User.Login, Mode=TwoWay}"
+            <TextBox Text="{Binding Path=User.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="1"/>
         </Grid>
         <Grid Grid.Row="1">
