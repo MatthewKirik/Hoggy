@@ -82,6 +82,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BoardModel.cs" />
+    <Compile Include="Models\CardModel.cs" />
+    <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\HistoryEventModel.cs" />
+    <Compile Include="Models\HistoryEventTypeModel.cs" />
+    <Compile Include="Models\TagModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,7 +117,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Windows\" />
   </ItemGroup>
