@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
+using WcfServiceLibrary.DataTransferObjects;
 
 namespace WcfServiceLibrary.Services
 {
@@ -18,9 +19,10 @@ namespace WcfServiceLibrary.Services
         {
             _repository = repository;
         }
-        public bool CheckUserIsRegistered()
+
+        public bool CheckUserIsRegistered(UserDTO user)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }
