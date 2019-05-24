@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using WcfServiceLibrary.DataTransferObjects;
 
 namespace WcfServiceLibrary.Contracts
 {
@@ -11,6 +12,6 @@ namespace WcfServiceLibrary.Contracts
     public interface IAuthenticationContract
     {
         [OperationContract]
-        bool CheckUserIsRegistered();
+        bool CheckUserIsRegistered(UserDTO user);
     }
 }
