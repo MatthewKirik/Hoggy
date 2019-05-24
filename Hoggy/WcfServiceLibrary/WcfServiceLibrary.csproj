@@ -45,6 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IAuthenticationContract.cs" />
+    <Compile Include="DataTransferObjects\BoardDTO.cs" />
+    <Compile Include="DataTransferObjects\CardDTO.cs" />
+    <Compile Include="DataTransferObjects\ColumnDTO.cs" />
+    <Compile Include="DataTransferObjects\CommentDTO.cs" />
+    <Compile Include="DataTransferObjects\HistoryEventDTO.cs" />
+    <Compile Include="DataTransferObjects\HistoryEventTypeDTO.cs" />
+    <Compile Include="DataTransferObjects\TagDTO.cs" />
+    <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
   </ItemGroup>
@@ -57,6 +65,7 @@
       <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
