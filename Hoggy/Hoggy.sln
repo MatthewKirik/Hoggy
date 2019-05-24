@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "Presen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoggyServiceHost", "HoggyServiceHost\HoggyServiceHost.csproj", "{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2A20F0DB-B7A3-4D27-9213-0DC480E2C78D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferObjects", "DataTransferObjects\DataTransferObjects.csproj", "{7695A7A5-E202-403E-83EC-697D9A2BA462}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{210A6E45-2186-47C0-B0F4-8F24E2013672} = {032A273D-87E4-4006-9440-E1B0580BC1C6}
 		{4CCB1305-0F66-498C-98D3-CB09DD52B848} = {0A3670E2-D760-43C2-9987-B51F6809ADA6}
 		{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A} = {032A273D-87E4-4006-9440-E1B0580BC1C6}
+		{7695A7A5-E202-403E-83EC-697D9A2BA462} = {2A20F0DB-B7A3-4D27-9213-0DC480E2C78D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C95018AF-03B9-4CC5-BEED-18E4162663A0}

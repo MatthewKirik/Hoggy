@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WcfServiceLibrary.DataTransferObjects
+namespace DataTransferObjects
 {
-    public class ColumnDTO
+    public class TagDTO
     {
         public string Name { get; set; }
-        public string Description { get; set; }
-        public List<CardDTO> Cards { get; set; }
     }
 }

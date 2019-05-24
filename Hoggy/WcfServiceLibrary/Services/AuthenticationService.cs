@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
-using WcfServiceLibrary.DataTransferObjects;
+using DataTransferObjects;
 
 namespace WcfServiceLibrary.Services
 {

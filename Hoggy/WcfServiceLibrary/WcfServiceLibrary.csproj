@@ -48,14 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IAuthenticationContract.cs" />
-    <Compile Include="DataTransferObjects\BoardDTO.cs" />
-    <Compile Include="DataTransferObjects\CardDTO.cs" />
-    <Compile Include="DataTransferObjects\ColumnDTO.cs" />
-    <Compile Include="DataTransferObjects\CommentDTO.cs" />
-    <Compile Include="DataTransferObjects\HistoryEventDTO.cs" />
-    <Compile Include="DataTransferObjects\HistoryEventTypeDTO.cs" />
-    <Compile Include="DataTransferObjects\TagDTO.cs" />
-    <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
   </ItemGroup>
@@ -67,6 +59,10 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{46577bd8-21a9-42a1-b02e-dacc415add99}</Project>
       <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
+      <Project>{7695a7a5-e202-403e-83ec-697d9a2ba462}</Project>
+      <Name>DataTransferObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

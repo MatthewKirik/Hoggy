@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WcfServiceLibrary.DataTransferObjects
+namespace DataTransferObjects
 {
-    public class BoardDTO
+    public class CardDTO
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        public UserDTO Creator { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public List<TagDTO> Tags { get; set; }
+        public List<CommentDTO> Comments { get; set; }
         public List<UserDTO> Participants { get; set; }
     }
 }

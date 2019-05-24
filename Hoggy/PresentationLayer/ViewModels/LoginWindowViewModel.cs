@@ -29,7 +29,6 @@ namespace PresentationLayer.ViewModels
             {
                 _logInCommand = new RelayCommand(() =>
                 {
-
                 });
                 return _logInCommand;
             }

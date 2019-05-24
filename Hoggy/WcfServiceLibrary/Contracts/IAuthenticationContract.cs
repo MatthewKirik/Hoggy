@@ -4,7 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using WcfServiceLibrary.DataTransferObjects;
+using DataTransferObjects;
 
 namespace WcfServiceLibrary.Contracts
 {
