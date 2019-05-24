@@ -33,11 +33,13 @@
             <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="16pt"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -71,6 +73,24 @@
                          custom:PasswordBoxAssistant.BindPassword="true"  
                          custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <Button Grid.Row="3" Content="Sign up" Command="{Binding SignUpCommand}"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="First name" Grid.Column="0"/>
+            <TextBox Text="{Binding Path=User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Second name" Grid.Column="0"/>
+            <TextBox Text="{Binding Path=User.SecondName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="1"/>
+        </Grid>
+        <Button Grid.Row="5" Content="Sign up" Command="{Binding SignUpCommand}"/>
     </Grid>
 </metro:MetroWindow>
