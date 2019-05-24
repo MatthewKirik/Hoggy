@@ -14,6 +14,6 @@ namespace DataAccessLayer.Entities
         public string Email { get; set; }
         public string FirstName{ get; set; }
         public string SecondName { get; set; }
-        public virtual IEnumerable<BoardEntity> Boards { get; set; }
+        public virtual ICollection<BoardEntity> Boards { get; set; }
     }
 }

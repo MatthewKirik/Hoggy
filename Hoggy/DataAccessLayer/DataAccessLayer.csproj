@@ -57,6 +57,7 @@
     <Compile Include="Entities\TagEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="HoggyContext.cs" />
+    <Compile Include="HoggyContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Repositories\MsSqlRepository.cs" />

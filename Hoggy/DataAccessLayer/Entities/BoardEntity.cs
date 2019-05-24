@@ -15,6 +15,7 @@ namespace DataAccessLayer.Entities
         public DateTime CreationDate { get; set; }
         [Required]
         public virtual UserEntity Creator { get; set; }
-        public virtual IEnumerable<UserEntity> Participants { get; set; }
+        public virtual ICollection<UserEntity> Participants { get; set; }
+        public virtual ICollection<CardEntity> Cards { get; set; }
     }
 }

@@ -14,10 +14,11 @@ namespace DataAccessLayer
         public HoggyContext()
             : base()
         {
-
+            Database.SetInitializer(new HoggyContextInitializer());
         }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<BoardEntity> Boards { get; set; }
         public DbSet<CardEntity> Cards { get; set; }
         public DbSet<ColumnEntity> Columns { get; set; }
         public DbSet<HistoryEventEntity> HistoryEvents { get; set; }
