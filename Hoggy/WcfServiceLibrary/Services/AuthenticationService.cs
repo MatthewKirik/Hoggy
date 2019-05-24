@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
 using DataTransferObjects;
+using DataAccessLayer.Entities;
 
 namespace WcfServiceLibrary.Services
 {
@@ -22,7 +23,7 @@ namespace WcfServiceLibrary.Services
 
         public bool CheckUserIsRegistered(UserDTO user)
         {
-            return false;
+            return _repository.GetItem<UserEntity>(x => x.Email == user.Email) == null;
         }
     }
 }
