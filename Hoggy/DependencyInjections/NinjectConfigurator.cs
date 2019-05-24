@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Repositories;
+using Ninject;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;

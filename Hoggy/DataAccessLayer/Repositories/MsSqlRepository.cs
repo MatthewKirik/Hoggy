@@ -12,9 +12,9 @@ namespace DataAccessLayer.Repositories
     {
         private DbContext context;
 
-        public MsSqlRepository(DbContext ctx)
+        public MsSqlRepository(DbContext context)
         {
-            context = ctx;
+            this.context = context;
         }
 
         public void Add<T> (T item) where T : class
