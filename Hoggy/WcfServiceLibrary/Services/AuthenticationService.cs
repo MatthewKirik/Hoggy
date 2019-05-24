@@ -21,6 +21,15 @@ namespace WcfServiceLibrary.Services
             _repository = repository;
         }
 
+        public bool CheckPasswordIsCorrect(UserDTO user)
+        {
+            UserEntity u = _repository.GetItem<UserEntity>(x => x.Email == user.Email);
+            if (u == null)
+                return false;
+
+            return u.Password == user.Password;
+        }
+
         public bool CheckUserIsRegistered(UserDTO user)
         {
             return _repository.GetItem<UserEntity>(x => x.Email == user.Email) == null;
