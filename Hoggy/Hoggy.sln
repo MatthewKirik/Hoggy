@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2A20F0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferObjects", "DataTransferObjects\DataTransferObjects.csproj", "{7695A7A5-E202-403E-83EC-697D9A2BA462}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjections", "DependencyInjections\DependencyInjections.csproj", "{3F328843-DB1F-4ABF-96C2-3574BCC37557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7695A7A5-E202-403E-83EC-697D9A2BA462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F328843-DB1F-4ABF-96C2-3574BCC37557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F328843-DB1F-4ABF-96C2-3574BCC37557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F328843-DB1F-4ABF-96C2-3574BCC37557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F328843-DB1F-4ABF-96C2-3574BCC37557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{4CCB1305-0F66-498C-98D3-CB09DD52B848} = {0A3670E2-D760-43C2-9987-B51F6809ADA6}
 		{AC0BE673-F389-4DF0-9F61-26EDBD37DF6A} = {032A273D-87E4-4006-9440-E1B0580BC1C6}
 		{7695A7A5-E202-403E-83EC-697D9A2BA462} = {2A20F0DB-B7A3-4D27-9213-0DC480E2C78D}
+		{3F328843-DB1F-4ABF-96C2-3574BCC37557} = {032A273D-87E4-4006-9440-E1B0580BC1C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C95018AF-03B9-4CC5-BEED-18E4162663A0}
