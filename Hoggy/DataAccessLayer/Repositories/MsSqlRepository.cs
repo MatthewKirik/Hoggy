@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -9,11 +10,11 @@ namespace DataAccessLayer.Repositories
 {
     public class MsSqlRepository : IRepository
     {
-        private HoggyContext context;
+        private DbContext context;
 
-        public MsSqlRepository()
+        public MsSqlRepository(DbContext ctx)
         {
-            context = new HoggyContext();
+            context = ctx;
         }
 
         public void Add<T> (T item) where T : class
