@@ -48,9 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IAuthenticationContract.cs" />
+    <Compile Include="Contracts\IDataExchangeContract.cs" />
     <Compile Include="Contracts\IRegistrationContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\DataExchangeService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>

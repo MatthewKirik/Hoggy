@@ -66,6 +66,10 @@
       <Project>{46577bd8-21a9-42a1-b02e-dacc415add99}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
+      <Project>{7695A7A5-E202-403E-83EC-697D9A2BA462}</Project>
+      <Name>DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DependencyInjections\DependencyInjections.csproj">
       <Project>{3f328843-db1f-4abf-96c2-3574bcc37557}</Project>
       <Name>DependencyInjections</Name>

@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace DataAccessLayer
 {
-    public class HoggyContextInitializer : DropCreateDatabaseAlways<HoggyContext>
+    public class HoggyContextInitializer : DropCreateDatabaseIfModelChanges<HoggyContext>
     {
         protected override void Seed(HoggyContext context)
         {

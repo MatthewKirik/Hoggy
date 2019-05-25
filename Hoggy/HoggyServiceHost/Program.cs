@@ -1,4 +1,6 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Entities;
+using DataTransferObjects;
 using DependencyInjections;
 using Ninject;
 using System;
@@ -16,7 +18,8 @@ namespace HoggyServiceHost
     {
         static void Main(string[] args)
         {
-            AuthenticationService service = new AuthenticationService(Factory.Kernel.Get<IRepository>());
+            IRepository repository = Factory.Kernel.Get<IRepository>();
+            AuthenticationService service = new AuthenticationService(repository);
             ServiceHost serviceHost = new ServiceHost(service);
             serviceHost.Open();
             Console.WriteLine("Authantication server is started");
