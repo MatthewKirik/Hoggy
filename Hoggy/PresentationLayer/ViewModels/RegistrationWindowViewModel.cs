@@ -16,6 +16,9 @@ namespace PresentationLayer.ViewModels
 {
     public class RegistrationWindowViewModel : ViewModelBase
     {
+        /// <summary>
+        /// /ssdadasdasdasd
+        /// </summary>
         private string _login;
         public string Login
         {
