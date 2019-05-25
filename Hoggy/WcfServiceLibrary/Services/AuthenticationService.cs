@@ -35,12 +35,22 @@ namespace WcfServiceLibrary.Services
             return _repository.GetItem<UserEntity>(x => x.Email == user.Email) == null;
         }
 
-        public UserDTO Login(UserDTO _user)
+        public AuthenticationToken Login(UserDTO _user)
         {
             UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == _user.Email);
-            UserDTO loggedUser = new UserDTO();
-            AutoMapper.Mapper.Map(user, loggedUser);
-            return loggedUser;
+            if (_user.Password == user.Password)
+            {
+                AuthenticationToken token = new AuthenticationToken();
+                token.CreationDate = DateTime.Now;
+                token.ExpireDate = DateTime.Now.AddDays(1);
+                AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
+                AutoMapper.Mapper.Map(token, tokenEntity);
+                _repository.Add<AuthenticationTokenEntity>(tokenEntity);
+                _repository.Save();
+                return token;
+            }
+            else
+                return null;
         }
     }
 }

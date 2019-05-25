@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AuthenticationTokenEntity.cs" />
     <Compile Include="Entities\BoardEntity.cs" />
     <Compile Include="Entities\CardEntity.cs" />
     <Compile Include="Entities\ColumnEntity.cs" />

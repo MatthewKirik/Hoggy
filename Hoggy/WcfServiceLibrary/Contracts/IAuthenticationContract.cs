@@ -16,6 +16,6 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         bool CheckPasswordIsCorrect(UserDTO user);
         [OperationContract]
-        UserDTO Login(UserDTO user);
+        AuthenticationToken Login(UserDTO user);
     }
 }

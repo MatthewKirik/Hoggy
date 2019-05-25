@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationToken.cs" />
     <Compile Include="BoardDTO.cs" />
     <Compile Include="CardDTO.cs" />
     <Compile Include="ColumnDTO.cs" />
