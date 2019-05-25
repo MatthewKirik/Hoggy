@@ -13,5 +13,10 @@ namespace PresentationLayer
     /// </summary>
     public partial class App : Application
     {
+        public App() : base()
+        {
+            QuickConverter.EquationTokenizer.AddNamespace(typeof(object));
+            QuickConverter.EquationTokenizer.AddNamespace(typeof(System.Windows.Visibility));
+        }
     }
 }
