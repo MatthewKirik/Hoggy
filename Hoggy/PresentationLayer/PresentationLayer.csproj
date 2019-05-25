@@ -77,6 +77,9 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="QuickConverter, Version=1.2.5.0, Culture=neutral, PublicKeyToken=9c892aa7bc2af2cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickConverter.1.2.5\lib\net40\QuickConverter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -111,6 +114,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
     <Compile Include="Windows\LoginWindow.xaml.cs">
@@ -120,6 +124,7 @@
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlAssistants\PasswordBoxAssistant.cs" />
+    <Compile Include="XamlAssistants\StringNullOrEmptyToVisibilityConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\BoardModel.cs" />

@@ -6,98 +6,158 @@
         xmlns:local="clr-namespace:PresentationLayer.Windows"
         mc:Ignorable="d"
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    Title="Sign up to Hoggy" Height="450" Width="1000" 
                    Icon="pack://application:,,,/Resources/icon.ico">
-    <Window.Resources>
-        <!--<Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        <Style TargetType="PasswordBox">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="Button" BasedOn="{StaticResource MetroButton}">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-        </Style>-->
-    </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
 
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Login" Style="{StaticResource Lable}"/>
-        <TextBox Text="{Binding Path=User.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1"/>
+        <TabControl x:Name="products">
+            <TabItem x:Name="smartphonesTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">LOG IN</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Login" Style="{StaticResource Lable}" />
+                            <TextBox Text="{Binding Path=Login}" Grid.Column="1"/>
+                        </Grid>
+                        <TextBlock Visibility="{Binding LoginErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding LoginErr}" Style="{StaticResource Error}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Password" Style="{StaticResource Lable}" />
 
-        <TextBlock Text="Email" Grid.Row="1" Style="{StaticResource Lable}"/>
-        <TextBox Grid.Column="1" Grid.Row="1"
-                 Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Text="Password" Grid.Row="2" Style="{StaticResource Lable}"/>
-        <PasswordBox Grid.Column="1"  Grid.Row="2"
+                            <PasswordBox Grid.Column="1"
                          custom:PasswordBoxAssistant.BindPassword="true"  
-                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay}"/>
+                        </Grid>
+                        <TextBlock Visibility="{Binding PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding PassErr}" Style="{StaticResource Error}"/>
 
-        <TextBlock Text="First name" Grid.Row="3" Style="{StaticResource Lable}"/>
-        <TextBox Text="{Binding Path=User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1" Grid.Row="3"/>
+                        <Grid Grid.Row="5" Grid.ColumnSpan="3" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Command="{Binding SignUpCommand}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSign}">
+                                <Button.Content>
+                                    <WrapPanel>
+                                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2" />
+                                        <TextBlock Style="{StaticResource Lable}" Text="COME ON"/>
+                                    </WrapPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Grid.Column="1" Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
+                                <Button.Content>
+                                    <WrapPanel>
+                                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                                    </WrapPanel>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
 
-        <TextBlock Text="Second name" Grid.Row="4" Style="{StaticResource Lable}"/>
-        <TextBox Text="{Binding Path=User.SecondName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1" Grid.Row="4"/>
-
-        <Image Grid.Column="2" Grid.RowSpan="5" Source="pack://application:,,,/Resources/hoggy_img.png"/>
-
-        <Grid Grid.Row="5" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
-                <Button.Content>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
                     <WrapPanel>
-                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2"/>
-                        <TextBlock Style="{StaticResource Lable}" Text="REGISTER"/>
+                        <TextBlock Margin="3">REGISTRATION</TextBlock>
                     </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="1" Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
-                <Button.Content>
-                    <WrapPanel>
-                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
-                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-        </Grid>
+                </TabItem.Header>
+
+                <TabItem.Content>
+
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Login" Style="{StaticResource Lable}" />
+                            <TextBox Text="{Binding Path=Login}" Grid.Column="1"/>
+                        </Grid>
+                        <TextBlock Visibility="{Binding LoginErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding LoginErr}" Style="{StaticResource Error}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Email" Style="{StaticResource Lable}" />
+                            <TextBox Text="{Binding Path=Email}" Grid.Column="1"/>
+                        </Grid>
+                        <TextBlock Visibility="{Binding MailErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding MailErr}" Style="{StaticResource Error}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Password" Style="{StaticResource Lable}" />
+                            <PasswordBox Grid.Column="1"
+                         custom:PasswordBoxAssistant.BindPassword="true"  
+                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay}"/>
+
+                        </Grid>
+                        <TextBlock Visibility="{Binding PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding PassErr}" Style="{StaticResource Error}"/>
+
+                        <Grid Grid.Row="5" Grid.ColumnSpan="3" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Command="{Binding SignUpCommand}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSign}">
+                                <Button.Content>
+                                    <WrapPanel>
+                                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2" />
+                                        <TextBlock Style="{StaticResource Lable}" Text="COME ON"/>
+                                    </WrapPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Grid.Column="1" Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
+                                <Button.Content>
+                                    <WrapPanel>
+                                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                                    </WrapPanel>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+
+
+                </TabItem.Content>
+
+            </TabItem>
+        </TabControl>
+
+        <Image Grid.Column="1" Grid.RowSpan="5" Source="pack://application:,,,/Resources/hoggy_img.png"/>
+
+
     </Grid>
+
+
+
+
 </metro:MetroWindow>
