@@ -51,6 +51,7 @@
     <Compile Include="Contracts\IRegistrationContract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\RegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
