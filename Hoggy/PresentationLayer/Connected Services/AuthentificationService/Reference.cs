@@ -20,6 +20,12 @@ namespace PresentationLayer.AuthentificationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckUserIsRegistered", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckUserIsRegisteredResponse")]
         System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(DataTransferObjects.UserDTO user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrectResponse")]
+        bool CheckPasswordIsCorrect(DataTransferObjects.UserDTO user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrectResponse")]
+        System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(DataTransferObjects.UserDTO user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace PresentationLayer.AuthentificationService {
         
         public System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(DataTransferObjects.UserDTO user) {
             return base.Channel.CheckUserIsRegisteredAsync(user);
+        }
+        
+        public bool CheckPasswordIsCorrect(DataTransferObjects.UserDTO user) {
+            return base.Channel.CheckPasswordIsCorrect(user);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(DataTransferObjects.UserDTO user) {
+            return base.Channel.CheckPasswordIsCorrectAsync(user);
         }
     }
 }

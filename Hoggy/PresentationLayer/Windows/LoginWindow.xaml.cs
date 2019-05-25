@@ -22,8 +22,8 @@ namespace PresentationLayer.Windows
     {
         public LoginWindow()
         {
-            this.DataContext = new ViewModels.LoginWindowViewModel();
             InitializeComponent();
+            this.DataContext = new ViewModels.LoginWindowViewModel();
         }
     }
 }

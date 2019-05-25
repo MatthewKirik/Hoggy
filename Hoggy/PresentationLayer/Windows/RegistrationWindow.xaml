@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:PresentationLayer.Windows"
         mc:Ignorable="d"
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   Title="Sign up to Hoggy" Height="450" Width="500">
+                   Title="Sign up to Hoggy" Height="450" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico">
     <Window.Resources>
-        <Style TargetType="TextBlock">
+        <!--<Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="16pt"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -34,7 +36,7 @@
             <Setter Property="FontSize" Value="16pt"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10"/>
-        </Style>
+        </Style>-->
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,52 +47,57 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="70*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Login" Grid.Column="0"/>
-            <TextBox Text="{Binding Path=User.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Login" Style="{StaticResource Lable}"/>
+        <TextBox Text="{Binding Path=User.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="1"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="70*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Email" Grid.Column="0"/>
-            <TextBox Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1"/>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="70*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Password" Grid.Column="0"/>
-            <PasswordBox Grid.Column="1" 
+
+        <TextBlock Text="Email" Grid.Row="1" Style="{StaticResource Lable}"/>
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Text="Password" Grid.Row="2" Style="{StaticResource Lable}"/>
+        <PasswordBox Grid.Column="1"  Grid.Row="2"
                          custom:PasswordBoxAssistant.BindPassword="true"  
                          custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </Grid>
-        <Grid Grid.Row="3">
+
+        <TextBlock Text="First name" Grid.Row="3" Style="{StaticResource Lable}"/>
+        <TextBox Text="{Binding Path=User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="1" Grid.Row="3"/>
+
+        <TextBlock Text="Second name" Grid.Row="4" Style="{StaticResource Lable}"/>
+        <TextBox Text="{Binding Path=User.SecondName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="1" Grid.Row="4"/>
+
+        <Image Grid.Column="2" Grid.RowSpan="5" Source="pack://application:,,,/Resources/hoggy_img.png"/>
+
+        <Grid Grid.Row="5" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="70*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="First name" Grid.Column="0"/>
-            <TextBox Text="{Binding Path=User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1"/>
+            <Button Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
+                <Button.Content>
+                    <WrapPanel>
+                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2"/>
+                        <TextBlock Style="{StaticResource Lable}" Text="REGISTER"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding SignUpCommand}" Style="{StaticResource Btn}">
+                <Button.Content>
+                    <WrapPanel>
+                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
+                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
         </Grid>
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="70*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Second name" Grid.Column="0"/>
-            <TextBox Text="{Binding Path=User.SecondName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Grid.Column="1"/>
-        </Grid>
-        <Button Grid.Row="5" Content="Sign up" Command="{Binding SignUpCommand}"/>
     </Grid>
 </metro:MetroWindow>

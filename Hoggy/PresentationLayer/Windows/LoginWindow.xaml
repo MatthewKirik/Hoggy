@@ -7,34 +7,7 @@
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Log in to Hoggy"  Height="450" Width="500">
-    <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        <Style TargetType="PasswordBox">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="Button" BasedOn="{StaticResource MetroButton}">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="16pt"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="20"/>
-        </Style>
-    </Window.Resources>
+        Title="Log in to Hoggy"  Height="450" Width="500" Icon="pack://application:,,,/Resources/icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />

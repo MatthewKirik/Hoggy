@@ -21,10 +21,20 @@
   <wsdl:message name="IAuthenticationContract_CheckUserIsRegistered_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckUserIsRegisteredResponse" />
   </wsdl:message>
+  <wsdl:message name="IAuthenticationContract_CheckPasswordIsCorrect_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPasswordIsCorrect" />
+  </wsdl:message>
+  <wsdl:message name="IAuthenticationContract_CheckPasswordIsCorrect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPasswordIsCorrectResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAuthenticationContract">
     <wsdl:operation name="CheckUserIsRegistered">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthenticationContract/CheckUserIsRegistered" message="tns:IAuthenticationContract_CheckUserIsRegistered_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthenticationContract/CheckUserIsRegisteredResponse" message="tns:IAuthenticationContract_CheckUserIsRegistered_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPasswordIsCorrect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect" message="tns:IAuthenticationContract_CheckPasswordIsCorrect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrectResponse" message="tns:IAuthenticationContract_CheckPasswordIsCorrect_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="servicePoint" type="tns:IAuthenticationContract">
@@ -32,6 +42,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="CheckUserIsRegistered">
       <soap12:operation soapAction="http://tempuri.org/IAuthenticationContract/CheckUserIsRegistered" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPasswordIsCorrect">
+      <soap12:operation soapAction="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
