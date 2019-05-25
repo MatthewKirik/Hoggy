@@ -34,5 +34,13 @@ namespace WcfServiceLibrary.Services
         {
             return _repository.GetItem<UserEntity>(x => x.Email == user.Email) == null;
         }
+
+        public UserDTO Login(UserDTO _user)
+        {
+            UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == _user.Email);
+            UserDTO loggedUser = new UserDTO();
+            AutoMapper.Mapper.Map(user, loggedUser);
+            return loggedUser;
+        }
     }
 }
