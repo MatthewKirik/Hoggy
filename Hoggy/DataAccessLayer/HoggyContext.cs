@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace DataAccessLayer
 {
@@ -12,9 +13,10 @@ namespace DataAccessLayer
         : DbContext
     {
         public HoggyContext()
-            : base()
+            : base(ConfigurationManager.ConnectionStrings["MsSqlConnectionString"].ConnectionString)
         {
-            Database.SetInitializer(new HoggyContextInitializer());
+            Database.SetInitializer<HoggyContext>(new HoggyContextInitializer());
+            Database.Initialize(true);
         }
 
         public DbSet<UserEntity> Users { get; set; }

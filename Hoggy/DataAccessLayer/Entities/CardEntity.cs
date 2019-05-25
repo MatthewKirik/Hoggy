@@ -16,5 +16,6 @@ namespace DataAccessLayer.Entities
         public virtual ICollection<TagEntity> Tags { get; set; }
         public virtual ICollection<CommentEntity> Comments { get; set; }
         public virtual ICollection<UserEntity> Participants { get; set; }
+        public virtual ColumnEntity Column { get; set; }
     }
 }

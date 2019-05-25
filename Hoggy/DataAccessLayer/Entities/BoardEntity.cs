@@ -16,6 +16,6 @@ namespace DataAccessLayer.Entities
         [Required]
         public virtual UserEntity Creator { get; set; }
         public virtual ICollection<UserEntity> Participants { get; set; }
-        public virtual ICollection<CardEntity> Cards { get; set; }
+        public virtual ICollection<ColumnEntity> Columns { get; set; }
     }
 }

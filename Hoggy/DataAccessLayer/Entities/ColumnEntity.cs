@@ -12,5 +12,6 @@ namespace DataAccessLayer.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public virtual ICollection<CardEntity> Cards { get; set; }
+        public virtual BoardEntity Board { get; set; }
     }
 }
