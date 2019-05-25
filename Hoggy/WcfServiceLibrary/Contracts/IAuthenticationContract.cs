@@ -15,5 +15,7 @@ namespace WcfServiceLibrary.Contracts
         bool CheckUserIsRegistered(UserDTO user);
         [OperationContract]
         bool CheckPasswordIsCorrect(UserDTO user);
+        [OperationContract]
+        UserDTO Login();
     }
 }
