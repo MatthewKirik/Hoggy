@@ -49,7 +49,7 @@ namespace DataAccessLayer.Repositories
 
         public void Update<T>(T item) where T : class
         {
-            throw new NotImplementedException();
+            context.Entry(item).State = EntityState.Modified;
         }
 
         #region IDisposable Support

@@ -22,14 +22,26 @@ namespace WcfServiceLibrary.Services
             _repository = repository;
         }
 
-        public bool RegisterUser(UserDTO user)
+        public bool RegisterUser(UserDTO user, string password)
         {
             if (_repository.GetItem<UserEntity>(x => x.Email == user.Email || x.Login == user.Login) == null)
             {
-                UserEntity newUser = new UserEntity();
-                AutoMapper.Mapper.Map(user, newUser);
 
-                _repository.Add<UserEntity>(newUser);
+                UserEntity newUser = new UserEntity();
+                newUser.Email = user.Email;
+                newUser.Login = user.Login;
+                newUser.Password = password;
+                _repository.Add(newUser);
+                _repository.Save();
+
+
+                UserProfileEntity profileEntity = new UserProfileEntity();
+                profileEntity.User = newUser;
+                _repository.Add(profileEntity);
+                _repository.Save();
+
+                newUser.Profile = profileEntity;
+                _repository.Update(newUser);
                 _repository.Save();
                 return true;
             }

@@ -10,7 +10,10 @@ namespace DataAccessLayer.Entities
     public class CommentEntity
     {
         public int Id { get; set; }
+        [Required]
         public string Text { get; set; }
+        [Required]
+        public virtual SecurityGroupEntity SecurityGroup { get; set; }
         [Required]
         public virtual UserEntity Author { get; set; }
         [Required]

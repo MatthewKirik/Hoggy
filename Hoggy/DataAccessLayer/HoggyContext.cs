@@ -27,6 +27,5 @@ namespace DataAccessLayer
         public DbSet<HistoryEventTypeEntity> HistoryEventTypes { get; set; }
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
-        public DbSet<AuthenticationTokenEntity> Sessions { get; set; }
     }
 }

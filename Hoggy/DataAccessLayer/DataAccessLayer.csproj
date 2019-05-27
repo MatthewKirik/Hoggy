@@ -56,8 +56,10 @@
     <Compile Include="Entities\CommentEntity.cs" />
     <Compile Include="Entities\HistoryEventEntity.cs" />
     <Compile Include="Entities\HistoryEventTypeEntity.cs" />
+    <Compile Include="Entities\SecurityGroupEntity.cs" />
     <Compile Include="Entities\TagEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Entities\UserProfileEntity.cs" />
     <Compile Include="HoggyContext.cs" />
     <Compile Include="HoggyContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

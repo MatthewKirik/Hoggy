@@ -12,10 +12,10 @@ namespace WcfServiceLibrary.Contracts
     public interface IAuthenticationContract
     {
         [OperationContract]
-        bool CheckUserIsRegistered(UserDTO user);
+        bool CheckUserIsRegistered(string email);
         [OperationContract]
-        bool CheckPasswordIsCorrect(UserDTO user);
+        bool CheckPasswordIsCorrect(string email, string password);
         [OperationContract]
-        AuthenticationToken Login(UserDTO user);
+        AuthenticationToken Login(string email, string password);
     }
 }

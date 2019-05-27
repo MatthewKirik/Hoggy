@@ -8,12 +8,11 @@ namespace DataTransferObjects
 {
     public class CardDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public List<TagDTO> Tags { get; set; }
-        public List<CommentDTO> Comments { get; set; }
-        public List<UserDTO> Participants { get; set; }
+        public TagDTO Tag { get; set; }
     }
 }

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
 {
-    public class TagEntity
+    public class UserProfileEntity
     {
-        public int Id { get; set; }
-        [Required]
+        public string Phone { get; set; }
         public string Name { get; set; }
         public virtual ICollection<BoardEntity> Boards { get; set; }
-        [Required]
-        public virtual SecurityGroupEntity SecurityGroup { get; set; }
+        public virtual ICollection<BoardEntity> ParticipatedBoards { get; set; }
+        public virtual UserEntity User { get; set; }
     }
 }

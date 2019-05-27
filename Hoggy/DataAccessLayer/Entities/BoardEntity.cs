@@ -10,11 +10,13 @@ namespace DataAccessLayer.Entities
     public class BoardEntity
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required]
         public DateTime CreationDate { get; set; }
         [Required]
-        public virtual UserEntity Creator { get; set; }
+        public virtual SecurityGroupEntity SecurityGroup { get; set; }
         public virtual ICollection<UserEntity> Participants { get; set; }
         public virtual ICollection<ColumnEntity> Columns { get; set; }
     }

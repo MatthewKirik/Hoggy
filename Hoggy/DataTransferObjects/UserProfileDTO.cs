@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DataTransferObjects
 {
-    public class HistoryEventTypeDTO
+    public class UserProfileDTO
     {
+        public byte[] Image { get; set; }
+        public string Phone { get; set; }
         public string Name { get; set; }
-        public string Text { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace WcfServiceLibrary.Contracts
     public interface IDataExchangeContract
     {
         [OperationContract]
-        List<BoardDTO> GetBoards(AuthenticationToken token);
+        List<BoardDTO> GetBoards(AuthenticationToken token, int UserId);
     }
 }

@@ -9,8 +9,5 @@ namespace DataTransferObjects
     public class AuthenticationToken
     {
         public string Value { get; set; }
-        public string Email { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime ExpireDate { get; set; }
     }
 }

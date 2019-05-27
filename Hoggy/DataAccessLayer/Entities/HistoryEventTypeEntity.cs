@@ -10,7 +10,10 @@ namespace DataAccessLayer.Entities
     public class HistoryEventTypeEntity
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Text { get; set; }
+        public virtual List<HistoryEventEntity> HistoryEvents { get; set; }
     }
 }

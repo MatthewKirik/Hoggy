@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using DataAccessLayer.Entities;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 
@@ -20,9 +21,29 @@ namespace WcfServiceLibrary.Services
             _repository = repository;
         }
 
-        public List<BoardDTO> GetBoards(AuthenticationToken token)
+        public List<BoardDTO> GetBoards(AuthenticationToken token, int UserId)
         {
-            return _repository.GetList<BoardDTO>(x => x.Creator.Email == token.Email).ToList();
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+
+            if (user == null)
+                return null;
+
+            if (user.Id == UserId)
+            {
+                List<BoardDTO> boards = new List<BoardDTO>();
+                foreach(var b in user.Profile.Boards)
+                {
+                    BoardDTO boardDTO = new BoardDTO();
+                    boardDTO.CreationDate = b.CreationDate;
+                    boardDTO.Description = b.Description;
+                    boardDTO.Name = b.Name;
+                    boardDTO.Id = b.Id;
+                    boards.Add(boardDTO);
+                }
+                return boards;
+            }
+            else
+                return null;
         }
         
     }

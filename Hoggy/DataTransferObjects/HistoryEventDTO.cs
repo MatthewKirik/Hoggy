@@ -8,10 +8,7 @@ namespace DataTransferObjects
 {
     public class HistoryEventDTO
     {
-        public virtual HistoryEventTypeDTO EventType { get; set; }
-        public virtual UserDTO Producer { get; set; }
-        public virtual CardDTO Card { get; set; }
-        public virtual UserDTO User { get; set; }
-        public virtual ColumnDTO Column { get; set; }
+        public string Text { get; set; }
+        public string ProducerLogin { get; set; }
     }
 }

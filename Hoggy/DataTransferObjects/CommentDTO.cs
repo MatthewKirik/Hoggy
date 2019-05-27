@@ -8,8 +8,7 @@ namespace DataTransferObjects
 {
     public class CommentDTO
     {
+        public int Id { get; set; }
         public string Text { get; set; }
-        public UserDTO Author { get; set; }
-        public CardDTO Card { get; set; }
     }
 }

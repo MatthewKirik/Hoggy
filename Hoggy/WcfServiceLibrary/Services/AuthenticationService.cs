@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
 using DataTransferObjects;
 using DataAccessLayer.Entities;
+using System.Security.Cryptography;
 
 namespace WcfServiceLibrary.Services
 {
@@ -21,32 +22,42 @@ namespace WcfServiceLibrary.Services
             _repository = repository;
         }
 
-        public bool CheckPasswordIsCorrect(UserDTO user)
+        public bool CheckPasswordIsCorrect(string email, string password)
         {
-            UserEntity u = _repository.GetItem<UserEntity>(x => x.Email == user.Email);
+            UserEntity u = _repository.GetItem<UserEntity>(x => x.Email == email);
+
             if (u == null)
                 return false;
-
-            return u.Password == user.Password;
+            else
+                return u.Password == password;
         }
 
-        public bool CheckUserIsRegistered(UserDTO user)
+        public bool CheckUserIsRegistered(string email)
         {
-            return _repository.GetItem<UserEntity>(x => x.Email == user.Email) == null;
+            return _repository.GetItem<UserEntity>(x => x.Email == email) == null;
         }
 
-        public AuthenticationToken Login(UserDTO _user)
+        public AuthenticationToken Login(string email, string password)
         {
-            UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == _user.Email);
-            if (_user.Password == user.Password)
+            UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == email);
+
+            if (user == null)
+                return null;
+
+            if(password == user.Password)
             {
-                AuthenticationToken token = new AuthenticationToken();
-                token.CreationDate = DateTime.Now;
-                token.ExpireDate = DateTime.Now.AddDays(1);
                 AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
-                AutoMapper.Mapper.Map(token, tokenEntity);
-                _repository.Add<AuthenticationTokenEntity>(tokenEntity);
+                tokenEntity.User = user;
+                SHA256Managed cryptor = new SHA256Managed();
+
+                tokenEntity.Value = Encoding.Unicode.GetString(
+                    cryptor.ComputeHash(
+                        Encoding.Unicode.GetBytes(email + "hoggySaLt" + password)));
+                _repository.Add(tokenEntity);
                 _repository.Save();
+
+                AuthenticationToken token = new AuthenticationToken();
+                token.Value = tokenEntity.Value.Clone() as string;
                 return token;
             }
             else

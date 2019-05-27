@@ -13,10 +13,6 @@ namespace DataAccessLayer.Entities
         [Required]
         public string Value { get; set; }
         [Required]
-        public string Email { get; set; }
-        [Required]
-        public DateTime CreationDate { get; set; }
-        [Required]
-        public DateTime ExpireDate { get; set; }
+        public virtual UserEntity User { get; set; }
     }
 }

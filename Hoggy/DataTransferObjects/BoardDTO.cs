@@ -8,10 +8,9 @@ namespace DataTransferObjects
 {
     public class BoardDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        public UserDTO Creator { get; set; }
-        public List<UserDTO> Participants { get; set; }
     }
 }

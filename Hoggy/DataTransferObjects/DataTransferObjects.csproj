@@ -47,10 +47,10 @@
     <Compile Include="ColumnDTO.cs" />
     <Compile Include="CommentDTO.cs" />
     <Compile Include="HistoryEventDTO.cs" />
-    <Compile Include="HistoryEventTypeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagDTO.cs" />
     <Compile Include="UserDTO.cs" />
+    <Compile Include="UserProfileDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

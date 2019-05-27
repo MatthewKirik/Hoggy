@@ -12,6 +12,6 @@ namespace WcfServiceLibrary.Contracts
     public interface IRegistrationContract
     {
         [OperationContract]
-        bool RegisterUser(UserDTO user);
+        bool RegisterUser(UserDTO user, string password);
     }
 }
