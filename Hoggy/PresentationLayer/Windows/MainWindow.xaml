@@ -1,0 +1,84 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="Sign up to Hoggy" Height="450" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <Expander Grid.Row="1" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100">
+            <StackPanel Background="{StaticResource SecondBrushDark}">
+                <WrapPanel>
+                    <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
+                    <TextBlock Style="{StaticResource MenuHeader}">BOARDS</TextBlock>
+                </WrapPanel>
+                <ListBox ItemsSource="{Binding User.Boards}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Expander>
+
+        <!--<ListBox Grid.Row="1" Margin="50 0 0 0" ItemsSource="{Binding CurBoard.Columns}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ListBox MinWidth="100" ItemsSource="{Binding Cards}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" Orientation="Horizontal"  />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>-->
+
+        <Grid Grid.Row="1" Margin="50 0 0 0">
+            <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ListBox MinWidth="100" ItemsSource="{Binding Cards}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+
+
+    </Grid>
+</metro:MetroWindow>

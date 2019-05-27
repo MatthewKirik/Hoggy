@@ -5,6 +5,11 @@
     <FontFamily x:Key="MainFont">Verdana</FontFamily>
     <FontFamily x:Key="Header">pack://application:,,,/Resources/#KabelCTT Book Bold</FontFamily>
 
+    <SolidColorBrush x:Key="FirstBrushLight" Color="#FFFFD856"/>
+    <SolidColorBrush x:Key="FirstBrushMiddle" Color="#FFFFC500"/>
+    <SolidColorBrush x:Key="SecondBrushDark" Color="Teal"/>
+    <SolidColorBrush x:Key="SecondBrushDarkest" Color="#FF004949"/>
+    
     <Style x:Key="Lable" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource Header}"/>
         <Setter Property="FontSize" Value="15pt"/>

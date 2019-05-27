@@ -11,4 +11,57 @@
         <Setter Property="Margin" Value="10 0" />
     </Style>
 
+    <!--MENU-->
+    <Style x:Key="MenuHeader" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Header}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="0 6" />
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushLight}" />
+    </Style>
+
+    <Style x:Key="Icon" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushLight}" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style x:Key="MenuText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="20 6 0 6" />
+        <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
+    </Style>
+
+    <!--<Style x:Key="BoardGrid" TargetType="ListBox">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Border Name="Border" Background="{StaticResource WindowBackgroundBrush}"
+                            BorderBrush="Teal"
+                            BorderThickness="1" CornerRadius="2">
+                        <ScrollViewer Margin="0" Focusable="false" 
+                                      VerticalContentAlignment="Top">
+                            <WrapPanel Margin="2" Height="100" IsItemsHost="True" 
+                                       VerticalAlignment="Top">
+                            </WrapPanel>
+                        </ScrollViewer>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                        <Setter TargetName="Border" Property="Background" Value="Teal" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Teal" />
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
 </ResourceDictionary>
