@@ -19,13 +19,12 @@ namespace DataAccessLayer
             Database.Initialize(true);
         }
 
-        public DbSet<UserEntity> Users { get; set; }
-        public DbSet<BoardEntity> Boards { get; set; }
-        public DbSet<CardEntity> Cards { get; set; }
-        public DbSet<ColumnEntity> Columns { get; set; }
-        public DbSet<HistoryEventEntity> HistoryEvents { get; set; }
-        public DbSet<HistoryEventTypeEntity> HistoryEventTypes { get; set; }
-        public DbSet<CommentEntity> Comments { get; set; }
-        public DbSet<TagEntity> Tags { get; set; }
+        public virtual DbSet<UserEntity> Users { get; set; }
+        public virtual DbSet<BoardEntity> Boards { get; set; }
+        public virtual DbSet<CardEntity> Cards { get; set; }
+        public virtual DbSet<ColumnEntity> Columns { get; set; }
+        public virtual DbSet<HistoryEventEntity> HistoryEvents { get; set; }
+        public virtual DbSet<CommentEntity> Comments { get; set; }
+        public virtual DbSet<TagEntity> Tags { get; set; }
     }
 }

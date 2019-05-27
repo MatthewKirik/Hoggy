@@ -11,11 +11,11 @@ namespace DataAccessLayer.Entities
     {
         public int Id { get; set; }
         [Required]
-        public virtual HistoryEventTypeEntity EventType { get; set; }
-        [Required]
         public virtual UserEntity Producer { get; set; }
-        public virtual CardEntity Card { get; set; }
-        public virtual UserEntity User { get; set; }
-        public virtual ColumnEntity Column { get; set; }
+        [Required]
+        public virtual BoardEntity Board { get; set; }
+
+        [Required]
+        public string Text { get; set; }
     }
 }

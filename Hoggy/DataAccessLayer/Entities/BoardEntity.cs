@@ -17,6 +17,7 @@ namespace DataAccessLayer.Entities
         public DateTime CreationDate { get; set; }
         [Required]
         public virtual SecurityGroupEntity SecurityGroup { get; set; }
+        public virtual ICollection<HistoryEventEntity> HistoryEvents { get; set; }
         public virtual ICollection<UserEntity> Participants { get; set; }
         public virtual ICollection<ColumnEntity> Columns { get; set; }
     }

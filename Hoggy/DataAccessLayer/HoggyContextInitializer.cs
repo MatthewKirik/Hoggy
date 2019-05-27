@@ -18,9 +18,7 @@ namespace DataAccessLayer
             {
                 Login = "admin1",
                 Email = "ikirik59@gmail.com",
-                Password = BitConverter.ToString(encryptor.ComputeHash(Encoding.Unicode.GetBytes("admin"))),
-                FirstName = "Matthew",
-                SecondName = "Kirik"
+                Password = BitConverter.ToString(encryptor.ComputeHash(Encoding.Unicode.GetBytes("admin")))
             };
 
             context.Users.Add(admin1);
@@ -31,7 +29,6 @@ namespace DataAccessLayer
             {
                 Name = "Test",
                 CreationDate = DateTime.Now,
-                Creator = context.Users.First(x => x.Login == "admin1"),
                 Description = "test board"
             };
 

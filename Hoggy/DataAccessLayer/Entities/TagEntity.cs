@@ -12,7 +12,7 @@ namespace DataAccessLayer.Entities
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public virtual ICollection<BoardEntity> Boards { get; set; }
+        public virtual BoardEntity Board { get; set; }
         [Required]
         public virtual SecurityGroupEntity SecurityGroup { get; set; }
     }

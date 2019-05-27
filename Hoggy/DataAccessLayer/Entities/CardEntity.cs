@@ -19,9 +19,9 @@ namespace DataAccessLayer.Entities
         public DateTime ExpireDate { get; set; }
         [Required]
         public virtual SecurityGroupEntity SecurityGroup { get; set; }
-        public virtual ICollection<TagEntity> Tags { get; set; }
+        public virtual TagEntity Tag { get; set; }
         public virtual ICollection<CommentEntity> Comments { get; set; }
-        public virtual ICollection<UserEntity> Participants { get; set; }
+        public virtual ICollection<UserEntity> Subscribers { get; set; }
         public virtual ColumnEntity Column { get; set; }
     }
 }
