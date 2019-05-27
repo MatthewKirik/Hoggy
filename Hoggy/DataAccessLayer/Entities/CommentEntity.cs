@@ -13,7 +13,7 @@ namespace DataAccessLayer.Entities
         [Required]
         public string Text { get; set; }
         [Required]
-        public virtual SecurityGroupEntity SecurityGroup { get; set; }
+        public int SecurityGroupId { get; set; }
         [Required]
         public virtual UserEntity Author { get; set; }
         [Required]

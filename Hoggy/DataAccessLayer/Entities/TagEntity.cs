@@ -14,6 +14,6 @@ namespace DataAccessLayer.Entities
         public string Name { get; set; }
         public virtual BoardEntity Board { get; set; }
         [Required]
-        public virtual SecurityGroupEntity SecurityGroup { get; set; }
+        public int SecurityGroupId { get; set; }
     }
 }

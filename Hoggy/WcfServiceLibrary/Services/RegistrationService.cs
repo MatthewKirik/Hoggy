@@ -27,21 +27,16 @@ namespace WcfServiceLibrary.Services
             if (_repository.GetItem<UserEntity>(x => x.Email == user.Email || x.Login == user.Login) == null)
             {
 
+                UserProfileEntity profileEntity = new UserProfileEntity();
+                _repository.Add(profileEntity);
+                _repository.Save();
+
                 UserEntity newUser = new UserEntity();
                 newUser.Email = user.Email;
                 newUser.Login = user.Login;
                 newUser.Password = password;
-                _repository.Add(newUser);
-                _repository.Save();
-
-
-                UserProfileEntity profileEntity = new UserProfileEntity();
-                profileEntity.User = newUser;
-                _repository.Add(profileEntity);
-                _repository.Save();
-
                 newUser.Profile = profileEntity;
-                _repository.Update(newUser);
+                _repository.Add(newUser);
                 _repository.Save();
                 return true;
             }

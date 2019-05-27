@@ -79,11 +79,11 @@ namespace WcfServiceLibrary.Services
         {
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
-
             if (user == null || board == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == board.SecurityGroupId);
 
-            if (board.SecurityGroup.Users.Contains(user))
+            if(securityGroup.Users.Contains(user))
             {
                 List<ColumnDTO> columns = new List<ColumnDTO>();
                 foreach (var c in board.Columns)
@@ -109,8 +109,9 @@ namespace WcfServiceLibrary.Services
 
             if (user == null || board == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == board.SecurityGroupId);
 
-            if (board.SecurityGroup.Users.Contains(user))
+            if (securityGroup.Users.Contains(user))
             {
                 List<HistoryEventDTO> historyEvents = new List<HistoryEventDTO>();
                 foreach (var e in board.HistoryEvents)
@@ -135,8 +136,9 @@ namespace WcfServiceLibrary.Services
 
             if (user == null || column == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == column.SecurityGroupId);
 
-            if (column.SecurityGroup.Users.Contains(user))
+            if (securityGroup.Users.Contains(user))
             {
                 List<CardDTO> cards = new List<CardDTO>();
                 foreach (var c in column.Cards)
@@ -168,8 +170,9 @@ namespace WcfServiceLibrary.Services
 
             if (user == null || board == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == board.SecurityGroupId);
 
-            if (board.SecurityGroup.Users.Contains(user))
+            if(securityGroup.Users.Contains(user))
             {
                 List<UserDTO> paricipants = new List<UserDTO>();
                 foreach (var u in board.Participants)
@@ -195,8 +198,9 @@ namespace WcfServiceLibrary.Services
 
             if (user == null || card == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == card.SecurityGroupId);
 
-            if (card.SecurityGroup.Users.Contains(user))
+            if(securityGroup.Users.Contains(user))
             {
                 List<UserDTO> subscribers = new List<UserDTO>();
                 foreach (var u in card.Subscribers)
@@ -222,8 +226,9 @@ namespace WcfServiceLibrary.Services
 
             if (user == null || card == null)
                 return null;
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == card.SecurityGroupId);
 
-            if (card.SecurityGroup.Users.Contains(user))
+            if (securityGroup.Users.Contains(user))
             {
                 List<CommentDTO> comments = new List<CommentDTO>();
                 foreach (var c in card.Comments)

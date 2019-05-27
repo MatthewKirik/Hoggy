@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2d52c0b7-b38d-4927-abd2-ff7d94ba8052" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="DataTransferObjects" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5001/registrationService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="registrationService.xsd" MetadataType="Schema" ID="f7923d6f-6425-450b-88c5-a2807ddf1383" SourceId="1" SourceUrl="http://localhost:5001/registrationService?xsd=xsd0" />
+    <MetadataFile FileName="registrationService1.xsd" MetadataType="Schema" ID="bb004a4c-9042-4967-9947-238d72773c3b" SourceId="1" SourceUrl="http://localhost:5001/registrationService?xsd=xsd1" />
+    <MetadataFile FileName="registrationService.disco" MetadataType="Disco" ID="12c71351-91d0-4987-8891-db04f8f5c862" SourceId="1" SourceUrl="http://localhost:5001/registrationService?disco" />
+    <MetadataFile FileName="registrationService2.xsd" MetadataType="Schema" ID="727a5dba-4cbf-4db8-8e27-ac5308870f65" SourceId="1" SourceUrl="http://localhost:5001/registrationService?xsd=xsd2" />
+    <MetadataFile FileName="RegistrationService.wsdl" MetadataType="Wsdl" ID="82c80438-1adf-469c-aea7-107573f51675" SourceId="1" SourceUrl="http://localhost:5001/registrationService?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
