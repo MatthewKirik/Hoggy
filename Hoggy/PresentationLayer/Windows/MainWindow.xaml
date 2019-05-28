@@ -8,6 +8,7 @@
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
         xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    Title="Sign up to Hoggy" Height="450" Width="1000" 
@@ -39,36 +40,26 @@
             </StackPanel>
         </Expander>
 
-        <!--<ListBox Grid.Row="1" Margin="50 0 0 0" ItemsSource="{Binding CurBoard.Columns}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <ListBox MinWidth="100" ItemsSource="{Binding Cards}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" Orientation="Horizontal"  />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>-->
-
         <Grid Grid.Row="1" Margin="50 0 0 0">
             <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ListBox MinWidth="100" ItemsSource="{Binding Cards}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <Grid>
+                            <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}" 
+                                          dd:DragDrop.IsDragSource="True"
+                                          dd:DragDrop.IsDropTarget="True">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource Card}">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Name}" />
+                                                <TextBlock Text="{Binding Description}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
