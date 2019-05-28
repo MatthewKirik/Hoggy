@@ -1,7 +1,6 @@
 ﻿using DataAccessLayer;
 using DependencyInjections;
 using Ninject;
-using System;
 using System.IO;
 using System.ServiceModel;
 using WcfServiceLibrary.Helpers;
@@ -12,11 +11,12 @@ namespace HoggyServiceHost
     public class HostConfigurator
     {
         IRepository _repository;
-        TextWriter backlog;
+        TextWriter _backlog;
 
         public HostConfigurator(TextWriter backlog)
         {
             _repository = Factory.Kernel.Get<IRepository>();
+            _backlog = backlog;
             MapperConfigurator.Configure();
         }
 
@@ -39,15 +39,15 @@ namespace HoggyServiceHost
 
 
             authServiceHost.Open();
-            backlog.WriteLine("Authantication service is started");
+            _backlog.WriteLine("Authantication service is started");
             regServiceHost.Open();
-            backlog.WriteLine("Registration service is started");
+            _backlog.WriteLine("Registration service is started");
             dataExServiceHost.Open();
-            backlog.WriteLine("Data exchange service is started");
+            _backlog.WriteLine("Data exchange service is started");
             creationServiceHost.Open();
-            backlog.WriteLine("Creation service is started");
+            _backlog.WriteLine("Creation service is started");
             communityServiceHost.Open();
-            backlog.WriteLine("Community service is started");
+            _backlog.WriteLine("Community service is started");
         }
     }
 }

@@ -2,12 +2,9 @@
 using DataAccessLayer.Entities;
 using DataTransferObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
 

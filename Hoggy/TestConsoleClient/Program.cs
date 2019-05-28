@@ -1,14 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
-using TestConsoleClient.AuthenticationService;
-using TestConsoleClient.RegistationService;
-using DataTransferObjects;
-using TestConsoleClient.DataExchangeService;
-using TestConsoleClient.CreationService;
 
 namespace TestConsoleClient
 {
@@ -17,8 +7,7 @@ namespace TestConsoleClient
         static void Main(string[] args)
         {
             Generator generator = new Generator();
-            generator.InitializeHierarchy();
-
+            generator.InitializeHierarchy(3, 2, 3, 2);
 
             while (true)
                 Console.ReadLine();

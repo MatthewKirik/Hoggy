@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestConsoleClient.AuthenticationService;
 using TestConsoleClient.CreationService;
 using TestConsoleClient.DataExchangeService;
@@ -30,25 +28,25 @@ namespace TestConsoleClient
             creationClient.Open();
         }
 
-        public void InitializeHierarchy()
+        public void InitializeHierarchy(int userAmount, int boardAmount, int columnAmount, int cardAmount)
         {
-            List<AuthenticationToken> tokens = RegisterAndLoginUsers(5);
+            List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
             List<UserDTO> users = new List<UserDTO>();
             foreach (var token in tokens)
             {
                 users.Add(dataExchangeClient.GetUser(token));
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < userAmount; i++)
             {
-                AddBoards(tokens[i], 5);
+                AddBoards(tokens[i], boardAmount);
                 List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
                 foreach (var b in boards)
                 {
-                    AddColumns(tokens[i], b.Id, 5);
+                    AddColumns(tokens[i], b.Id, columnAmount);
                     List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();
                     foreach (var c in columns)
                     {
-                        AddCards(tokens[i], c.Id, 3);
+                        AddCards(tokens[i], c.Id, cardAmount);
                     }
                 }
             }
