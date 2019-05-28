@@ -7,6 +7,7 @@ using System.ServiceModel;
 using TestConsoleClient.AuthenticationService;
 using TestConsoleClient.RegistationService;
 using DataTransferObjects;
+using TestConsoleClient.DataExchangeService;
 
 namespace TestConsoleClient
 {
@@ -24,7 +25,14 @@ namespace TestConsoleClient
             AuthenticationContractClient authenticationClient = new AuthenticationContractClient();
             authenticationClient.Open();
             AuthenticationToken token = authenticationClient.Login("ikirik59@gmail.com", "12345678");
-            Console.WriteLine(token);
+
+            DataExchangeContractClient dataExchangeClient = new DataExchangeContractClient();
+            dataExchangeClient.Open();
+            UserDTO me = dataExchangeClient.GetUser(token);
+            Console.WriteLine(dataExchangeClient.GetBoards(token, me.Id).Length);
+
+            while(true)
+                Console.ReadLine();
         }
     }
 }

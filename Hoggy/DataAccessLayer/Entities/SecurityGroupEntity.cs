@@ -1,14 +1,12 @@
-﻿using System;
+﻿using DataAccessLayer.Bases;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Entities
 {
-    public class SecurityGroupEntity
+    public class SecurityGroupEntity : BaseEntity
     {
-        public int Id { get; set; }
+        [Required]
         public string Key { get; set; }
         public virtual ICollection<UserEntity> Users { get; set; }
     }

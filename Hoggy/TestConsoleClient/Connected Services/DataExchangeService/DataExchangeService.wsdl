@@ -15,6 +15,12 @@
       <xsd:import schemaLocation="http://localhost:5001/dataExchangeService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransferObjects" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IDataExchangeContract_GetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUser" />
+  </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetBoards_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBoards" />
   </wsdl:message>
@@ -64,6 +70,10 @@
     <wsdl:part name="parameters" element="tns:GetCardCommentsResponse" />
   </wsdl:message>
   <wsdl:portType name="IDataExchangeContract">
+    <wsdl:operation name="GetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUser" message="tns:IDataExchangeContract_GetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserResponse" message="tns:IDataExchangeContract_GetUser_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetBoards">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoards" message="tns:IDataExchangeContract_GetBoards_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoardsResponse" message="tns:IDataExchangeContract_GetBoards_OutputMessage" />
@@ -100,6 +110,15 @@
   <wsdl:binding name="dataExchangePoint" type="tns:IDataExchangeContract">
     <wsp:PolicyReference URI="#dataExchangePoint_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetUser">
+      <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetBoards">
       <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetBoards" style="document" />
       <wsdl:input>

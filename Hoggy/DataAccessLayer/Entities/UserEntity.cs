@@ -1,15 +1,12 @@
-﻿using System;
+﻿using DataAccessLayer.Bases;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
-    public class UserEntity
+    public class UserEntity : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
@@ -18,5 +15,9 @@ namespace DataAccessLayer.Entities
         public string Login { get; set; }
         public virtual UserProfileEntity Profile { get; set; }
         public virtual ICollection<SecurityGroupEntity> SecurityGroups { get; set; }
+        public virtual ICollection<BoardEntity> Boards { get; set; }
+        public virtual ICollection<BoardEntity> ParticipatedBoards { get; set; }
+        public virtual ICollection<CardEntity> SubscriptedCards { get; set; }
+        public virtual ICollection<InvitationEntity> IncomeInvitations { get; set; }
     }
 }

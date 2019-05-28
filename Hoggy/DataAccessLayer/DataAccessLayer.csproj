@@ -49,12 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bases\BaseEntity.cs" />
     <Compile Include="Entities\AuthenticationTokenEntity.cs" />
+    <Compile Include="Bases\BaseSecureEntity.cs" />
     <Compile Include="Entities\BoardEntity.cs" />
     <Compile Include="Entities\CardEntity.cs" />
     <Compile Include="Entities\ColumnEntity.cs" />
     <Compile Include="Entities\CommentEntity.cs" />
     <Compile Include="Entities\HistoryEventEntity.cs" />
+    <Compile Include="Entities\InvitationEntity.cs" />
     <Compile Include="Entities\SecurityGroupEntity.cs" />
     <Compile Include="Entities\TagEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
@@ -65,7 +68,9 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Repositories\MsSqlRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

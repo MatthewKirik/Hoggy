@@ -15,7 +15,7 @@ namespace WcfServiceLibrary.Services
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class AuthenticationService : IAuthenticationContract
     {
-        IRepository _repository;
+        private readonly IRepository _repository;
 
         public AuthenticationService(IRepository repository)
         {
@@ -46,13 +46,14 @@ namespace WcfServiceLibrary.Services
 
             if(password == user.Password)
             {
+                _repository.Delete(_repository.GetItem<AuthenticationTokenEntity>(x => x.User == user));
                 AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
                 tokenEntity.User = user;
                 SHA256Managed cryptor = new SHA256Managed();
 
                 tokenEntity.Value = Encoding.Unicode.GetString(
                     cryptor.ComputeHash(
-                        Encoding.Unicode.GetBytes(email + "hoggySaLt" + password)));
+                        Encoding.Unicode.GetBytes(email + "hoggySaLt" + DateTime.Now.ToString() + password)));
                 _repository.Add(tokenEntity);
                 _repository.Save();
 

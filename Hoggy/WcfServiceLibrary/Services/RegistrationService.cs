@@ -15,7 +15,7 @@ namespace WcfServiceLibrary.Services
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class RegistrationService : IRegistrationContract
     {
-        IRepository _repository;
+        private readonly IRepository _repository;
 
         public RegistrationService(IRepository repository)
         {

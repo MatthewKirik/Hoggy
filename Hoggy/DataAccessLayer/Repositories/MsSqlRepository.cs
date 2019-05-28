@@ -42,6 +42,11 @@ namespace DataAccessLayer.Repositories
             return context.Set<T>().FirstOrDefault(ex);
         }
 
+        public bool Contains<T>(Func<T, bool> ex) where T : class
+        {
+            return context.Set<T>().FirstOrDefault(ex) != null;
+        }
+
         public void Save()
         {
             context.SaveChanges();
@@ -86,6 +91,7 @@ namespace DataAccessLayer.Repositories
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
 
         #endregion
     }

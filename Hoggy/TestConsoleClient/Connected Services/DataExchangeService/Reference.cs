@@ -15,6 +15,12 @@ namespace TestConsoleClient.DataExchangeService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DataExchangeService.IDataExchangeContract")]
     public interface IDataExchangeContract {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUser", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserResponse")]
+        DataTransferObjects.UserDTO GetUser(DataTransferObjects.AuthenticationToken token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUser", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetBoards", ReplyAction="http://tempuri.org/IDataExchangeContract/GetBoardsResponse")]
         DataTransferObjects.BoardDTO[] GetBoards(DataTransferObjects.AuthenticationToken token, int UserId);
         
@@ -89,6 +95,14 @@ namespace TestConsoleClient.DataExchangeService {
         
         public DataExchangeContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public DataTransferObjects.UserDTO GetUser(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetUser(token);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetUserAsync(token);
         }
         
         public DataTransferObjects.BoardDTO[] GetBoards(DataTransferObjects.AuthenticationToken token, int UserId) {

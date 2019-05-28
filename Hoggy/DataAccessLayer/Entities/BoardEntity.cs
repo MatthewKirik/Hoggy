@@ -1,24 +1,21 @@
-﻿using System;
+﻿using DataAccessLayer.Bases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
-    public class BoardEntity
+    public class BoardEntity : BaseSecureEntity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
-        [Required]
-        public int SecurityGroupId { get; set; }
         public virtual ICollection<HistoryEventEntity> HistoryEvents { get; set; }
         public virtual ICollection<UserEntity> Participants { get; set; }
+        public virtual UserEntity Creator { get; set; }
         public virtual ICollection<ColumnEntity> Columns { get; set; }
     }
 }

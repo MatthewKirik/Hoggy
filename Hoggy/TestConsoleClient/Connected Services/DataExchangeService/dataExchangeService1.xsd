@@ -6,6 +6,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AuthenticationToken" nillable="true" type="tns:AuthenticationToken" />
+  <xs:complexType name="UserDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
   <xs:complexType name="ArrayOfBoardDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BoardDTO" nillable="true" type="tns:BoardDTO" />
@@ -27,14 +35,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUserDTO" nillable="true" type="tns:ArrayOfUserDTO" />
-  <xs:complexType name="UserDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
   <xs:complexType name="ArrayOfColumnDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
