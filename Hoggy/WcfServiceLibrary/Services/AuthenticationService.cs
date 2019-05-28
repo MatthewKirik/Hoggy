@@ -46,7 +46,9 @@ namespace WcfServiceLibrary.Services
 
             if(password == user.Password)
             {
-                _repository.Delete(_repository.GetItem<AuthenticationTokenEntity>(x => x.User == user));
+                AuthenticationTokenEntity oldToken = _repository.GetItem<AuthenticationTokenEntity>(x => x.User == user);
+                if (oldToken != null)
+                    _repository.Delete(oldToken);
                 AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
                 tokenEntity.User = user;
                 SHA256Managed cryptor = new SHA256Managed();

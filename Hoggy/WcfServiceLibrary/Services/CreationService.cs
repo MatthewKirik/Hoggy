@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
@@ -12,6 +13,7 @@ using WcfServiceLibrary.Helpers;
 
 namespace WcfServiceLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class CreationService : ICreationContract
     {
         private readonly IRepository _repository;
@@ -36,6 +38,7 @@ namespace WcfServiceLibrary.Services
 
             BoardEntity toAdd = AutoMapper.Mapper.Map<BoardEntity>(board);
             toAdd.SecurityGroupId = securityGroup.Id;
+            toAdd.Creator = user;
             _repository.Add(toAdd);
             _repository.Save();
             return true;
@@ -48,6 +51,7 @@ namespace WcfServiceLibrary.Services
                 return false;
             CardEntity toAdd = AutoMapper.Mapper.Map<CardEntity>(card);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
+            toAdd.Column = dest;
             _repository.Add(toAdd);
             _repository.Save();
             return true;
@@ -60,6 +64,7 @@ namespace WcfServiceLibrary.Services
                 return false;
             ColumnEntity toAdd = AutoMapper.Mapper.Map<ColumnEntity>(column);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
+            toAdd.Board = dest;
             _repository.Add(toAdd);
             _repository.Save();
             return true;

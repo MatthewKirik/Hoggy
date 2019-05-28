@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace WcfServiceLibrary.Helpers
 {
-    static class MapperConfigurator
+    public static class MapperConfigurator
     {
-        static MapperConfigurator()
+        public static void Configure()
         {
             Mapper.Initialize(cfg =>
             {

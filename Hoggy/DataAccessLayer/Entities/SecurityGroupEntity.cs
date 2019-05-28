@@ -8,6 +8,8 @@ namespace DataAccessLayer.Entities
     {
         [Required]
         public string Key { get; set; }
-        public virtual ICollection<UserEntity> Users { get; set; }
+
+        private ICollection<UserEntity> _users;
+        public virtual ICollection<UserEntity> Users { get => _users ?? (_users = new List<UserEntity>()); }
     }
 }

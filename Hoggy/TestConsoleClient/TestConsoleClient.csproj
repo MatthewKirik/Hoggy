@@ -50,6 +50,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\CreationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\DataExchangeService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -60,6 +65,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\CommunityService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Generator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +84,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\AuthenticationService\authenticationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\CreationService.wsdl" />
+    <None Include="Connected Services\CreationService\creationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\creationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\creationService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\DataExchangeService\DataExchangeService.wsdl" />
@@ -95,6 +116,16 @@
     <None Include="Connected Services\RegistationService\registrationService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\CommunityService\CommunityService.wsdl" />
+    <None Include="Connected Services\CommunityService\communityService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CommunityService\communityService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CommunityService\communityService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\DataTransferObjects.AuthenticationToken.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.BoardDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.CardDTO.datasource" />
@@ -108,8 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\AuthenticationService\" />
+    <WCFMetadataStorage Include="Connected Services\CreationService\" />
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
     <WCFMetadataStorage Include="Connected Services\RegistationService\" />
+    <WCFMetadataStorage Include="Connected Services\CommunityService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\RegistationService\registrationService.disco" />
@@ -158,6 +191,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\DataExchangeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\creationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\communityService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -32,6 +32,10 @@ namespace DataAccessLayer
                 .HasRequired(x => x.Producer)
                 .WithMany()
                 .WillCascadeOnDelete(false);
+            modelBuilder.Entity<TagEntity>()
+                .HasRequired(x => x.Board)
+                .WithMany(x => x.Tags)
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

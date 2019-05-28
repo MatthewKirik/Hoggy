@@ -23,11 +23,13 @@ namespace WcfServiceLibrary.Services
 
         public bool PostComment(AuthenticationToken token, CommentDTO comment, int cardId)
         {
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             CardEntity dest = _repository.GetItem<CardEntity>(x => x.Id == cardId);
             if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
                 return false;
             CommentEntity toAdd = AutoMapper.Mapper.Map<CommentEntity>(comment);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
+            toAdd.Author = user;
             _repository.Add(toAdd);
             _repository.Save();
             return true;
@@ -45,6 +47,7 @@ namespace WcfServiceLibrary.Services
             InvitationEntity invitation = new InvitationEntity();
             invitation.Recepient = recepient;
             invitation.SecurityGroupId = board.SecurityGroupId;
+            
             _repository.Add(invitation);
             return true;
         }
