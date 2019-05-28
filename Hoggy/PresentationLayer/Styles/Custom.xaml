@@ -25,6 +25,11 @@
         <Setter Property="FontSize" Value="20" />
     </Style>
 
+    <Style x:Key="SmallIcon" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
     <Style x:Key="MenuText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="FontSize" Value="14" />
@@ -32,39 +37,121 @@
         <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
     </Style>
     
-    <!--CARD-->
-    <Style x:Key="Column" TargetType="ItemsControl">
-        <Setter Property="Background" Value="{StaticResource FirstBrushLight}"/>
-        <Setter Property="Margin" Value="5"/>
-        <Setter Property="Padding" Value="5"/>
+    <!--COLUMN-->
+    <Style x:Key="ColHeader" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Header}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="5 0 0 0"/>
+        <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
     </Style>
     
+    <Style x:Key="Column" TargetType="ItemsControl">
+        <Setter Property="Background" Value="#fff"/>
+        <Setter Property="Margin" Value="5 20 5 0"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WindColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
     <!--CARD-->
     <Style x:Key="Card" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource SecondBrushDark}"/>
+        <Setter Property="Background" Value="#fff"/>
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="MinWidth" Value="100"/>
         <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Border.Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" />
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="Border.IsMouseOver" Value="True">
-                <!--<Setter Property="Border.Background" Value="Green" />-->
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#F00" />
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#FFA6E0CC" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
                 <Trigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard FillBehavior="Stop">
-                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="Teal" />
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#fff" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.ExitActions>
+                <Setter Property="Border.Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="2" Color="#555" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="CardHeaderBorder" TargetType="Border">
+        <Setter Property="CornerRadius" Value="5 5 0 0" />
+        <Setter Property="Background" Value="{StaticResource SecondBrushDark}" />
+    </Style>
+    
+    <Style x:Key="CardHeader" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Header}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="10 5 0 5" />
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushMiddle}" />
+    </Style>
+
+    <Style x:Key="CardDescription" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="7" />
+    </Style>
+    
+    <!--TOP PANEL-->
+    <Style x:Key="TopPaneBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource SecondBrushDark}" />
+    </Style>
+
+    <Style x:Key="Avatar" TargetType="Image">
+        <Setter Property="Stretch" Value="Fill"/>
+    </Style>
+
+    <Style x:Key="AvatarBorder" TargetType="Border">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SecondBrushLighter}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="3"/>
+    </Style>
+
+    <Style x:Key="LoginTxt" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Header}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushLight}" />
+    </Style>
+
+    <Style x:Key="EmailTxt" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushLighter}" />
+    </Style>
+    
+    <!--RIGHT PANEL-->
+    <Style x:Key="RightBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource FirstBrushLighter}" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Border.Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="2" Color="#999" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="{StaticResource SecondBrushDark }"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
 
 </ResourceDictionary>

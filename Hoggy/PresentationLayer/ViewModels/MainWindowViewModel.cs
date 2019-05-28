@@ -36,8 +36,20 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        string _avaPath;
+        public string AvaPath
+        {
+            get => _avaPath;
+            set
+            {
+                _avaPath = value;
+                RaisePropertyChanged(nameof(AvaPath));
+            }
+        }
+
         public MainWindowViewModel()
         {
+            AvaPath = @"..\Resources\default_ava.jpg";
             ///LOCAL TESTING VALUES
             ObservableCollection<BoardModel> _bds = new ObservableCollection<BoardModel>
             {

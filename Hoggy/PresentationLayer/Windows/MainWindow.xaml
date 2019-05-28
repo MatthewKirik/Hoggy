@@ -11,20 +11,46 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   Title="Sign up to Hoggy" Height="450" Width="1000" 
-                   Icon="pack://application:,,,/Resources/icon.ico">
+                   Title="Hoggy v0.0.1" Height="450" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico"
+                   Background="{StaticResource SecondBrushLighter}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
-        <Expander Grid.Row="1" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100">
+        <!--TOP PANEL-->
+        <Border Grid.ColumnSpan="2" Style="{StaticResource TopPaneBorder}"/>
+        <Grid Margin="50 0 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2">
+                <Image Source="{Binding AvaPath}" Style="{StaticResource Avatar}" />
+            </Border>
+
+            <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
+                <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
+                <TextBlock  Text="{Binding User.Login}" Style="{StaticResource LoginTxt}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+                <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
+                <TextBlock Text="{Binding User.Email}" Style="{StaticResource EmailTxt}"/>
+            </WrapPanel>
+        </Grid>
+        <!--SIDE PANEL-->
+        <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100">
             <StackPanel Background="{StaticResource SecondBrushDark}">
                 <WrapPanel>
                     <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
@@ -39,36 +65,44 @@
                 </ListBox>
             </StackPanel>
         </Expander>
-
-        <Grid Grid.Row="1" Margin="50 0 0 0">
-            <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}" 
+        
+        <!--BOARD-->
+        <Grid Grid.Row="1" Margin="50 15 0 0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
+                                <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
                                           dd:DragDrop.IsDragSource="True"
                                           dd:DragDrop.IsDropTarget="True">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Style="{StaticResource Card}">
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding Name}" />
-                                                <TextBlock Text="{Binding Description}" />
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Style="{StaticResource Card}">
+                                                <StackPanel>
+                                                    <Border Style="{StaticResource CardHeaderBorder}">
+                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                    </Border>
+                                                    <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
+
+        <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}"/>
 
 
     </Grid>
