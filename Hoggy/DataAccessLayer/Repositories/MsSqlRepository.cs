@@ -30,17 +30,17 @@ namespace DataAccessLayer.Repositories
             return context.Set<T>();
         }
 
-        public IEnumerable<T> GetList<T>(Expression<Func<T, bool>> ex) where T : class
+        public IEnumerable<T> GetList<T>(Func<T, bool> ex) where T : class
         {
             return context.Set<T>().Where(ex);
         }
 
-        public T GetItem<T>(Expression<Func<T, bool>> ex) where T : class
+        public T GetItem<T>(Func<T, bool> ex) where T : class
         {
             return context.Set<T>().FirstOrDefault(ex);
         }
 
-        public bool Contains<T>(Expression<Func<T, bool>> ex) where T : class
+        public bool Contains<T>(Func<T, bool> ex) where T : class
         {
             return context.Set<T>().FirstOrDefault(ex) != null;
         }
