@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
+    [Table("tbl_boards")]
     public class BoardEntity : BaseSecureEntity
     {
         [Required]

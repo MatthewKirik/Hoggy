@@ -27,6 +27,9 @@ namespace WcfServiceLibrary.Services
             toAdd.Author = user;
             _repository.Add(toAdd);
             _repository.Save();
+            dest.Comments.Add(toAdd);
+            _repository.Update(dest);
+            _repository.Save();
             return true;
         }
 
@@ -57,6 +60,23 @@ namespace WcfServiceLibrary.Services
             user.SubscriptedCards.Add(card);
             _repository.Update(card);
             _repository.Update(user);
+            _repository.Save();
+            return true;
+        }
+
+        public bool AddTagToCard(AuthenticationToken token, int tagId, int cardId)
+        {
+            CardEntity dest = _repository.GetItem<CardEntity>(x => x.Id == cardId);
+            TagEntity tag = _repository.GetItem<TagEntity>(x => x.Id == tagId);
+            if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
+                return false;
+            if (!Validator.HasAccess<TagEntity>(_repository, token, tag))
+                return false;
+
+            tag.Cards.Add(dest);
+            dest.Tags.Add(tag);
+            _repository.Update(tag);
+            _repository.Update(dest);
             _repository.Save();
             return true;
         }

@@ -19,6 +19,7 @@ namespace WcfServiceLibrary.Helpers
                 cfg.CreateMap<ColumnDTO, ColumnEntity>();
                 cfg.CreateMap<ColumnEntity, ColumnDTO>();
                 cfg.CreateMap<TagEntity, TagDTO>();
+                cfg.CreateMap<TagDTO, TagEntity>();
                 cfg.CreateMap<UserEntity, UserDTO>();
                 cfg.CreateMap<UserDTO, UserEntity>();
                 cfg.CreateMap<HistoryEventEntity, HistoryEventDTO>();

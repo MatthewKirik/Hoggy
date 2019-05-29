@@ -148,5 +148,33 @@ namespace WcfServiceLibrary.Services
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             return AutoMapper.Mapper.Map<UserDTO>(user);
         }
+
+        public List<TagDTO> GetBoardTags(AuthenticationToken token, int BoardId)
+        {
+            BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
+            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+                return null;
+
+            List<TagDTO> tags = new List<TagDTO>();
+            foreach (var c in board.Tags)
+            {
+                tags.Add(AutoMapper.Mapper.Map<TagDTO>(c));
+            }
+            return tags;
+        }
+
+        public List<TagDTO> GetCardTags(AuthenticationToken token, int CardId)
+        {
+            CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == CardId);
+            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+                return null;
+
+            List<TagDTO> tags = new List<TagDTO>();
+            foreach (var c in card.Tags)
+            {
+                tags.Add(AutoMapper.Mapper.Map<TagDTO>(c));
+            }
+            return tags;
+        }
     }
 }

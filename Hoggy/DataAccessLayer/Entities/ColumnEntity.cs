@@ -1,9 +1,11 @@
 ﻿using DataAccessLayer.Bases;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
+    [Table("tbl_columns")]
     public class ColumnEntity : BaseSecureEntity
     {
         [Required]

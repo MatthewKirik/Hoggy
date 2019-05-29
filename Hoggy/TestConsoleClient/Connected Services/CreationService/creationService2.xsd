@@ -23,6 +23,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
+  <xs:complexType name="TagDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TagDTO" nillable="true" type="tns:TagDTO" />
   <xs:complexType name="CardDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
@@ -34,11 +41,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CardDTO" nillable="true" type="tns:CardDTO" />
-  <xs:complexType name="TagDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TagDTO" nillable="true" type="tns:TagDTO" />
 </xs:schema>

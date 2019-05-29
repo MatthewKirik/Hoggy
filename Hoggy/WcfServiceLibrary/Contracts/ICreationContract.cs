@@ -11,6 +11,8 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         bool AddColumn(AuthenticationToken token, ColumnDTO column, int boardId);
         [OperationContract]
+        bool AddTagToBoard(AuthenticationToken token, TagDTO tag, int boardId);
+        [OperationContract]
         bool AddCard(AuthenticationToken token, CardDTO card, int columnId);
     }
 }

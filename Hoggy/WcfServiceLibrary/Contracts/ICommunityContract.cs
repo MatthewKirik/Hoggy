@@ -12,5 +12,7 @@ namespace WcfServiceLibrary.Contracts
         bool PostComment(AuthenticationToken token, CommentDTO comment, int cardId);
         [OperationContract]
         bool SubscribeToCard(AuthenticationToken token, CommentDTO comment, int cardId);
+        [OperationContract]
+        bool AddTagToCard(AuthenticationToken token, int tagId, int cardId);
     }
 }

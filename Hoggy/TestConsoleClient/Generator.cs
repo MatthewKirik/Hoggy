@@ -28,7 +28,7 @@ namespace TestConsoleClient
             creationClient.Open();
         }
 
-        public void InitializeHierarchy(int userAmount, int boardAmount, int columnAmount, int cardAmount)
+        public void InitializeHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
             List<UserDTO> users = new List<UserDTO>();
@@ -42,6 +42,7 @@ namespace TestConsoleClient
                 List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
                 foreach (var b in boards)
                 {
+                    AddTagsToBoard(tokens[i], b.Id, tagAmount);
                     AddColumns(tokens[i], b.Id, columnAmount);
                     List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();
                     foreach (var c in columns)
@@ -95,6 +96,21 @@ namespace TestConsoleClient
                 };
                 creationClient.AddColumn(token, column, boardId);
                 Console.WriteLine("Column " + (i + 1).ToString() + " added");
+            }
+        }
+
+        public void AddTagsToBoard(AuthenticationToken token, int boardId, int amount)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < amount; i++)
+            {
+                TagDTO tag = new TagDTO
+                {
+                    Name = "SuperTag" + (i + 1).ToString(),
+                    Color = "#" + rand.Next(0, 256).ToString("X2") + rand.Next(0, 256).ToString("X2") + rand.Next(0, 256).ToString("X2")
+                };
+                creationClient.AddTagToBoard(token, tag, boardId);
+                Console.WriteLine("Tag " + (i + 1).ToString() + " added");
             }
         }
 

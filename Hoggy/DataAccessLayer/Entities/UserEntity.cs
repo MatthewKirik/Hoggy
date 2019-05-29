@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
+    [Table("tbl_users")]
     public class UserEntity : BaseEntity
     {
         [Required]

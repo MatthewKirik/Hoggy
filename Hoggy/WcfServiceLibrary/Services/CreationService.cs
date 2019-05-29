@@ -38,6 +38,9 @@ namespace WcfServiceLibrary.Services
             toAdd.Creator = user;
             _repository.Add(toAdd);
             _repository.Save();
+            user.Boards.Add(toAdd);
+            _repository.Update(user);
+            _repository.Save();
             return true;
         }
 
@@ -51,6 +54,9 @@ namespace WcfServiceLibrary.Services
             toAdd.Column = dest;
             _repository.Add(toAdd);
             _repository.Save();
+            dest.Cards.Add(toAdd);
+            _repository.Update(dest);
+            _repository.Save();
             return true;
         }
 
@@ -63,6 +69,24 @@ namespace WcfServiceLibrary.Services
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Board = dest;
             _repository.Add(toAdd);
+            _repository.Save();
+            dest.Columns.Add(toAdd);
+            _repository.Update(dest);
+            _repository.Save();
+            return true;
+        }
+
+        public bool AddTagToBoard(AuthenticationToken token, TagDTO tag, int boardId)
+        {
+            BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
+            if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
+                return false;
+            TagEntity toAdd = AutoMapper.Mapper.Map<TagEntity>(tag);
+            toAdd.SecurityGroupId = dest.SecurityGroupId;
+            toAdd.Board = dest;
+            _repository.Add(toAdd);
+            dest.Tags.Add(toAdd);
+            _repository.Update(dest);
             _repository.Save();
             return true;
         }

@@ -27,6 +27,12 @@ namespace TestConsoleClient.CreationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreationContract/AddColumn", ReplyAction="http://tempuri.org/ICreationContract/AddColumnResponse")]
         System.Threading.Tasks.Task<bool> AddColumnAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column, int boardId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreationContract/AddTagToBoard", ReplyAction="http://tempuri.org/ICreationContract/AddTagToBoardResponse")]
+        bool AddTagToBoard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.TagDTO tag, int boardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreationContract/AddTagToBoard", ReplyAction="http://tempuri.org/ICreationContract/AddTagToBoardResponse")]
+        System.Threading.Tasks.Task<bool> AddTagToBoardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.TagDTO tag, int boardId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreationContract/AddCard", ReplyAction="http://tempuri.org/ICreationContract/AddCardResponse")]
         bool AddCard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card, int columnId);
         
@@ -75,6 +81,14 @@ namespace TestConsoleClient.CreationService {
         
         public System.Threading.Tasks.Task<bool> AddColumnAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column, int boardId) {
             return base.Channel.AddColumnAsync(token, column, boardId);
+        }
+        
+        public bool AddTagToBoard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.TagDTO tag, int boardId) {
+            return base.Channel.AddTagToBoard(token, tag, boardId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddTagToBoardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.TagDTO tag, int boardId) {
+            return base.Channel.AddTagToBoardAsync(token, tag, boardId);
         }
         
         public bool AddCard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card, int columnId) {

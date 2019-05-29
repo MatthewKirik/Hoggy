@@ -29,8 +29,11 @@ namespace DataAccessLayer
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<TagEntity>()
                 .HasRequired(x => x.Board)
-                .WithMany(x => x.Tags)
+                .WithMany()
                 .WillCascadeOnDelete(false);
+            modelBuilder.Entity<TagEntity>()
+                .HasMany(x => x.Cards)
+                .WithMany(x => x.Tags);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -43,5 +46,6 @@ namespace DataAccessLayer
         public virtual DbSet<CommentEntity> Comments { get; set; }
         public virtual DbSet<TagEntity> Tags { get; set; }
         public virtual DbSet<AuthenticationTokenEntity> Tokens { get; set; }
+        public virtual DbSet<InvitationEntity> Invitations { get; set; }
     }
 }

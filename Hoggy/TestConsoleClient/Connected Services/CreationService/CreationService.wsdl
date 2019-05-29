@@ -27,6 +27,12 @@
   <wsdl:message name="ICreationContract_AddColumn_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddColumnResponse" />
   </wsdl:message>
+  <wsdl:message name="ICreationContract_AddTagToBoard_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTagToBoard" />
+  </wsdl:message>
+  <wsdl:message name="ICreationContract_AddTagToBoard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTagToBoardResponse" />
+  </wsdl:message>
   <wsdl:message name="ICreationContract_AddCard_InputMessage">
     <wsdl:part name="parameters" element="tns:AddCard" />
   </wsdl:message>
@@ -41,6 +47,10 @@
     <wsdl:operation name="AddColumn">
       <wsdl:input wsaw:Action="http://tempuri.org/ICreationContract/AddColumn" message="tns:ICreationContract_AddColumn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICreationContract/AddColumnResponse" message="tns:ICreationContract_AddColumn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTagToBoard">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreationContract/AddTagToBoard" message="tns:ICreationContract_AddTagToBoard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreationContract/AddTagToBoardResponse" message="tns:ICreationContract_AddTagToBoard_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddCard">
       <wsdl:input wsaw:Action="http://tempuri.org/ICreationContract/AddCard" message="tns:ICreationContract_AddCard_InputMessage" />
@@ -61,6 +71,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddColumn">
       <soap12:operation soapAction="http://tempuri.org/ICreationContract/AddColumn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTagToBoard">
+      <soap12:operation soapAction="http://tempuri.org/ICreationContract/AddTagToBoard" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

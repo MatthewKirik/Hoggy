@@ -1,8 +1,10 @@
 ﻿using DataAccessLayer.Bases;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entities
 {
+    [Table("tbl_events")]
     public class HistoryEventEntity : BaseSecureEntity
     {
         [Required]
