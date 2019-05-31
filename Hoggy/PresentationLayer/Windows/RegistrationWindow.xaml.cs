@@ -23,7 +23,7 @@ namespace PresentationLayer.Windows
     {
         public RegistrationWindow()
         {
-            this.DataContext = new RegistrationWindowViewModel();
+            this.DataContext = new RegistrationWindowViewModel(this);
             InitializeComponent();
         }
     }

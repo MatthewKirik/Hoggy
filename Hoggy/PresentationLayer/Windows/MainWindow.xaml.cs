@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using DataTransferObjects;
+using MahApps.Metro.Controls;
 using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace PresentationLayer.Windows
     {
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel();
+            this.DataContext = new MainWindowViewModel(this);
             InitializeComponent();
         }
     }

@@ -8,33 +8,39 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PresentationLayer.AuthentificationService {
+namespace PresentationLayer.AuthenticationService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AuthentificationService.IAuthenticationContract")]
-    internal interface IAuthenticationContract {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AuthenticationService.IAuthenticationContract")]
+    public interface IAuthenticationContract {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckUserIsRegistered", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckUserIsRegisteredResponse")]
-        bool CheckUserIsRegistered(DataTransferObjects.UserDTO user);
+        bool CheckUserIsRegistered(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckUserIsRegistered", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckUserIsRegisteredResponse")]
-        System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(DataTransferObjects.UserDTO user);
+        System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrectResponse")]
-        bool CheckPasswordIsCorrect(DataTransferObjects.UserDTO user);
+        bool CheckPasswordIsCorrect(string email, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrect", ReplyAction="http://tempuri.org/IAuthenticationContract/CheckPasswordIsCorrectResponse")]
-        System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(DataTransferObjects.UserDTO user);
+        System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(string email, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/Login", ReplyAction="http://tempuri.org/IAuthenticationContract/LoginResponse")]
+        DataTransferObjects.AuthenticationToken Login(string email, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthenticationContract/Login", ReplyAction="http://tempuri.org/IAuthenticationContract/LoginResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.AuthenticationToken> LoginAsync(string email, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface IAuthenticationContractChannel : PresentationLayer.AuthentificationService.IAuthenticationContract, System.ServiceModel.IClientChannel {
+    public interface IAuthenticationContractChannel : PresentationLayer.AuthenticationService.IAuthenticationContract, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class AuthenticationContractClient : System.ServiceModel.ClientBase<PresentationLayer.AuthentificationService.IAuthenticationContract>, PresentationLayer.AuthentificationService.IAuthenticationContract {
+    public partial class AuthenticationContractClient : System.ServiceModel.ClientBase<PresentationLayer.AuthenticationService.IAuthenticationContract>, PresentationLayer.AuthenticationService.IAuthenticationContract {
         
         public AuthenticationContractClient() {
         }
@@ -55,20 +61,28 @@ namespace PresentationLayer.AuthentificationService {
                 base(binding, remoteAddress) {
         }
         
-        public bool CheckUserIsRegistered(DataTransferObjects.UserDTO user) {
-            return base.Channel.CheckUserIsRegistered(user);
+        public bool CheckUserIsRegistered(string email) {
+            return base.Channel.CheckUserIsRegistered(email);
         }
         
-        public System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(DataTransferObjects.UserDTO user) {
-            return base.Channel.CheckUserIsRegisteredAsync(user);
+        public System.Threading.Tasks.Task<bool> CheckUserIsRegisteredAsync(string email) {
+            return base.Channel.CheckUserIsRegisteredAsync(email);
         }
         
-        public bool CheckPasswordIsCorrect(DataTransferObjects.UserDTO user) {
-            return base.Channel.CheckPasswordIsCorrect(user);
+        public bool CheckPasswordIsCorrect(string email, string password) {
+            return base.Channel.CheckPasswordIsCorrect(email, password);
         }
         
-        public System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(DataTransferObjects.UserDTO user) {
-            return base.Channel.CheckPasswordIsCorrectAsync(user);
+        public System.Threading.Tasks.Task<bool> CheckPasswordIsCorrectAsync(string email, string password) {
+            return base.Channel.CheckPasswordIsCorrectAsync(email, password);
+        }
+        
+        public DataTransferObjects.AuthenticationToken Login(string email, string password) {
+            return base.Channel.Login(email, password);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.AuthenticationToken> LoginAsync(string email, string password) {
+            return base.Channel.LoginAsync(email, password);
         }
     }
 }

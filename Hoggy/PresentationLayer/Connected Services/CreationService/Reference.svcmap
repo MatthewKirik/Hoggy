@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5fafaa9d-be53-42f4-90d7-5bb66ab76a54" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5001/creationService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="creationService.disco" MetadataType="Disco" ID="67005b80-a54b-4ae2-8eda-a3e75890bb76" SourceId="1" SourceUrl="http://localhost:5001/creationService?disco" />
+    <MetadataFile FileName="CreationService.wsdl" MetadataType="Wsdl" ID="1b6340c6-40da-4cdd-89ec-3bec1baa3035" SourceId="1" SourceUrl="http://localhost:5001/creationService?wsdl" />
+    <MetadataFile FileName="creationService.xsd" MetadataType="Schema" ID="70fcee29-14cd-435a-a217-79d21b886e4c" SourceId="1" SourceUrl="http://localhost:5001/creationService?xsd=xsd1" />
+    <MetadataFile FileName="creationService1.xsd" MetadataType="Schema" ID="2f49dc14-13a6-4832-b0ae-a78f04ada094" SourceId="1" SourceUrl="http://localhost:5001/creationService?xsd=xsd0" />
+    <MetadataFile FileName="creationService2.xsd" MetadataType="Schema" ID="53d715ab-75c8-45c1-96ae-49f7d7ef5a10" SourceId="1" SourceUrl="http://localhost:5001/creationService?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

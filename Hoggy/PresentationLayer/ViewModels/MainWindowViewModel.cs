@@ -1,11 +1,14 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataTransferObjects;
+using GalaSoft.MvvmLight;
 using PresentationLayer.Models;
+using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace PresentationLayer.ViewModels
@@ -47,8 +50,14 @@ namespace PresentationLayer.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        Window _mainWindow;
+        public MainWindowViewModel(Window mainWindow)
         {
+            _mainWindow = mainWindow;
+            RegistrationWindow auth = new RegistrationWindow();
+            if (auth.ShowDialog() != true)
+                _mainWindow.Close();
+
             AvaPath = @"..\Resources\default_ava.jpg";
             ///LOCAL TESTING VALUES
             ObservableCollection<BoardModel> _bds = new ObservableCollection<BoardModel>
@@ -78,8 +87,7 @@ namespace PresentationLayer.ViewModels
             };
 
             User = new UserModel { Login = "Pasha", Boards = _bds,Email="test@test.ua", Password="XYZ" };
-            
-            
+
             CurBoard = (User.Boards.Count >0) ? User.Boards[0] : null;
         }
 

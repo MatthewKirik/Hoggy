@@ -1,16 +1,22 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataTransferObjects;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using PresentationLayer.AuthenticationService;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models;
+using PresentationLayer.RegistrationService;
+using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace PresentationLayer.ViewModels
 {
@@ -37,6 +43,7 @@ namespace PresentationLayer.ViewModels
                 _loginErr = value;
                 RaisePropertyChanged(nameof(LoginErr));
                 CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
+                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
             }
         }
 
@@ -59,7 +66,8 @@ namespace PresentationLayer.ViewModels
             {
                 _passErr = value;
                 RaisePropertyChanged(nameof(PassErr));
-                CanSign = Validator.EmptyStrings(LoginErr,PassErr, MailErr);
+                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
+                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
             }
         }
 
@@ -82,7 +90,7 @@ namespace PresentationLayer.ViewModels
             {
                 _mailErr = value;
                 RaisePropertyChanged(nameof(MailErr));
-                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
+                CanSign = Validator.EmptyStrings(MailErr, PassErr, MailErr);
             }
         }
 
@@ -96,23 +104,129 @@ namespace PresentationLayer.ViewModels
             }
             get => _canSign;
         }
-        public RegistrationWindowViewModel()
+
+        bool _canLogin;
+        public bool CanLogin
         {
-            _loginErr = string.Empty;
-            _passErr = string.Empty;
-            _mailErr = string.Empty;
+            set
+            {
+                _canLogin = value;
+                RaisePropertyChanged(nameof(CanLogin));
+            }
+            get => _canLogin;
         }
 
-        private RelayCommand _signUpCommand;
-        public RelayCommand SignUpCommand
+        private bool _loaderVisible;
+        public bool LoaderVisible
+        {
+            get => _loaderVisible;
+            set
+            {
+                _loaderVisible = value;
+                RaisePropertyChanged(nameof(LoaderVisible));
+            }
+        }
+
+        Window _window;
+        public RegistrationContractClient RegProxy { get; }
+        public AuthenticationContractClient AuthProxy {  get; }
+        UserModel _user;
+        public UserModel User { get => _user; }
+        public AuthenticationToken Token { get; set; }
+
+        public RegistrationWindowViewModel(Window window)
+        {
+            _loginErr = "Empty field";
+            _passErr = "Empty field";
+            _mailErr = "Empty field";
+            RegProxy = new RegistrationContractClient();
+            AuthProxy = new AuthenticationContractClient();
+            _window = window;
+            _user = new UserModel();
+        }
+
+        private RelayCommand _signUpCmd;
+        public RelayCommand SignUpCmd
         {
             get
             {
-                _signUpCommand = new RelayCommand(() =>
+                return _signUpCmd ?? (_signUpCmd = new RelayCommand(() =>
                 {
-                   
-                });
-                return _signUpCommand;
+                    LoaderVisible = true;
+                    Task.Run(() => {
+                        _user.Login = Login;
+                        _user.Email = Email;
+                        _user.Password = Password;
+                        try
+                        {
+                            if (RegProxy.RegisterUser(new UserDTO { Login = User.Login, Email = User.Email }, User.Password))
+                            {
+                                Token = AuthProxy.Login(User.Email, User.Password);
+
+                                _window.Dispatcher.Invoke(() =>
+                                {
+                                    _window.DialogResult = true;
+                                    _window.Close();
+                                });
+                            }
+                            else
+                                MessageBox.Show("User is alredy exist!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        LoaderVisible = false;
+                    });
+                }));
+            }
+        }
+
+        private RelayCommand _loginCmd;
+        public RelayCommand LoginCmd
+        {
+            get
+            {
+                return _loginCmd ?? (_loginCmd = new RelayCommand(() =>
+                {
+                    LoaderVisible = true;
+                    Task.Run(() => {
+                        _user.Email = Email;
+                        _user.Password = Password;
+                        try
+                        {
+                            Token = AuthProxy.Login(User.Email, User.Password);
+                            if (Token != null)
+                            {
+                                _window.Dispatcher.Invoke(() =>
+                                {
+                                    _window.DialogResult = true;
+                                    _window.Close();
+                                });
+                            }
+                            else
+                                MessageBox.Show(User.Login + User.Password + "Wrong login or password! Try again.");
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        LoaderVisible = false;
+                    });
+                }));
+            }
+        }
+
+        private RelayCommand _cancelCmd;
+        public RelayCommand CancelCmd
+        {
+            get
+            {
+                return _cancelCmd ?? (_cancelCmd = new RelayCommand(() =>
+                {
+                    _window.DialogResult = false;
+                    _window.Close();
+                }));
             }
         }
     }

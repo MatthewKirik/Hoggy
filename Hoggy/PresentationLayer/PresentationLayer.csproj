@@ -112,7 +112,32 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connected Services\AuthentificationService\Reference.cs">
+    <Compile Include="Connected Services\AuthenticationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\CommunityService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\CreationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\DataExchangeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\NotificationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\RegistrationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -130,6 +155,7 @@
     <Compile Include="Windows\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XamlAssistants\BoolToVisibilityConverter.cs" />
     <Compile Include="XamlAssistants\PasswordBoxAssistant.cs" />
     <Compile Include="XamlAssistants\StringNullOrEmptyToVisibilityConverter.cs" />
   </ItemGroup>
@@ -159,17 +185,75 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\AuthentificationService\AuthenticationService.wsdl" />
-    <None Include="Connected Services\AuthentificationService\service.xsd">
+    <None Include="Connected Services\AuthenticationService\AuthenticationService.wsdl" />
+    <None Include="Connected Services\AuthenticationService\authenticationService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\AuthentificationService\service1.xsd">
+    <None Include="Connected Services\AuthenticationService\authenticationService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\AuthentificationService\service2.xsd">
+    <None Include="Connected Services\AuthenticationService\authenticationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CommunityService\CommunityService.wsdl" />
+    <None Include="Connected Services\CommunityService\communityService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CommunityService\communityService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CommunityService\communityService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\CreationService.wsdl" />
+    <None Include="Connected Services\CreationService\creationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\creationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CreationService\creationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataExchangeService\DataExchangeService.wsdl" />
+    <None Include="Connected Services\DataExchangeService\dataExchangeService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataExchangeService\dataExchangeService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataExchangeService\dataExchangeService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\NotificationService\NotificationService.wsdl" />
+    <None Include="Connected Services\NotificationService\notificationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\NotificationService\notificationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\NotificationService\notificationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RegistrationService\RegistrationService.wsdl" />
+    <None Include="Connected Services\RegistrationService\registrationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RegistrationService\registrationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RegistrationService\registrationService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DataTransferObjects.AuthenticationToken.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.BoardDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.CardDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.ColumnDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.CommentDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.HistoryEventDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.TagDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -178,9 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AuthentificationService\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\Base.xaml">
@@ -208,21 +289,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\AuthentificationService\service.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AuthentificationService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AuthentificationService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AuthentificationService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
       <Project>{7695a7a5-e202-403e-83ec-697d9a2ba462}</Project>
       <Name>DataTransferObjects</Name>
@@ -248,6 +314,104 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\default_ava.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\AuthenticationService\" />
+    <WCFMetadataStorage Include="Connected Services\CommunityService\" />
+    <WCFMetadataStorage Include="Connected Services\CreationService\" />
+    <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
+    <WCFMetadataStorage Include="Connected Services\NotificationService\" />
+    <WCFMetadataStorage Include="Connected Services\RegistrationService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AuthenticationService\authenticationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AuthenticationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AuthenticationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AuthenticationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\creationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CreationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\communityService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CommunityService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\RegistrationService\registrationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\RegistrationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\RegistrationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\RegistrationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataExchangeService\dataExchangeService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataExchangeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataExchangeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataExchangeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\notificationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
