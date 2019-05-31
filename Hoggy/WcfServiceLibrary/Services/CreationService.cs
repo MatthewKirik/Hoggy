@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
+using WcfServiceLibrary.Interfaces;
 
 namespace WcfServiceLibrary.Services
 {
@@ -14,9 +15,11 @@ namespace WcfServiceLibrary.Services
     public class CreationService : ICreationContract
     {
         private readonly IRepository _repository;
-        public CreationService(IRepository repository)
+        private readonly INotificator _notificator;
+        public CreationService(IRepository repository, INotificator notificator)
         {
             _repository = repository;
+            _notificator = notificator;
         }
 
         public bool AddBoard(AuthenticationToken token, BoardDTO board)
@@ -41,6 +44,7 @@ namespace WcfServiceLibrary.Services
             user.Boards.Add(toAdd);
             _repository.Update(user);
             _repository.Save();
+            _notificator.OnBoardAdded(board);
             return true;
         }
 
@@ -57,6 +61,7 @@ namespace WcfServiceLibrary.Services
             dest.Cards.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
             return true;
         }
 
@@ -73,6 +78,7 @@ namespace WcfServiceLibrary.Services
             dest.Columns.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId).OnColumnAdded(column, boardId);
             return true;
         }
 
@@ -88,6 +94,7 @@ namespace WcfServiceLibrary.Services
             dest.Tags.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);
             return true;
         }
     }

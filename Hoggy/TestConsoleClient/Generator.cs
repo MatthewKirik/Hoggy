@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using TestConsoleClient.AuthenticationService;
 using TestConsoleClient.CreationService;
 using TestConsoleClient.DataExchangeService;
+using TestConsoleClient.NotificationService;
 using TestConsoleClient.RegistationService;
 
 namespace TestConsoleClient
@@ -15,6 +17,7 @@ namespace TestConsoleClient
         RegistrationContractClient registrationClient;
         AuthenticationContractClient authenticationClient;
         CreationContractClient creationClient;
+        NotificationContractClient notificationClient;
 
         public Generator()
         {
@@ -26,6 +29,8 @@ namespace TestConsoleClient
             authenticationClient.Open();
             creationClient = new CreationContractClient();
             creationClient.Open();
+            notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
+            notificationClient.Open();
         }
 
         public void InitializeHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
@@ -42,6 +47,7 @@ namespace TestConsoleClient
                 List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
                 foreach (var b in boards)
                 {
+                    notificationClient.Subscribe(tokens[i], b.Id);
                     AddTagsToBoard(tokens[i], b.Id, tagAmount);
                     AddColumns(tokens[i], b.Id, columnAmount);
                     List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();

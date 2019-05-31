@@ -51,14 +51,20 @@
     <Compile Include="Contracts\ICommunityContract.cs" />
     <Compile Include="Contracts\ICreationContract.cs" />
     <Compile Include="Contracts\IDataExchangeContract.cs" />
+    <Compile Include="Contracts\INotifiactionCallbackContract.cs" />
+    <Compile Include="Contracts\INotificationContract.cs" />
     <Compile Include="Contracts\IRegistrationContract.cs" />
     <Compile Include="Helpers\MapperConfigurator.cs" />
     <Compile Include="Helpers\Validator.cs" />
+    <Compile Include="Interfaces\INotificator.cs" />
+    <Compile Include="Logic\Notificator.cs" />
+    <Compile Include="Models\SubscriberModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CommunityService.cs" />
     <Compile Include="Services\CreationService.cs" />
     <Compile Include="Services\DataExchangeService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>

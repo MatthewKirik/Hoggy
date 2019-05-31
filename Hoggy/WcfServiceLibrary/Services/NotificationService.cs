@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+using DataAccessLayer;
+using DataAccessLayer.Entities;
+using DataTransferObjects;
+using WcfServiceLibrary.Contracts;
+using WcfServiceLibrary.Helpers;
+using WcfServiceLibrary.Interfaces;
+using WcfServiceLibrary.Models;
+
+namespace WcfServiceLibrary.Services
+{
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
+        ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public class NotificationService : INotificationContract
+    {
+        private readonly IRepository _repository;
+        private readonly INotificator _notificator;
+
+        public NotificationService(IRepository repository, INotificator notificator)
+        {
+            _repository = repository;
+            _notificator = notificator;
+        }
+
+        public bool Subscribe(AuthenticationToken token, int boardId)
+        {
+            BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
+            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+                return false;
+
+            SubscriberModel toAdd = new SubscriberModel()
+            {
+                Callback = OperationContext.Current.GetCallbackChannel<INotifiactionCallbackContract>(),
+                SecurityGroupId = board.SecurityGroupId
+            };
+            _notificator.Subscribers.Add(toAdd);
+            return true;
+        }
+    }
+}

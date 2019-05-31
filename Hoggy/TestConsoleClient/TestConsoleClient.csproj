@@ -70,7 +70,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\NotificationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Generator.cs" />
+    <Compile Include="NotificationCallbackHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,6 +132,16 @@
     <None Include="Connected Services\CommunityService\communityService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\NotificationService\NotificationService.wsdl" />
+    <None Include="Connected Services\NotificationService\notificationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\NotificationService\notificationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\NotificationService\notificationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\DataTransferObjects.AuthenticationToken.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.BoardDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.CardDTO.datasource" />
@@ -143,6 +159,7 @@
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
     <WCFMetadataStorage Include="Connected Services\RegistationService\" />
     <WCFMetadataStorage Include="Connected Services\CommunityService\" />
+    <WCFMetadataStorage Include="Connected Services\NotificationService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\RegistationService\registrationService.disco" />
@@ -163,6 +180,10 @@
     <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
       <Project>{7695a7a5-e202-403e-83ec-697d9a2ba462}</Project>
       <Name>DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WcfServiceLibrary\WcfServiceLibrary.csproj">
+      <Project>{F87E87C9-1FAE-4194-9453-FE47E9D8BFF7}</Project>
+      <Name>WcfServiceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +242,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\CommunityService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\notificationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NotificationService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

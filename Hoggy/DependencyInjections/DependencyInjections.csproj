@@ -64,6 +64,10 @@
       <Project>{46577BD8-21A9-42A1-B02E-DACC415ADD99}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WcfServiceLibrary\WcfServiceLibrary.csproj">
+      <Project>{F87E87C9-1FAE-4194-9453-FE47E9D8BFF7}</Project>
+      <Name>WcfServiceLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

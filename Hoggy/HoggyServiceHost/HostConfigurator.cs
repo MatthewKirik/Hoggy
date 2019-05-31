@@ -4,18 +4,21 @@ using Ninject;
 using System.IO;
 using System.ServiceModel;
 using WcfServiceLibrary.Helpers;
+using WcfServiceLibrary.Interfaces;
 using WcfServiceLibrary.Services;
 
 namespace HoggyServiceHost
 {
     public class HostConfigurator
     {
-        IRepository _repository;
+        private readonly IRepository _repository;
+        private readonly INotificator _notificator;
         TextWriter _backlog;
 
         public HostConfigurator(TextWriter backlog)
         {
             _repository = Factory.Kernel.Get<IRepository>();
+            _notificator = Factory.Kernel.Get<INotificator>();
             _backlog = backlog;
             MapperConfigurator.Configure();
         }
@@ -31,12 +34,14 @@ namespace HoggyServiceHost
             DataExchangeService dataExService = new DataExchangeService(_repository);
             ServiceHost dataExServiceHost = new ServiceHost(dataExService);
 
-            CreationService creationService = new CreationService(_repository);
+            CreationService creationService = new CreationService(_repository, _notificator);
             ServiceHost creationServiceHost = new ServiceHost(creationService);
 
-            CommunityService communityService = new CommunityService(_repository);
+            CommunityService communityService = new CommunityService(_repository, _notificator);
             ServiceHost communityServiceHost = new ServiceHost(communityService);
 
+            NotificationService notificactionService = new NotificationService(_repository, _notificator);
+            ServiceHost notificactionServiceHost = new ServiceHost(notificactionService);
 
             authServiceHost.Open();
             _backlog.WriteLine("Authantication service is started");
@@ -48,6 +53,8 @@ namespace HoggyServiceHost
             _backlog.WriteLine("Creation service is started");
             communityServiceHost.Open();
             _backlog.WriteLine("Community service is started");
+            notificactionServiceHost.Open();
+            _backlog.WriteLine("Notificaction service is started");
         }
     }
 }

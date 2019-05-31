@@ -4,6 +4,7 @@ using DataAccessLayer.Entities;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
+using WcfServiceLibrary.Interfaces;
 
 namespace WcfServiceLibrary.Services
 {
@@ -11,9 +12,11 @@ namespace WcfServiceLibrary.Services
     public class CommunityService : ICommunityContract
     {
         private readonly IRepository _repository;
-        public CommunityService(IRepository repository)
+        private readonly INotificator _notificator;
+        public CommunityService(IRepository repository, INotificator notificator)
         {
             _repository = repository;
+            _notificator = notificator;
         }
 
         public bool PostComment(AuthenticationToken token, CommentDTO comment, int cardId)
@@ -30,6 +33,7 @@ namespace WcfServiceLibrary.Services
             dest.Comments.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardCommentAdded(comment, cardId);
             return true;
         }
 
@@ -50,7 +54,7 @@ namespace WcfServiceLibrary.Services
             return true;
         }
 
-        public bool SubscribeToCard(AuthenticationToken token, CommentDTO comment, int cardId)
+        public bool SubscribeToCard(AuthenticationToken token, int cardId)
         {
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == cardId);
@@ -61,6 +65,7 @@ namespace WcfServiceLibrary.Services
             _repository.Update(card);
             _repository.Update(user);
             _repository.Save();
+            _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardSubscribersAdded(AutoMapper.Mapper.Map<UserDTO>(user), cardId);
             return true;
         }
 
@@ -78,6 +83,7 @@ namespace WcfServiceLibrary.Services
             _repository.Update(tag);
             _repository.Update(dest);
             _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardTagAdded(tagId, cardId);
             return true;
         }
     }
