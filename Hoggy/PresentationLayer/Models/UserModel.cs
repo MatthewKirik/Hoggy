@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using GalaSoft.MvvmLight;
+using PresentationLayer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,15 +15,30 @@ namespace PresentationLayer.Models
 {
     public class UserModel : ViewModelBase
     {
-        private string _login;
+        public int Id { get; set; }
 
+        private string _login;
         public string Login
         {
             get => _login;
             set
             {
                 _login = value;
-                RaisePropertyChanged("Login");
+                RaisePropertyChanged(nameof(Login));
+                LoginErr = Validator.Check(CheckType.Empty, Login);
+            }
+        }
+
+        private string _loginErr;
+        public string LoginErr
+        {
+            get => _loginErr;
+            set
+            {
+                _loginErr = value;
+                RaisePropertyChanged(nameof(LoginErr));
+                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
+                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
             }
         }
 
@@ -33,7 +49,20 @@ namespace PresentationLayer.Models
             set
             {
                 _password = value;
-                RaisePropertyChanged("Password");
+                RaisePropertyChanged(nameof(Password));
+                PassErr = Validator.Check(CheckType.LengthMoreThan, Password, 3);
+            }
+        }
+        private string _passErr;
+        public string PassErr
+        {
+            get => _passErr;
+            set
+            {
+                _passErr = value;
+                RaisePropertyChanged(nameof(PassErr));
+                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
+                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
             }
         }
 
@@ -44,10 +73,52 @@ namespace PresentationLayer.Models
             set
             {
                 _email = value;
-                RaisePropertyChanged("Email");
+                RaisePropertyChanged(nameof(Email));
+                MailErr = Validator.Check(CheckType.Mail, Email);
+            }
+        }
+        private string _mailErr;
+        public string MailErr
+        {
+            get => _mailErr;
+            set
+            {
+                _mailErr = value;
+                RaisePropertyChanged(nameof(MailErr));
+                CanSign = Validator.EmptyStrings(MailErr, PassErr, MailErr);
             }
         }
 
+        bool _canSign;
+        public bool CanSign
+        {
+            set
+            {
+                _canSign = value;
+                RaisePropertyChanged(nameof(CanSign));
+            }
+            get => _canSign;
+        }
+
+        bool _canLogin;
+        public bool CanLogin
+        {
+            set
+            {
+                _canLogin = value;
+                RaisePropertyChanged(nameof(CanLogin));
+            }
+            get => _canLogin;
+        }
+        
         public ObservableCollection<BoardModel> Boards { get; set; }
+        
+        public UserModel()
+        {
+            _loginErr = "Empty field";
+            _passErr = "Empty field";
+            _mailErr = "Empty field";
+        }
+
     }
 }

@@ -104,6 +104,10 @@
 
         <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}"/>
 
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+                Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
+            <metro:ProgressRing />
+        </Border>
 
     </Grid>
 </metro:MetroWindow>

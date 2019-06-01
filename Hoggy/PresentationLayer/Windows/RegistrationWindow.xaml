@@ -34,10 +34,10 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Email" Style="{StaticResource Lable}" />
-                            <TextBox Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                            <TextBox Text="{Binding Path=User.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
                         </Grid>
-                        <TextBlock Visibility="{Binding MailErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding MailErr}" Style="{StaticResource Error}"/>
+                        <TextBlock Visibility="{Binding User.MailErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding User.MailErr}" Style="{StaticResource Error}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
@@ -47,20 +47,20 @@
 
                             <PasswordBox Grid.Column="1"
                          custom:PasswordBoxAssistant.BindPassword="true"  
-                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay}"/>
+                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay}"/>
                         </Grid>
-                        <TextBlock Visibility="{Binding PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding PassErr}" Style="{StaticResource Error}"/>
+                        <TextBlock Visibility="{Binding User.PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding User.PassErr}" Style="{StaticResource Error}"/>
 
                         <Grid Grid.Row="5" Grid.ColumnSpan="3" Height="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button Command="{Binding LoginCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanLogin}">
+                            <Button Command="{Binding LoginCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding User.CanLogin}">
                                 <Button.Content>
                                     <WrapPanel>
-                                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2" />
+                                        <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
                                         <TextBlock Style="{StaticResource Lable}" Text="COME ON"/>
                                     </WrapPanel>
                                 </Button.Content>
@@ -68,7 +68,7 @@
                             <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
                                 <Button.Content>
                                     <WrapPanel>
-                                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                        <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
                                         <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
                                     </WrapPanel>
                                 </Button.Content>
@@ -94,20 +94,20 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Login" Style="{StaticResource Lable}" />
-                            <TextBox Text="{Binding Path=Login, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                            <TextBox Text="{Binding Path=User.Login, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
                         </Grid>
-                        <TextBlock Visibility="{Binding LoginErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding LoginErr}" Style="{StaticResource Error}"/>
+                        <TextBlock Visibility="{Binding User.LoginErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding User.LoginErr}" Style="{StaticResource Error}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Email" Style="{StaticResource Lable}" />
-                            <TextBox Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                            <TextBox Text="{Binding Path=User.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
                         </Grid>
-                        <TextBlock Visibility="{Binding MailErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding MailErr}" Style="{StaticResource Error}"/>
+                        <TextBlock Visibility="{Binding User.MailErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding User.MailErr}" Style="{StaticResource Error}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
@@ -116,21 +116,21 @@
                             <TextBlock Text="Password" Style="{StaticResource Lable}" />
                             <PasswordBox Grid.Column="1"
                          custom:PasswordBoxAssistant.BindPassword="true"  
-                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay}"/>
+                         custom:PasswordBoxAssistant.BoundPassword="{Binding Path=User.Password, Mode=TwoWay}"/>
 
                         </Grid>
-                        <TextBlock Visibility="{Binding PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding PassErr}" Style="{StaticResource Error}"/>
+                        <TextBlock Visibility="{Binding User.PassErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding User.PassErr}" Style="{StaticResource Error}"/>
 
                         <Grid Grid.Row="5" Grid.ColumnSpan="3" Height="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button Command="{Binding SignUpCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSign}">
+                            <Button Command="{Binding SignUpCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding User.CanSign}">
                                 <Button.Content>
                                     <WrapPanel>
-                                        <fa:ImageAwesome Icon="Check" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="Teal" Margin="2 2 15 2" />
+                                        <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
                                         <TextBlock Style="{StaticResource Lable}" Text="COME ON"/>
                                     </WrapPanel>
                                 </Button.Content>
@@ -138,7 +138,7 @@
                             <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
                                 <Button.Content>
                                     <WrapPanel>
-                                        <fa:ImageAwesome Icon="Close" Spin="{Binding IsEncrypting}" SpinDuration="5" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                        <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
                                         <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
                                     </WrapPanel>
                                 </Button.Content>

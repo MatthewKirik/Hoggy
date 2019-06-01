@@ -2,7 +2,8 @@
 
 namespace DataAccessLayer
 {
-    public class HoggyContextInitializer : DropCreateDatabaseIfModelChanges<HoggyContext>
+  //  public class HoggyContextInitializer : DropCreateDatabaseIfModelChanges<HoggyContext>
+    public class HoggyContextInitializer : CreateDatabaseIfNotExists<HoggyContext>
     {
         public override void InitializeDatabase(HoggyContext context)
         {

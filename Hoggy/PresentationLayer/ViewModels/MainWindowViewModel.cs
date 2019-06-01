@@ -1,6 +1,9 @@
 ﻿using DataTransferObjects;
 using GalaSoft.MvvmLight;
+using PresentationLayer.AuthenticationService;
+using PresentationLayer.DataExchangeService;
 using PresentationLayer.Models;
+using PresentationLayer.RegistrationService;
 using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
@@ -16,17 +19,6 @@ namespace PresentationLayer.ViewModels
     class MainWindowViewModel : ViewModelBase
     {
         public ObservableCollection<BoardModel> Boards { get; set; }
-
-        UserModel _user;
-        public UserModel User
-        {
-            get => _user;
-            set
-            {
-                _user = value;
-                RaisePropertyChanged(nameof(User));
-            }
-        }
 
         BoardModel _curBoard;
         public BoardModel CurBoard
@@ -50,45 +42,85 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        bool _loaderVisible;
+        public bool LoaderVisible
+        {
+            get => _loaderVisible;
+            set
+            {
+                _loaderVisible = value;
+                RaisePropertyChanged(nameof(LoaderVisible));
+            }
+        }
+
+        UserModel _user;
+        public UserModel User
+        {
+            get => _user;
+            set
+            {
+                _user = value;
+                RaisePropertyChanged(nameof(User));
+            }
+        }
+
+        AuthenticationToken token;
         Window _mainWindow;
+
+        public RegistrationContractClient RegProxy { get; }
+        public AuthenticationContractClient AuthProxy { get; }
+        public DataExchangeContractClient DataExchangeProxy { get; }
+
         public MainWindowViewModel(Window mainWindow)
         {
+            DataExchangeProxy = new DataExchangeContractClient();
             _mainWindow = mainWindow;
+
             RegistrationWindow auth = new RegistrationWindow();
             if (auth.ShowDialog() != true)
                 _mainWindow.Close();
+            RegistrationWindowViewModel regModel = (RegistrationWindowViewModel)auth.DataContext;
 
+            token = regModel.Token;
+            User = new UserModel();
+            GetUser();
+
+
+            
             AvaPath = @"..\Resources\default_ava.jpg";
-            ///LOCAL TESTING VALUES
+           
+            //CurBoard = (User.Boards.Count >0) ? User.Boards[0] : null;
+
             ObservableCollection<BoardModel> _bds = new ObservableCollection<BoardModel>
             {
-                new BoardModel{Name="FirstBoard" },
+                new BoardModel{Name="FirstBoard"},
                 new BoardModel{Name="SecondBoard"}
             };
 
-            _bds[0].Columns = new ObservableCollection<ColumnModel>
-            {
-                new ColumnModel{Name="Column1", Cards = new ObservableCollection<CardModel>{
-                    new CardModel{Name = "Card1", Description = "Desc 1", Tags = new ObservableCollection<TagModel>{
-                        new TagModel{Name = "Tag1", Color = (Color)ColorConverter.ConvertFromString("#fbb")}
-                    }, },
-                    new CardModel{Name = "Card2", Description = "Desc 2", Tags = new ObservableCollection<TagModel>{
-                        new TagModel{Name = "Tag1", Color = (Color)ColorConverter.ConvertFromString("#f00")}
-                    }, }
-                }, },
-                new ColumnModel{Name="Column2", Cards = new ObservableCollection<CardModel>{
-                    new CardModel{Name = "Card3", Description = "Desc 3", Tags = new ObservableCollection<TagModel>{
-                        new TagModel{Name = "Tag3", Color = (Color)ColorConverter.ConvertFromString("#00f")}
-                    }, },
-                    new CardModel{Name = "Card2", Description = "Desc 2", Tags = new ObservableCollection<TagModel>{
-                        new TagModel{Name = "Tag1", Color = (Color)ColorConverter.ConvertFromString("#f0d")}
-                    }, }
-                }, }
-            };
+        }
 
-            User = new UserModel { Login = "Pasha", Boards = _bds,Email="test@test.ua", Password="XYZ" };
-
-            CurBoard = (User.Boards.Count >0) ? User.Boards[0] : null;
+        void GetUser()
+        {
+            LoaderVisible = true;
+            Task.Run(() => {
+                try
+                {
+                    UserDTO userDTO = DataExchangeProxy.GetUser(token);
+                    if (userDTO != null)
+                    {
+                        User.Id = userDTO.Id;
+                        User.Login = userDTO.Login;
+                        User.Email = userDTO.Email;
+                    }
+                    else
+                        MessageBox.Show("Cant load user");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoaderVisible = false;
+            });
         }
 
     }

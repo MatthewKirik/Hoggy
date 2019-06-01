@@ -22,98 +22,47 @@ namespace PresentationLayer.ViewModels
 {
     public class RegistrationWindowViewModel : ViewModelBase
     {
-        private string _login;
-        public string Login
-        {
-            get => _login;
-            set
-            {
-                _login = value;
-                RaisePropertyChanged(nameof(Login));
-                LoginErr = Validator.Check(CheckType.Empty, Login);
-            }
-        }
+        Window _window;
+        public RegistrationContractClient RegProxy { get; }
+        public AuthenticationContractClient AuthProxy {  get; }
+        UserModel _user;
+        public UserModel User { get => _user; }
+        public AuthenticationToken Token { get; set; }
 
-        private string _loginErr;
-        public string LoginErr
+        public RegistrationWindowViewModel(Window window)
         {
-            get => _loginErr;
-            set
-            {
-                _loginErr = value;
-                RaisePropertyChanged(nameof(LoginErr));
-                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
-                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
-            }
-        }
+            RegProxy = new RegistrationContractClient();
+            AuthProxy = new AuthenticationContractClient();
+            _window = window;
+            _user = new UserModel();
 
-        string _password;
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                RaisePropertyChanged(nameof(Password));
-                PassErr = Validator.Check(CheckType.LengthMoreThan, Password, 8);
-            }
-        }
-        private string _passErr;
-        public string PassErr
-        {
-            get => _passErr;
-            set
-            {
-                _passErr = value;
-                RaisePropertyChanged(nameof(PassErr));
-                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
-                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
-            }
-        }
 
-        string _email;
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                RaisePropertyChanged(nameof(Email));
-                MailErr = Validator.Check(CheckType.Mail, Email);
-            }
-        }
-        private string _mailErr;
-        public string MailErr
-        {
-            get => _mailErr;
-            set
-            {
-                _mailErr = value;
-                RaisePropertyChanged(nameof(MailErr));
-                CanSign = Validator.EmptyStrings(MailErr, PassErr, MailErr);
-            }
-        }
+            ///LOCAL TEST
+            //_user.Email = "user1@gmail.com";
+            //_user.Password = "user1";
 
-        bool _canSign;
-        public bool CanSign
-        {
-            set
-            {
-                _canSign = value;
-                RaisePropertyChanged(nameof(CanSign));
-            }
-            get => _canSign;
-        }
-
-        bool _canLogin;
-        public bool CanLogin
-        {
-            set
-            {
-                _canLogin = value;
-                RaisePropertyChanged(nameof(CanLogin));
-            }
-            get => _canLogin;
+            //LoaderVisible = true;
+            //Task.Run(() => {
+            //    try
+            //    {
+            //        Token = AuthProxy.Login(User.Email, User.Password);
+            //        if (Token != null)
+            //        {
+            //            _window.Dispatcher.Invoke(() =>
+            //            {
+            //                _window.DialogResult = true;
+            //                _window.Close();
+            //            });
+            //        }
+            //        else
+            //            MessageBox.Show(User.Login + User.Password + "Wrong login or password! Try again.");
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //    LoaderVisible = false;
+            //});
         }
 
         private bool _loaderVisible;
@@ -127,24 +76,6 @@ namespace PresentationLayer.ViewModels
             }
         }
 
-        Window _window;
-        public RegistrationContractClient RegProxy { get; }
-        public AuthenticationContractClient AuthProxy {  get; }
-        UserModel _user;
-        public UserModel User { get => _user; }
-        public AuthenticationToken Token { get; set; }
-
-        public RegistrationWindowViewModel(Window window)
-        {
-            _loginErr = "Empty field";
-            _passErr = "Empty field";
-            _mailErr = "Empty field";
-            RegProxy = new RegistrationContractClient();
-            AuthProxy = new AuthenticationContractClient();
-            _window = window;
-            _user = new UserModel();
-        }
-
         private RelayCommand _signUpCmd;
         public RelayCommand SignUpCmd
         {
@@ -154,15 +85,11 @@ namespace PresentationLayer.ViewModels
                 {
                     LoaderVisible = true;
                     Task.Run(() => {
-                        _user.Login = Login;
-                        _user.Email = Email;
-                        _user.Password = Password;
                         try
                         {
                             if (RegProxy.RegisterUser(new UserDTO { Login = User.Login, Email = User.Email }, User.Password))
                             {
                                 Token = AuthProxy.Login(User.Email, User.Password);
-
                                 _window.Dispatcher.Invoke(() =>
                                 {
                                     _window.DialogResult = true;
@@ -191,8 +118,6 @@ namespace PresentationLayer.ViewModels
                 {
                     LoaderVisible = true;
                     Task.Run(() => {
-                        _user.Email = Email;
-                        _user.Password = Password;
                         try
                         {
                             Token = AuthProxy.Login(User.Email, User.Password);
