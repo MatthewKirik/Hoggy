@@ -63,6 +63,17 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <WrapPanel>
+                    <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
+                    <TextBlock Style="{StaticResource MenuHeader}">PARTICIPATED BOARDS</TextBlock>
+                </WrapPanel>
+                <ListBox ItemsSource="{Binding User.PartBoards}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
         </Expander>
         
@@ -82,7 +93,10 @@
                                             <Border Style="{StaticResource Card}">
                                                 <StackPanel>
                                                     <Border Style="{StaticResource CardHeaderBorder}">
+                                                        <WrapPanel>
+                                                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" />
                                                         <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                        </WrapPanel>
                                                     </Border>
                                                     <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
                                                 </StackPanel>
@@ -104,10 +118,10 @@
 
         <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}"/>
 
-        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+        <!--<Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
             <metro:ProgressRing />
-        </Border>
+        </Border>-->
 
     </Grid>
 </metro:MetroWindow>

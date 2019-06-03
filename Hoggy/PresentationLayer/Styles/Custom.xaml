@@ -97,7 +97,7 @@
     <Style x:Key="CardHeader" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource Header}" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="Padding" Value="10 5 0 5" />
+        <Setter Property="Padding" Value="0 5" />
         <Setter Property="Foreground" Value="{StaticResource FirstBrushMiddle}" />
     </Style>
 

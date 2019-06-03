@@ -112,12 +112,16 @@ namespace PresentationLayer.Models
         }
         
         public ObservableCollection<BoardModel> Boards { get; set; }
+        public ObservableCollection<BoardModel> PartBoards { get; set; }
         
         public UserModel()
-        {
+        { 
             _loginErr = "Empty field";
             _passErr = "Empty field";
             _mailErr = "Empty field";
+
+            Boards = new ObservableCollection<BoardModel>();
+            PartBoards = new ObservableCollection<BoardModel>();
         }
 
     }
