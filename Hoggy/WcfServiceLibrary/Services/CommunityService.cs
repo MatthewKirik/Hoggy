@@ -29,7 +29,6 @@ namespace WcfServiceLibrary.Services
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Author = user;
             _repository.Add(toAdd);
-            _repository.Save();
             dest.Comments.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
@@ -43,14 +42,24 @@ namespace WcfServiceLibrary.Services
             if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
                 return false;
             UserEntity recepient = _repository.GetItem<UserEntity>(x => x.Email == email);
-            if (recepient == null)
+            UserEntity sender = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            if (recepient == null || sender == null)
                 return false;
-
-            InvitationEntity invitation = new InvitationEntity();
-            invitation.Recepient = recepient;
-            invitation.SecurityGroupId = board.SecurityGroupId;
-            
+            SecurityGroupEntity securityGroup = _repository.GetItem<SecurityGroupEntity>(x => x.Id == board.SecurityGroupId);
+            InvitationEntity invitation = new InvitationEntity
+            {
+                Recepient = recepient,
+                SecurityGroup = securityGroup,
+                Sender = sender
+            };
             _repository.Add(invitation);
+            recepient.IncomeInvitations.Add(invitation);
+            _repository.Update(recepient);
+            sender.SentInvitations.Add(invitation);
+            _repository.Update(sender);
+            securityGroup.Invitations.Add(invitation);
+            _repository.Update(securityGroup);
+            _repository.Save();
             return true;
         }
 
@@ -84,6 +93,30 @@ namespace WcfServiceLibrary.Services
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardTagAdded(tagId, cardId);
+            return true;
+        }
+
+        public bool AcceptInvitation(AuthenticationToken token, string key)
+        {
+            InvitationEntity invitation = _repository.GetItem<InvitationEntity>(x => x.SecurityGroup.Key == key);
+            UserEntity recepient = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            if (invitation == null || recepient == null)
+                return false;
+
+            recepient.IncomeInvitations.Remove(invitation);
+            invitation.Sender.SentInvitations.Remove(invitation);
+            BoardEntity board = _repository.GetItem<BoardEntity>(x => x.SecurityGroupId == invitation.SecurityGroup.Id);
+            board.Participants.Add(recepient);
+            recepient.ParticipatedBoards.Add(board);
+            invitation.SecurityGroup.Invitations.Remove(invitation);
+            invitation.SecurityGroup.Users.Add(recepient);
+            recepient.SecurityGroups.Add(invitation.SecurityGroup);
+            _repository.Update(invitation.SecurityGroup);
+            _repository.Update(invitation.Sender);
+            _repository.Update(recepient);
+            _repository.Update(board);
+            _repository.Delete(invitation);
+            _repository.Save();
             return true;
         }
     }

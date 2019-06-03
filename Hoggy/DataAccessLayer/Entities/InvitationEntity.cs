@@ -10,6 +10,8 @@ namespace DataAccessLayer.Entities
         [Required]
         public virtual UserEntity Recepient { get; set; }   
         [Required]
-        public int SecurityGroupId { get; set; }
+        public virtual SecurityGroupEntity SecurityGroup { get; set; }
+        [Required]
+        public virtual UserEntity Sender { get; set; }
     }
 }

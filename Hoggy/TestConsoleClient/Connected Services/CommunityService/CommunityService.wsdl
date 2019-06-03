@@ -21,6 +21,12 @@
   <wsdl:message name="ICommunityContract_SendInvitation_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendInvitationResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommunityContract_AcceptInvitation_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptInvitation" />
+  </wsdl:message>
+  <wsdl:message name="ICommunityContract_AcceptInvitation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptInvitationResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommunityContract_PostComment_InputMessage">
     <wsdl:part name="parameters" element="tns:PostComment" />
   </wsdl:message>
@@ -33,10 +39,20 @@
   <wsdl:message name="ICommunityContract_SubscribeToCard_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeToCardResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommunityContract_AddTagToCard_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTagToCard" />
+  </wsdl:message>
+  <wsdl:message name="ICommunityContract_AddTagToCard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTagToCardResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICommunityContract">
     <wsdl:operation name="SendInvitation">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/SendInvitation" message="tns:ICommunityContract_SendInvitation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/SendInvitationResponse" message="tns:ICommunityContract_SendInvitation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptInvitation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/AcceptInvitation" message="tns:ICommunityContract_AcceptInvitation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/AcceptInvitationResponse" message="tns:ICommunityContract_AcceptInvitation_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="PostComment">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/PostComment" message="tns:ICommunityContract_PostComment_InputMessage" />
@@ -46,12 +62,25 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/SubscribeToCard" message="tns:ICommunityContract_SubscribeToCard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/SubscribeToCardResponse" message="tns:ICommunityContract_SubscribeToCard_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AddTagToCard">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/AddTagToCard" message="tns:ICommunityContract_AddTagToCard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/AddTagToCardResponse" message="tns:ICommunityContract_AddTagToCard_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="communityPoint" type="tns:ICommunityContract">
     <wsp:PolicyReference URI="#communityPoint_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendInvitation">
       <soap12:operation soapAction="http://tempuri.org/ICommunityContract/SendInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptInvitation">
+      <soap12:operation soapAction="http://tempuri.org/ICommunityContract/AcceptInvitation" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -70,6 +99,15 @@
     </wsdl:operation>
     <wsdl:operation name="SubscribeToCard">
       <soap12:operation soapAction="http://tempuri.org/ICommunityContract/SubscribeToCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTagToCard">
+      <soap12:operation soapAction="http://tempuri.org/ICommunityContract/AddTagToCard" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

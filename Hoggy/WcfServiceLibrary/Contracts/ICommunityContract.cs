@@ -9,6 +9,8 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         bool SendInvitation(AuthenticationToken token, int boardId, string email);
         [OperationContract]
+        bool AcceptInvitation(AuthenticationToken token, string key);
+        [OperationContract]
         bool PostComment(AuthenticationToken token, CommentDTO comment, int cardId);
         [OperationContract]
         bool SubscribeToCard(AuthenticationToken token, int cardId);

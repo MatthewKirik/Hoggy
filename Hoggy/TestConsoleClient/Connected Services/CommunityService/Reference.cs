@@ -21,6 +21,12 @@ namespace TestConsoleClient.CommunityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/SendInvitation", ReplyAction="http://tempuri.org/ICommunityContract/SendInvitationResponse")]
         System.Threading.Tasks.Task<bool> SendInvitationAsync(DataTransferObjects.AuthenticationToken token, int boardId, string email);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AcceptInvitation", ReplyAction="http://tempuri.org/ICommunityContract/AcceptInvitationResponse")]
+        bool AcceptInvitation(DataTransferObjects.AuthenticationToken token, string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AcceptInvitation", ReplyAction="http://tempuri.org/ICommunityContract/AcceptInvitationResponse")]
+        System.Threading.Tasks.Task<bool> AcceptInvitationAsync(DataTransferObjects.AuthenticationToken token, string key);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/PostComment", ReplyAction="http://tempuri.org/ICommunityContract/PostCommentResponse")]
         bool PostComment(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId);
         
@@ -28,10 +34,16 @@ namespace TestConsoleClient.CommunityService {
         System.Threading.Tasks.Task<bool> PostCommentAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/SubscribeToCard", ReplyAction="http://tempuri.org/ICommunityContract/SubscribeToCardResponse")]
-        bool SubscribeToCard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId);
+        bool SubscribeToCard(DataTransferObjects.AuthenticationToken token, int cardId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/SubscribeToCard", ReplyAction="http://tempuri.org/ICommunityContract/SubscribeToCardResponse")]
-        System.Threading.Tasks.Task<bool> SubscribeToCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId);
+        System.Threading.Tasks.Task<bool> SubscribeToCardAsync(DataTransferObjects.AuthenticationToken token, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AddTagToCard", ReplyAction="http://tempuri.org/ICommunityContract/AddTagToCardResponse")]
+        bool AddTagToCard(DataTransferObjects.AuthenticationToken token, int tagId, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AddTagToCard", ReplyAction="http://tempuri.org/ICommunityContract/AddTagToCardResponse")]
+        System.Threading.Tasks.Task<bool> AddTagToCardAsync(DataTransferObjects.AuthenticationToken token, int tagId, int cardId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +81,14 @@ namespace TestConsoleClient.CommunityService {
             return base.Channel.SendInvitationAsync(token, boardId, email);
         }
         
+        public bool AcceptInvitation(DataTransferObjects.AuthenticationToken token, string key) {
+            return base.Channel.AcceptInvitation(token, key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AcceptInvitationAsync(DataTransferObjects.AuthenticationToken token, string key) {
+            return base.Channel.AcceptInvitationAsync(token, key);
+        }
+        
         public bool PostComment(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId) {
             return base.Channel.PostComment(token, comment, cardId);
         }
@@ -77,12 +97,20 @@ namespace TestConsoleClient.CommunityService {
             return base.Channel.PostCommentAsync(token, comment, cardId);
         }
         
-        public bool SubscribeToCard(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId) {
-            return base.Channel.SubscribeToCard(token, comment, cardId);
+        public bool SubscribeToCard(DataTransferObjects.AuthenticationToken token, int cardId) {
+            return base.Channel.SubscribeToCard(token, cardId);
         }
         
-        public System.Threading.Tasks.Task<bool> SubscribeToCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId) {
-            return base.Channel.SubscribeToCardAsync(token, comment, cardId);
+        public System.Threading.Tasks.Task<bool> SubscribeToCardAsync(DataTransferObjects.AuthenticationToken token, int cardId) {
+            return base.Channel.SubscribeToCardAsync(token, cardId);
+        }
+        
+        public bool AddTagToCard(DataTransferObjects.AuthenticationToken token, int tagId, int cardId) {
+            return base.Channel.AddTagToCard(token, tagId, cardId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddTagToCardAsync(DataTransferObjects.AuthenticationToken token, int tagId, int cardId) {
+            return base.Channel.AddTagToCardAsync(token, tagId, cardId);
         }
     }
 }
