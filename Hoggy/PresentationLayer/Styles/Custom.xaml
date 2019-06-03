@@ -91,9 +91,15 @@
 
     <Style x:Key="CardHeaderBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="5 5 0 0" />
+        <Setter Property="Padding" Value="0 5" />
         <Setter Property="Background" Value="{StaticResource SecondBrushDark}" />
     </Style>
-    
+
+    <Style x:Key="CardFooterBorder" TargetType="Border" BasedOn="{StaticResource CardHeaderBorder}">
+        <Setter Property="Background" Value="{StaticResource FirstBrushMiddle}" />
+        <Setter Property="CornerRadius" Value="0 0 5 5" />
+    </Style>
+
     <Style x:Key="CardHeader" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource Header}" />
         <Setter Property="FontSize" Value="16" />
@@ -106,7 +112,19 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="7" />
     </Style>
-    
+
+    <Style x:Key="CardFooterHeader" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
+        <Setter Property="FontFamily" Value="{StaticResource Header}" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Padding" Value="2" />
+    </Style>
+
+    <Style x:Key="CardFooterText" TargetType="TextBlock" BasedOn="{StaticResource CardFooterHeader}">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+
     <!--TOP PANEL-->
     <Style x:Key="TopPaneBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource SecondBrushDark}" />
@@ -153,5 +171,13 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
+    <Style x:Key="RightWrap" TargetType="WrapPanel">
+        <Setter Property="Background" Value="{StaticResource FirstBrushLight}" />
+    </Style>
+    
+    <Style x:Key="RightHeader" TargetType="TextBlock" BasedOn="{StaticResource LoginTxt}">
+        <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
+        <Setter Property="Padding" Value="5" />
+    </Style>
 
 </ResourceDictionary>

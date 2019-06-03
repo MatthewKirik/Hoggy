@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataTransferObjects;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using PresentationLayer.AuthenticationService;
 using PresentationLayer.DataExchangeService;
 using PresentationLayer.Helpers;
@@ -10,6 +11,7 @@ using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,8 +23,6 @@ namespace PresentationLayer.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
-        public ObservableCollection<BoardModel> Boards { get; set; }
-
         BoardModel _curBoard;
         public BoardModel CurBoard
         {
@@ -91,29 +91,21 @@ namespace PresentationLayer.ViewModels
             GetUser();
             GetBoards(nameof(User.Boards));
             GetBoards(nameof(User.PartBoards));
-
+            
             if (User.Boards.Count + User.PartBoards.Count > 0)
                 CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
-
+            
             if (CurBoard != null)
             {
                 GetColumns(CurBoard.Id);
                 if (CurBoard.Columns.Count > 0)
-                    foreach(var col in CurBoard.Columns)                   
+                    foreach (var col in CurBoard.Columns)
                         GetColumnCards(col.Id);
+
+                GetParticipants(CurBoard.Id);
             }
             
-            if (User.Boards.Count > 0)
-                AvaPath = @"..\Resources\default_ava.jpg";
-
-            //CurBoard = (User.Boards.Count >0) ? User.Boards[0] : null;
-
-            ObservableCollection<BoardModel> _bds = new ObservableCollection<BoardModel>
-            {
-                new BoardModel{Name="FirstBoard"},
-                new BoardModel{Name="SecondBoard"}
-            };
-
+            AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
         }
 
         void GetUser()
@@ -179,8 +171,6 @@ namespace PresentationLayer.ViewModels
                         break;
                 }
             }
-            else
-                MessageBox.Show("Cant load boards!");
         }
 
         void GetColumns(int id)
@@ -207,8 +197,6 @@ namespace PresentationLayer.ViewModels
                 CurBoard.Columns = new ObservableCollection<ColumnModel>
                 (Mapper.Map<ColumnDTO[], ColumnModel[]>(columnsDTO));
             }
-            else
-                MessageBox.Show("Cant load columns!");
         }
 
         void GetColumnCards(int id)
@@ -237,9 +225,34 @@ namespace PresentationLayer.ViewModels
                     new ObservableCollection<CardModel>
                 (Mapper.Map<CardDTO[], CardModel[]>(cardsDTO));
             }
-            else
-                MessageBox.Show("Cant load boards!");
         }
+
+        void GetParticipants(int id)
+        {
+            LoaderVisible = true;
+            UserDTO[] partsDTO = null;
+            Task task = new Task(() =>
+            {
+                try
+                {
+                    partsDTO = DataExchangeProxy.GetParticipants(token, id);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoaderVisible = false;
+            });
+            task.Start();
+            task.Wait();
+
+            if (partsDTO != null)
+                CurBoard.Participants = new ObservableCollection<UserModel>(Mapper.Map<UserDTO[], UserModel[]>(partsDTO));
+        }
+
+        ////COMMANDS
+
 
     }
 }

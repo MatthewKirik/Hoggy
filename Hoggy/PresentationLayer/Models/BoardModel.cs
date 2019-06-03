@@ -30,6 +30,7 @@ namespace PresentationLayer.Models
         public BoardModel()
         {
             Columns = new ObservableCollection<ColumnModel>();
+            Participants = new ObservableCollection<UserModel>();
         }
 
     }

@@ -76,7 +76,7 @@
                 </ListBox>
             </StackPanel>
         </Expander>
-        
+
         <!--BOARD-->
         <Grid Grid.Row="1" Margin="50 15 0 0">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
@@ -91,14 +91,36 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Style="{StaticResource Card}">
+                                                <Border.InputBindings>
+                                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCardCmd}"/>
+                                                </Border.InputBindings>
                                                 <StackPanel>
                                                     <Border Style="{StaticResource CardHeaderBorder}">
                                                         <WrapPanel>
-                                                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" />
-                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                            <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                                                            <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
                                                         </WrapPanel>
                                                     </Border>
                                                     <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
+                                                    <Border Style="{StaticResource CardFooterBorder}">
+                                                        <WrapPanel>
+                                                            <fa:FontAwesome Icon="ClockOutline" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40"/>
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock Text="Create:" Style="{StaticResource CardFooterHeader}" />
+                                                                <TextBlock Grid.Column="1" Text="{Binding CreationDate}" Style="{StaticResource CardFooterText}" />
+                                                                <TextBlock Grid.Row="1" Text="Expire:" Style="{StaticResource CardFooterHeader}" />
+                                                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ExpireDate}" Style="{StaticResource CardFooterText}" />
+                                                            </Grid>
+                                                        </WrapPanel>
+                                                    </Border>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
@@ -115,8 +137,19 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
+<!--RIGHT PANEL-->
+        <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}">
+            <StackPanel>
+                <WrapPanel Style="{StaticResource RightWrap}">
+                    <fa:FontAwesome Icon="UserCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                    <TextBlock Text="PARTICIPANTS" Style="{StaticResource RightHeader}"/>
+                </WrapPanel>
 
-        <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}"/>
+                <ListBox ItemsSource="{Binding CurBoard.Participants}">
+
+                </ListBox>
+            </StackPanel>
+        </Border>
 
         <!--<Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
