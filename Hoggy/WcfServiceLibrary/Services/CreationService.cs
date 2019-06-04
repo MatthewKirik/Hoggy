@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entities;
 using DataTransferObjects;
 using System;
@@ -62,6 +63,17 @@ namespace WcfServiceLibrary.Services
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
+            HistoryEventEntity historyEvent = new HistoryEventEntity()
+            {
+                Board = dest.Board,
+                Producer = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User,
+                SecurityGroupId = dest.SecurityGroupId,
+                Text = $"Card \"{toAdd.Name}\" added"
+            };
+            _repository.Add(historyEvent);
+            _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId)
+                .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), dest.Board.Id);
             return true;
         }
 
@@ -70,7 +82,7 @@ namespace WcfServiceLibrary.Services
             BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
             if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
                 return false;
-            ColumnEntity toAdd = AutoMapper.Mapper.Map<ColumnEntity>(column);
+            ColumnEntity toAdd = Mapper.Map<ColumnEntity>(column);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Board = dest;
             _repository.Add(toAdd);
@@ -78,7 +90,19 @@ namespace WcfServiceLibrary.Services
             dest.Columns.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
+            column.Id = toAdd.Id;
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnColumnAdded(column, boardId);
+            HistoryEventEntity historyEvent = new HistoryEventEntity()
+            {
+                Board = dest,
+                Producer = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User,
+                SecurityGroupId = dest.SecurityGroupId,
+                Text = $"Column \"{toAdd.Name}\" added"
+            };
+            _repository.Add(historyEvent);
+            _repository.Save();
+            _notificator.WithSecurityGroup(dest.SecurityGroupId)
+                .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), boardId);
             return true;
         }
 

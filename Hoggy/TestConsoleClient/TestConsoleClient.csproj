@@ -148,6 +148,8 @@
     <None Include="Properties\DataSources\DataTransferObjects.ColumnDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.CommentDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.HistoryEventDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.InvitationDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.TagDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.UserDTO.datasource" />
   </ItemGroup>
   <ItemGroup>

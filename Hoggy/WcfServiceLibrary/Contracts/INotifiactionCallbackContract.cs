@@ -8,8 +8,6 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         void OnBoardAdded(BoardDTO board);
         [OperationContract]
-        void OnParticipatedBoardAdded(BoardDTO board);
-        [OperationContract]
         void OnParticipantAdded(UserDTO user, int boardId);
         [OperationContract]
         void OnColumnAdded(ColumnDTO column, int boardId);

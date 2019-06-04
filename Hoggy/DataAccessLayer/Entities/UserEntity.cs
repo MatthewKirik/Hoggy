@@ -27,5 +27,7 @@ namespace DataAccessLayer.Entities
         public virtual ICollection<CardEntity> SubscriptedCards { get => _subscriptedCards ?? (_subscriptedCards = new List<CardEntity>()); }
         private ICollection<InvitationEntity> _incomeInvitations;
         public virtual ICollection<InvitationEntity> IncomeInvitations { get => _incomeInvitations ?? (_incomeInvitations = new List<InvitationEntity>()); }
+        private ICollection<InvitationEntity> _sentInvitations;
+        public virtual ICollection<InvitationEntity> SentInvitations { get => _sentInvitations ?? (_sentInvitations = new List<InvitationEntity>()); }
     }
 }

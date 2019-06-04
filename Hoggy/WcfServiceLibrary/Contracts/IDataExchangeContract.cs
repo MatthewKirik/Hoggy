@@ -14,6 +14,8 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         List<BoardDTO> GetParticipatedBoards(AuthenticationToken token, int UserId);
         [OperationContract]
+        List<InvitationDTO> GetIncomeInvitations(AuthenticationToken token, int UserId);
+        [OperationContract]
         List<UserDTO> GetParticipants(AuthenticationToken token, int BoardId);
         [OperationContract]
         List<ColumnDTO> GetColumns(AuthenticationToken token, int BoardId);

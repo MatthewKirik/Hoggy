@@ -33,6 +33,12 @@ namespace TestConsoleClient.DataExchangeService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetParticipatedBoards", ReplyAction="http://tempuri.org/IDataExchangeContract/GetParticipatedBoardsResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.BoardDTO[]> GetParticipatedBoardsAsync(DataTransferObjects.AuthenticationToken token, int UserId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetIncomeInvitations", ReplyAction="http://tempuri.org/IDataExchangeContract/GetIncomeInvitationsResponse")]
+        DataTransferObjects.InvitationDTO[] GetIncomeInvitations(DataTransferObjects.AuthenticationToken token, int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetIncomeInvitations", ReplyAction="http://tempuri.org/IDataExchangeContract/GetIncomeInvitationsResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.InvitationDTO[]> GetIncomeInvitationsAsync(DataTransferObjects.AuthenticationToken token, int UserId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetParticipants", ReplyAction="http://tempuri.org/IDataExchangeContract/GetParticipantsResponse")]
         DataTransferObjects.UserDTO[] GetParticipants(DataTransferObjects.AuthenticationToken token, int BoardId);
         
@@ -44,6 +50,24 @@ namespace TestConsoleClient.DataExchangeService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetColumns", ReplyAction="http://tempuri.org/IDataExchangeContract/GetColumnsResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.ColumnDTO[]> GetColumnsAsync(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetFullBoard", ReplyAction="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse")]
+        DataTransferObjects.BoardDTO GetFullBoard(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetFullBoard", ReplyAction="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.BoardDTO> GetFullBoardAsync(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetBoardTags", ReplyAction="http://tempuri.org/IDataExchangeContract/GetBoardTagsResponse")]
+        DataTransferObjects.TagDTO[] GetBoardTags(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetBoardTags", ReplyAction="http://tempuri.org/IDataExchangeContract/GetBoardTagsResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.TagDTO[]> GetBoardTagsAsync(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetCardTags", ReplyAction="http://tempuri.org/IDataExchangeContract/GetCardTagsResponse")]
+        DataTransferObjects.TagDTO[] GetCardTags(DataTransferObjects.AuthenticationToken token, int CardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetCardTags", ReplyAction="http://tempuri.org/IDataExchangeContract/GetCardTagsResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.TagDTO[]> GetCardTagsAsync(DataTransferObjects.AuthenticationToken token, int CardId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetHistoryEvents", ReplyAction="http://tempuri.org/IDataExchangeContract/GetHistoryEventsResponse")]
         DataTransferObjects.HistoryEventDTO[] GetHistoryEvents(DataTransferObjects.AuthenticationToken token, int BoardId);
@@ -121,6 +145,14 @@ namespace TestConsoleClient.DataExchangeService {
             return base.Channel.GetParticipatedBoardsAsync(token, UserId);
         }
         
+        public DataTransferObjects.InvitationDTO[] GetIncomeInvitations(DataTransferObjects.AuthenticationToken token, int UserId) {
+            return base.Channel.GetIncomeInvitations(token, UserId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.InvitationDTO[]> GetIncomeInvitationsAsync(DataTransferObjects.AuthenticationToken token, int UserId) {
+            return base.Channel.GetIncomeInvitationsAsync(token, UserId);
+        }
+        
         public DataTransferObjects.UserDTO[] GetParticipants(DataTransferObjects.AuthenticationToken token, int BoardId) {
             return base.Channel.GetParticipants(token, BoardId);
         }
@@ -135,6 +167,30 @@ namespace TestConsoleClient.DataExchangeService {
         
         public System.Threading.Tasks.Task<DataTransferObjects.ColumnDTO[]> GetColumnsAsync(DataTransferObjects.AuthenticationToken token, int BoardId) {
             return base.Channel.GetColumnsAsync(token, BoardId);
+        }
+        
+        public DataTransferObjects.BoardDTO GetFullBoard(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetFullBoard(token, BoardId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.BoardDTO> GetFullBoardAsync(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetFullBoardAsync(token, BoardId);
+        }
+        
+        public DataTransferObjects.TagDTO[] GetBoardTags(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetBoardTags(token, BoardId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.TagDTO[]> GetBoardTagsAsync(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetBoardTagsAsync(token, BoardId);
+        }
+        
+        public DataTransferObjects.TagDTO[] GetCardTags(DataTransferObjects.AuthenticationToken token, int CardId) {
+            return base.Channel.GetCardTags(token, CardId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.TagDTO[]> GetCardTagsAsync(DataTransferObjects.AuthenticationToken token, int CardId) {
+            return base.Channel.GetCardTagsAsync(token, CardId);
         }
         
         public DataTransferObjects.HistoryEventDTO[] GetHistoryEvents(DataTransferObjects.AuthenticationToken token, int BoardId) {

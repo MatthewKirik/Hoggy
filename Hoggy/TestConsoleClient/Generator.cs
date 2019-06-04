@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TestConsoleClient.AuthenticationService;
+using TestConsoleClient.CommunityService;
 using TestConsoleClient.CreationService;
 using TestConsoleClient.DataExchangeService;
 using TestConsoleClient.NotificationService;
@@ -18,6 +19,7 @@ namespace TestConsoleClient
         AuthenticationContractClient authenticationClient;
         CreationContractClient creationClient;
         NotificationContractClient notificationClient;
+        CommunityContractClient communityClient;
 
         public Generator()
         {
@@ -29,10 +31,27 @@ namespace TestConsoleClient
             authenticationClient.Open();
             creationClient = new CreationContractClient();
             creationClient.Open();
-            notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
-            notificationClient.Open();
+            communityClient = new CommunityContractClient();
+            communityClient.Open();
+            //notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
+            ////notificationClient.Open();
+            //InitializeHierarchy(1, 1, 1, 1, 1);
+            //AuthenticationToken token = authenticationClient.Login("user1@gmail.com", "user1");
+            //BoardDTO board = dataExchangeClient.GetFullBoard(token, 1);
+            //Console.WriteLine(board.Columns[0].Cards[0].Name);
         }
-
+        public void TestInvitations()
+        {
+            List<AuthenticationToken> tokens = RegisterAndLoginUsers(2);
+            UserDTO mainUser = dataExchangeClient.GetUser(tokens[0]);
+            UserDTO subUser = dataExchangeClient.GetUser(tokens[1]);
+            AddBoards(tokens[0], 1);
+            BoardDTO board = dataExchangeClient.GetBoards(tokens[0], mainUser.Id)[0];
+            communityClient.SendInvitation(tokens[0], board.Id, subUser.Email);
+            InvitationDTO invitation = dataExchangeClient.GetIncomeInvitations(tokens[1], subUser.Id)[0];
+            communityClient.AcceptInvitation(tokens[1], invitation.Key);
+            Console.WriteLine(dataExchangeClient.GetParticipatedBoards(tokens[1], subUser.Id)[0].Name);
+        }
         public void InitializeHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
@@ -47,7 +66,7 @@ namespace TestConsoleClient
                 List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
                 foreach (var b in boards)
                 {
-                    notificationClient.Subscribe(tokens[i], b.Id);
+                    //notificationClient.Subscribe(tokens[i], b.Id);
                     AddTagsToBoard(tokens[i], b.Id, tagAmount);
                     AddColumns(tokens[i], b.Id, columnAmount);
                     List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();

@@ -10,7 +10,6 @@ namespace HoggyServiceHost
             configurator.Start();
             while (true)
                 Console.ReadLine();
-
         }
     }
 }

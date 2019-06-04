@@ -34,6 +34,16 @@ namespace DataAccessLayer
             modelBuilder.Entity<TagEntity>()
                 .HasMany(x => x.Cards)
                 .WithMany(x => x.Tags);
+            modelBuilder.Entity<InvitationEntity>()
+                .HasRequired(x => x.Recepient)
+                .WithMany(x => x.IncomeInvitations);
+            modelBuilder.Entity<InvitationEntity>()
+                .HasRequired(x => x.Sender)
+                .WithMany(x => x.SentInvitations)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<InvitationEntity>()
+                .HasRequired(x => x.SecurityGroup)
+                .WithMany(x => x.Invitations);
 
             base.OnModelCreating(modelBuilder);
         }

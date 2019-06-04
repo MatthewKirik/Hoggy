@@ -13,5 +13,7 @@ namespace DataAccessLayer.Entities
 
         private ICollection<UserEntity> _users;
         public virtual ICollection<UserEntity> Users { get => _users ?? (_users = new List<UserEntity>()); }
+        private ICollection<InvitationEntity> _invitations;
+        public virtual ICollection<InvitationEntity> Invitations { get => _invitations ?? (_invitations = new List<InvitationEntity>()); }
     }
 }
