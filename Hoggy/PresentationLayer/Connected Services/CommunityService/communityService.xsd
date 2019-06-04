@@ -17,11 +17,26 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="PostComment">
+  <xs:element name="AcceptInvitation">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q2:AuthenticationToken" />
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="comment" nillable="true" type="q3:CommentDTO" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptInvitationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AcceptInvitationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PostComment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q3:AuthenticationToken" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="comment" nillable="true" type="q4:CommentDTO" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -36,7 +51,7 @@
   <xs:element name="SubscribeToCard">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q4:AuthenticationToken" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q5:AuthenticationToken" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -51,7 +66,7 @@
   <xs:element name="AddTagToCard">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q5:AuthenticationToken" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q6:AuthenticationToken" />
         <xs:element minOccurs="0" name="tagId" type="xs:int" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>

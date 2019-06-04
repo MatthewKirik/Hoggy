@@ -21,6 +21,12 @@
   <wsdl:message name="ICommunityContract_SendInvitation_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendInvitationResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommunityContract_AcceptInvitation_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptInvitation" />
+  </wsdl:message>
+  <wsdl:message name="ICommunityContract_AcceptInvitation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptInvitationResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommunityContract_PostComment_InputMessage">
     <wsdl:part name="parameters" element="tns:PostComment" />
   </wsdl:message>
@@ -44,6 +50,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/SendInvitation" message="tns:ICommunityContract_SendInvitation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/SendInvitationResponse" message="tns:ICommunityContract_SendInvitation_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AcceptInvitation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/AcceptInvitation" message="tns:ICommunityContract_AcceptInvitation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/AcceptInvitationResponse" message="tns:ICommunityContract_AcceptInvitation_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="PostComment">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommunityContract/PostComment" message="tns:ICommunityContract_PostComment_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommunityContract/PostCommentResponse" message="tns:ICommunityContract_PostComment_OutputMessage" />
@@ -62,6 +72,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendInvitation">
       <soap12:operation soapAction="http://tempuri.org/ICommunityContract/SendInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptInvitation">
+      <soap12:operation soapAction="http://tempuri.org/ICommunityContract/AcceptInvitation" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -53,10 +53,16 @@
       <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Tag" nillable="true" type="tns:TagDTO" />
+      <xs:element minOccurs="0" name="Tags" nillable="true" type="tns:ArrayOfTagDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CardDTO" nillable="true" type="tns:CardDTO" />
+  <xs:complexType name="ArrayOfTagDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagDTO" nillable="true" type="tns:TagDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTagDTO" nillable="true" type="tns:ArrayOfTagDTO" />
   <xs:complexType name="CommentDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />

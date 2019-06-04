@@ -33,6 +33,12 @@ namespace PresentationLayer.DataExchangeService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetParticipatedBoards", ReplyAction="http://tempuri.org/IDataExchangeContract/GetParticipatedBoardsResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.BoardDTO[]> GetParticipatedBoardsAsync(DataTransferObjects.AuthenticationToken token, int UserId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetIncomeInvitations", ReplyAction="http://tempuri.org/IDataExchangeContract/GetIncomeInvitationsResponse")]
+        DataTransferObjects.InvitationDTO[] GetIncomeInvitations(DataTransferObjects.AuthenticationToken token, int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetIncomeInvitations", ReplyAction="http://tempuri.org/IDataExchangeContract/GetIncomeInvitationsResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.InvitationDTO[]> GetIncomeInvitationsAsync(DataTransferObjects.AuthenticationToken token, int UserId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetParticipants", ReplyAction="http://tempuri.org/IDataExchangeContract/GetParticipantsResponse")]
         DataTransferObjects.UserDTO[] GetParticipants(DataTransferObjects.AuthenticationToken token, int BoardId);
         
@@ -131,6 +137,14 @@ namespace PresentationLayer.DataExchangeService {
         
         public System.Threading.Tasks.Task<DataTransferObjects.BoardDTO[]> GetParticipatedBoardsAsync(DataTransferObjects.AuthenticationToken token, int UserId) {
             return base.Channel.GetParticipatedBoardsAsync(token, UserId);
+        }
+        
+        public DataTransferObjects.InvitationDTO[] GetIncomeInvitations(DataTransferObjects.AuthenticationToken token, int UserId) {
+            return base.Channel.GetIncomeInvitations(token, UserId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.InvitationDTO[]> GetIncomeInvitationsAsync(DataTransferObjects.AuthenticationToken token, int UserId) {
+            return base.Channel.GetIncomeInvitationsAsync(token, UserId);
         }
         
         public DataTransferObjects.UserDTO[] GetParticipants(DataTransferObjects.AuthenticationToken token, int BoardId) {

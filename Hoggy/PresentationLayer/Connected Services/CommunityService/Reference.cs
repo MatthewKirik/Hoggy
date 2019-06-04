@@ -21,6 +21,12 @@ namespace PresentationLayer.CommunityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/SendInvitation", ReplyAction="http://tempuri.org/ICommunityContract/SendInvitationResponse")]
         System.Threading.Tasks.Task<bool> SendInvitationAsync(DataTransferObjects.AuthenticationToken token, int boardId, string email);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AcceptInvitation", ReplyAction="http://tempuri.org/ICommunityContract/AcceptInvitationResponse")]
+        bool AcceptInvitation(DataTransferObjects.AuthenticationToken token, string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/AcceptInvitation", ReplyAction="http://tempuri.org/ICommunityContract/AcceptInvitationResponse")]
+        System.Threading.Tasks.Task<bool> AcceptInvitationAsync(DataTransferObjects.AuthenticationToken token, string key);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunityContract/PostComment", ReplyAction="http://tempuri.org/ICommunityContract/PostCommentResponse")]
         bool PostComment(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId);
         
@@ -73,6 +79,14 @@ namespace PresentationLayer.CommunityService {
         
         public System.Threading.Tasks.Task<bool> SendInvitationAsync(DataTransferObjects.AuthenticationToken token, int boardId, string email) {
             return base.Channel.SendInvitationAsync(token, boardId, email);
+        }
+        
+        public bool AcceptInvitation(DataTransferObjects.AuthenticationToken token, string key) {
+            return base.Channel.AcceptInvitation(token, key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AcceptInvitationAsync(DataTransferObjects.AuthenticationToken token, string key) {
+            return base.Channel.AcceptInvitationAsync(token, key);
         }
         
         public bool PostComment(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CommentDTO comment, int cardId) {

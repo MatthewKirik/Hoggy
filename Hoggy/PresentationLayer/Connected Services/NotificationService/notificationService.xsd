@@ -28,22 +28,10 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnParticipatedBoardAdded">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="board" nillable="true" type="q3:BoardDTO" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnParticipatedBoardAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="OnParticipantAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q4:UserDTO" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q3:UserDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -56,7 +44,7 @@
   <xs:element name="OnColumnAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="column" nillable="true" type="q5:ColumnDTO" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="column" nillable="true" type="q4:ColumnDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -69,7 +57,7 @@
   <xs:element name="OnBoardTagAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="tag" nillable="true" type="q6:TagDTO" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="tag" nillable="true" type="q5:TagDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -95,7 +83,7 @@
   <xs:element name="OnHistoryEventAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="historyEvent" nillable="true" type="q7:HistoryEventDTO" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="historyEvent" nillable="true" type="q6:HistoryEventDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -108,7 +96,7 @@
   <xs:element name="OnCardAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="card" nillable="true" type="q8:CardDTO" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="card" nillable="true" type="q7:CardDTO" />
         <xs:element minOccurs="0" name="columnId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -121,7 +109,7 @@
   <xs:element name="OnCardSubscribersAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q9:UserDTO" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q8:UserDTO" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -134,7 +122,7 @@
   <xs:element name="OnCardCommentAdded">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="comment" nillable="true" type="q10:CommentDTO" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="comment" nillable="true" type="q9:CommentDTO" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>

@@ -27,12 +27,6 @@
   <wsdl:message name="INotificationContract_OnBoardAdded_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnBoardAddedResponse" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnParticipatedBoardAdded_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnParticipatedBoardAdded" />
-  </wsdl:message>
-  <wsdl:message name="INotificationContract_OnParticipatedBoardAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnParticipatedBoardAddedResponse" />
-  </wsdl:message>
   <wsdl:message name="INotificationContract_OnParticipantAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnParticipantAdded" />
   </wsdl:message>
@@ -90,10 +84,6 @@
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardAdded" message="tns:INotificationContract_OnBoardAdded_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnBoardAddedResponse" message="tns:INotificationContract_OnBoardAdded_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnParticipatedBoardAdded">
-      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnParticipatedBoardAdded" message="tns:INotificationContract_OnParticipatedBoardAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnParticipatedBoardAddedResponse" message="tns:INotificationContract_OnParticipatedBoardAdded_InputCallbackMessage" />
-    </wsdl:operation>
     <wsdl:operation name="OnParticipantAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnParticipantAdded" message="tns:INotificationContract_OnParticipantAdded_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnParticipantAddedResponse" message="tns:INotificationContract_OnParticipantAdded_InputCallbackMessage" />
@@ -141,15 +131,6 @@
     </wsdl:operation>
     <wsdl:operation name="OnBoardAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnBoardAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnParticipatedBoardAdded">
-      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnParticipatedBoardAdded" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -83,29 +83,32 @@ namespace PresentationLayer.ViewModels
             RegistrationWindow auth = new RegistrationWindow();
             if (auth.ShowDialog() != true)
                 _mainWindow.Close();
-            RegistrationWindowViewModel regModel = (RegistrationWindowViewModel)auth.DataContext;
-
-            token = regModel.Token;
-            User = new UserModel();
-
-            GetUser();
-            GetBoards(nameof(User.Boards));
-            GetBoards(nameof(User.PartBoards));
-            
-            if (User.Boards.Count + User.PartBoards.Count > 0)
-                CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
-            
-            if (CurBoard != null)
+            else
             {
-                GetColumns(CurBoard.Id);
-                if (CurBoard.Columns.Count > 0)
-                    foreach (var col in CurBoard.Columns)
-                        GetColumnCards(col.Id);
+                RegistrationWindowViewModel regModel = (RegistrationWindowViewModel)auth.DataContext;
 
-                GetParticipants(CurBoard.Id);
+                token = regModel.Token;
+                User = new UserModel();
+
+                GetUser();
+                GetBoards(nameof(User.Boards));
+                GetBoards(nameof(User.PartBoards));
+
+                if (User.Boards.Count + User.PartBoards.Count > 0)
+                    CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
+
+                if (CurBoard != null)
+                {
+                    GetColumns(CurBoard.Id);
+                    if (CurBoard.Columns.Count > 0)
+                        foreach (var col in CurBoard.Columns)
+                            GetColumnCards(col.Id);
+
+                    GetParticipants(CurBoard.Id);
+                }
+
+                AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
             }
-            
-            AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
         }
 
         void GetUser()

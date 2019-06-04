@@ -28,9 +28,6 @@ namespace PresentationLayer.NotificationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnBoardAddedResponse")]
         void OnBoardAdded(DataTransferObjects.BoardDTO board);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnParticipatedBoardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnParticipatedBoardAddedResponse")]
-        void OnParticipatedBoardAdded(DataTransferObjects.BoardDTO board);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnParticipantAdded", ReplyAction="http://tempuri.org/INotificationContract/OnParticipantAddedResponse")]
         void OnParticipantAdded(DataTransferObjects.UserDTO user, int boardId);
         
