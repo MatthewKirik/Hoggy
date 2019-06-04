@@ -51,6 +51,12 @@
   <wsdl:message name="IDataExchangeContract_GetColumns_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetColumnsResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetFullBoard_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFullBoard" />
+  </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetFullBoard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFullBoardResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetBoardTags_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBoardTags" />
   </wsdl:message>
@@ -111,6 +117,10 @@
     <wsdl:operation name="GetColumns">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetColumns" message="tns:IDataExchangeContract_GetColumns_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetColumnsResponse" message="tns:IDataExchangeContract_GetColumns_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFullBoard">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetFullBoard" message="tns:IDataExchangeContract_GetFullBoard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse" message="tns:IDataExchangeContract_GetFullBoard_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetBoardTags">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoardTags" message="tns:IDataExchangeContract_GetBoardTags_InputMessage" />
@@ -187,6 +197,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetColumns">
       <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetColumns" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFullBoard">
+      <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetFullBoard" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

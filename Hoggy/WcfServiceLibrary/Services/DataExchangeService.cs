@@ -25,7 +25,21 @@ namespace WcfServiceLibrary.Services
             if (user == null)
                 return null;
             if (user.Id == UserId)
-                return Mapper.Map<ICollection<BoardEntity>, List<BoardDTO>>(user.Boards);
+            {
+                List<BoardDTO> boardDTOs = new List<BoardDTO>();
+                foreach (var item in user.Boards)
+                {
+                    BoardDTO boardDTO = new BoardDTO()
+                    {
+                        Id = item.Id,
+                        Description = item.Description,
+                        CreationDate = item.CreationDate,
+                        Name = item.Name
+                    };
+                    boardDTOs.Add(boardDTO);
+                }
+                return boardDTOs;
+            }
             else
                 return null;
         }
@@ -36,7 +50,21 @@ namespace WcfServiceLibrary.Services
             if (user == null)
                 return null;
             if (user.Id == UserId)
-                return Mapper.Map<ICollection<BoardEntity>, List<BoardDTO>>(user.ParticipatedBoards);
+            {
+                List<BoardDTO> boardDTOs = new List<BoardDTO>();
+                foreach (var item in user.ParticipatedBoards)
+                {
+                    BoardDTO boardDTO = new BoardDTO()
+                    {
+                        Id = item.Id,
+                        Description = item.Description,
+                        CreationDate = item.CreationDate,
+                        Name = item.Name
+                    };
+                    boardDTOs.Add(boardDTO);
+                }
+                return boardDTOs;
+            }
             else
                 return null;
         }
@@ -74,6 +102,15 @@ namespace WcfServiceLibrary.Services
             if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
                 return null;
             return Mapper.Map<ICollection<ColumnEntity>, List<ColumnDTO>>(board.Columns);
+        }
+
+        public BoardDTO GetFullBoard(AuthenticationToken token, int BoardId)
+        {
+            BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
+            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+                return null;
+            BoardDTO boardDTO = Mapper.Map<BoardDTO>(board);
+            return boardDTO;
         }
 
         public List<HistoryEventDTO> GetHistoryEvents(AuthenticationToken token, int BoardId)

@@ -13,6 +13,7 @@ namespace DataTransferObjects
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public TagDTO Tag { get; set; }
+        public List<TagDTO> Tags { get; set; }
+        public List<TagDTO> Comments { get; set; }
     }
 }

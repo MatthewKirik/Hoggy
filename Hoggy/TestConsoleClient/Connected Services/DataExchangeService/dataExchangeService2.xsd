@@ -90,7 +90,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetBoardTags">
+  <xs:element name="GetFullBoard">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q13:AuthenticationToken" />
@@ -98,17 +98,32 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetFullBoardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetFullBoardResult" nillable="true" type="q14:BoardDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBoardTags">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q15:AuthenticationToken" />
+        <xs:element minOccurs="0" name="BoardId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetBoardTagsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetBoardTagsResult" nillable="true" type="q14:ArrayOfTagDTO" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetBoardTagsResult" nillable="true" type="q16:ArrayOfTagDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCardTags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q15:AuthenticationToken" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q17:AuthenticationToken" />
         <xs:element minOccurs="0" name="CardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -116,14 +131,14 @@
   <xs:element name="GetCardTagsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardTagsResult" nillable="true" type="q16:ArrayOfTagDTO" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardTagsResult" nillable="true" type="q18:ArrayOfTagDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetHistoryEvents">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q17:AuthenticationToken" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q19:AuthenticationToken" />
         <xs:element minOccurs="0" name="BoardId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -131,14 +146,14 @@
   <xs:element name="GetHistoryEventsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetHistoryEventsResult" nillable="true" type="q18:ArrayOfHistoryEventDTO" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetHistoryEventsResult" nillable="true" type="q20:ArrayOfHistoryEventDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCards">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q19:AuthenticationToken" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q21:AuthenticationToken" />
         <xs:element minOccurs="0" name="ColumnId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -146,26 +161,11 @@
   <xs:element name="GetCardsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardsResult" nillable="true" type="q20:ArrayOfCardDTO" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardsResult" nillable="true" type="q22:ArrayOfCardDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCardSubscribers">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q21:AuthenticationToken" />
-        <xs:element minOccurs="0" name="CardId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCardSubscribersResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardSubscribersResult" nillable="true" type="q22:ArrayOfUserDTO" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCardComments">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q23:AuthenticationToken" />
@@ -173,10 +173,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCardSubscribersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardSubscribersResult" nillable="true" type="q24:ArrayOfUserDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardComments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="token" nillable="true" type="q25:AuthenticationToken" />
+        <xs:element minOccurs="0" name="CardId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetCardCommentsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardCommentsResult" nillable="true" type="q24:ArrayOfCommentDTO" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="GetCardCommentsResult" nillable="true" type="q26:ArrayOfCommentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

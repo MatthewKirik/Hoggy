@@ -51,6 +51,12 @@ namespace TestConsoleClient.DataExchangeService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetColumns", ReplyAction="http://tempuri.org/IDataExchangeContract/GetColumnsResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.ColumnDTO[]> GetColumnsAsync(DataTransferObjects.AuthenticationToken token, int BoardId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetFullBoard", ReplyAction="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse")]
+        DataTransferObjects.BoardDTO GetFullBoard(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetFullBoard", ReplyAction="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.BoardDTO> GetFullBoardAsync(DataTransferObjects.AuthenticationToken token, int BoardId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetBoardTags", ReplyAction="http://tempuri.org/IDataExchangeContract/GetBoardTagsResponse")]
         DataTransferObjects.TagDTO[] GetBoardTags(DataTransferObjects.AuthenticationToken token, int BoardId);
         
@@ -161,6 +167,14 @@ namespace TestConsoleClient.DataExchangeService {
         
         public System.Threading.Tasks.Task<DataTransferObjects.ColumnDTO[]> GetColumnsAsync(DataTransferObjects.AuthenticationToken token, int BoardId) {
             return base.Channel.GetColumnsAsync(token, BoardId);
+        }
+        
+        public DataTransferObjects.BoardDTO GetFullBoard(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetFullBoard(token, BoardId);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.BoardDTO> GetFullBoardAsync(DataTransferObjects.AuthenticationToken token, int BoardId) {
+            return base.Channel.GetFullBoardAsync(token, BoardId);
         }
         
         public DataTransferObjects.TagDTO[] GetBoardTags(DataTransferObjects.AuthenticationToken token, int BoardId) {

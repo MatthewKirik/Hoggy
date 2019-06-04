@@ -20,6 +20,8 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         List<ColumnDTO> GetColumns(AuthenticationToken token, int BoardId);
         [OperationContract]
+        BoardDTO GetFullBoard(AuthenticationToken token, int BoardId);
+        [OperationContract]
         List<TagDTO> GetBoardTags(AuthenticationToken token, int BoardId);
         [OperationContract]
         List<TagDTO> GetCardTags(AuthenticationToken token, int CardId);
