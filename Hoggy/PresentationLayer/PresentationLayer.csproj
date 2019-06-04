@@ -149,11 +149,10 @@
     <Compile Include="Helpers\DataExchange.cs" />
     <Compile Include="Helpers\MapperConfigurator.cs" />
     <Compile Include="Helpers\Validator.cs" />
-    <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
-    <Compile Include="Windows\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="Windows\EditCard.xaml.cs">
+      <DependentUpon>EditCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -278,7 +277,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\LoginWindow.xaml">
+    <Page Include="Windows\EditCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

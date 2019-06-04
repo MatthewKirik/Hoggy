@@ -1,0 +1,30 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.EditCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="Edit card" Height="450" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="{Binding Name}"/>
+        </StackPanel>
+        
+    </Grid>
+</metro:MetroWindow>

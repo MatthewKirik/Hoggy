@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,14 @@ using System.Windows.Shapes;
 namespace PresentationLayer.Windows
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for EditCard.xaml
     /// </summary>
-    public partial class LoginWindow : MetroWindow
+    public partial class EditCard : MetroWindow
     {
-        public LoginWindow()
+        public EditCard(CardModel mvvm)
         {
+            DataContext = mvvm;
             InitializeComponent();
-            this.DataContext = new ViewModels.LoginWindowViewModel();
         }
     }
 }

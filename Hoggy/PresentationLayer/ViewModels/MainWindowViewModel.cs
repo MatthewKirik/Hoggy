@@ -252,7 +252,5 @@ namespace PresentationLayer.ViewModels
         }
 
         ////COMMANDS
-
-
     }
 }

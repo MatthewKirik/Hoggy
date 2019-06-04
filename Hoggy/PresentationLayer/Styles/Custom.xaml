@@ -25,6 +25,29 @@
         <Setter Property="FontSize" Value="20" />
     </Style>
 
+    <Style x:Key="IconHover" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
+        <Style.Triggers>
+            <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color" To="#ff5d5d" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard FillBehavior="Stop">
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color" To="#fff" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
     <Style x:Key="SmallIcon" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
         <Setter Property="Margin" Value="5" />
         <Setter Property="FontSize" Value="16" />
@@ -96,7 +119,7 @@
     </Style>
 
     <Style x:Key="CardFooterBorder" TargetType="Border" BasedOn="{StaticResource CardHeaderBorder}">
-        <Setter Property="Background" Value="{StaticResource FirstBrushMiddle}" />
+        <Setter Property="Background" Value="{StaticResource FirstBrushLight}" />
         <Setter Property="CornerRadius" Value="0 0 5 5" />
     </Style>
 

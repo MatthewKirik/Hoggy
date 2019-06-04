@@ -79,7 +79,7 @@
 
         <!--BOARD-->
         <Grid Grid.Row="1" Margin="50 15 0 0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -91,15 +91,24 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Style="{StaticResource Card}">
-                                                <Border.InputBindings>
-                                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCardCmd}"/>
-                                                </Border.InputBindings>
                                                 <StackPanel>
                                                     <Border Style="{StaticResource CardHeaderBorder}">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition Width="30"/>
+                                                            </Grid.ColumnDefinitions>
                                                         <WrapPanel>
                                                             <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
                                                             <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
                                                         </WrapPanel>
+                                                            <fa:FontAwesome Icon="Edit" Style="{StaticResource IconHover}" 
+                                                                            Foreground="White" Grid.Column="1" ToolTip="Edit card">
+                                                                <fa:FontAwesome.InputBindings>
+                                                                    <MouseBinding Command="{Binding EditCardCmd}" MouseAction="LeftClick" />
+                                                                </fa:FontAwesome.InputBindings>
+                                                            </fa:FontAwesome>
+                                                        </Grid>
                                                     </Border>
                                                     <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
                                                     <Border Style="{StaticResource CardFooterBorder}">
