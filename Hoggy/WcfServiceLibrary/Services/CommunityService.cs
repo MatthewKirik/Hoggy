@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
 using DataTransferObjects;
@@ -115,6 +116,18 @@ namespace WcfServiceLibrary.Services
             _repository.Update(invitation.Sender);
             _repository.Update(recepient);
             _repository.Update(board);
+            _notificator.WithSecurityGroup(board.SecurityGroupId).OnParticipantAdded(Mapper.Map<UserDTO>(recepient), board.Id);
+            HistoryEventEntity historyEvent = new HistoryEventEntity()
+            {
+                Board = board,
+                Producer = recepient,
+                SecurityGroupId = board.SecurityGroupId,
+                Text = $"User \"{recepient.Login}\" joined"
+            };
+            _repository.Add(historyEvent);
+            _repository.Save();
+            _notificator.WithSecurityGroup(board.SecurityGroupId)
+                .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), board.Id);
             _repository.Delete(invitation);
             _repository.Save();
             return true;

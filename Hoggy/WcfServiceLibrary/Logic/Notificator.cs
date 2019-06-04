@@ -93,13 +93,6 @@ namespace WcfServiceLibrary.Logic
                 s.Callback.OnParticipantAdded(user, boardId);
             }
         }
-
-        public void OnParticipatedBoardAdded(BoardDTO board)
-        {
-            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
-            {
-                s.Callback.OnParticipatedBoardAdded(board);
-            }
-        }
+        
     }
 }
