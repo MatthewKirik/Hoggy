@@ -110,6 +110,7 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        //COMMANDS
         private RelayCommand _loginCmd;
         public RelayCommand LoginCmd
         {

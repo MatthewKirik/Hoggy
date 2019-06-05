@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PresentationLayer.Models
 {
@@ -31,6 +33,21 @@ namespace PresentationLayer.Models
         {
             Columns = new ObservableCollection<ColumnModel>();
             Participants = new ObservableCollection<UserModel>();
+        }
+
+        public Action<int> ChangeBoard;
+  
+        //COMMANDS
+        private RelayCommand _changeBoardCmd;
+        public RelayCommand ChangeBoardCmd
+        {
+            get
+            {
+                return _changeBoardCmd ?? (_changeBoardCmd = new RelayCommand(() =>
+                {
+                    ChangeBoard(Id);
+                }));
+            }
         }
 
     }

@@ -50,16 +50,20 @@
             </WrapPanel>
         </Grid>
         <!--SIDE PANEL-->
-        <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100">
+        <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100" IsExpanded="{Binding OpenExpander}">
             <StackPanel Background="{StaticResource SecondBrushDark}">
                 <WrapPanel>
                     <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
                     <TextBlock Style="{StaticResource MenuHeader}">BOARDS</TextBlock>
                 </WrapPanel>
-                <ListBox ItemsSource="{Binding User.Boards}">
+                <ListBox Name="UserBoards" ItemsSource="{Binding User.Boards}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}"/>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ChangeBoardCmd}" MouseAction="LeftClick" />
+                                </TextBlock.InputBindings>
+                            </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -70,7 +74,11 @@
                 <ListBox ItemsSource="{Binding User.PartBoards}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}"/>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ChangeBoardCmd}" MouseAction="LeftClick" />
+                                </TextBlock.InputBindings>
+                            </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -160,10 +168,10 @@
             </StackPanel>
         </Border>
 
-        <!--<Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
             <metro:ProgressRing />
-        </Border>-->
+        </Border>
 
     </Grid>
 </metro:MetroWindow>

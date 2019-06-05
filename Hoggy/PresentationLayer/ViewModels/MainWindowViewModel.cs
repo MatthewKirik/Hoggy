@@ -6,6 +6,7 @@ using PresentationLayer.AuthenticationService;
 using PresentationLayer.DataExchangeService;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models;
+using PresentationLayer.NotificationService;
 using PresentationLayer.RegistrationService;
 using PresentationLayer.Windows;
 using System;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ namespace PresentationLayer.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        //PROPERTIES
         BoardModel _curBoard;
         public BoardModel CurBoard
         {
@@ -56,6 +59,17 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        bool _openExpander;
+        public bool OpenExpander
+        {
+            get => _openExpander;
+            set
+            {
+                _openExpander = value;
+                RaisePropertyChanged(nameof(OpenExpander));
+            }
+        }
+
         UserModel _user;
         public UserModel User
         {
@@ -70,13 +84,14 @@ namespace PresentationLayer.ViewModels
         AuthenticationToken token;
         Window _mainWindow;
 
-        public RegistrationContractClient RegProxy { get; }
-        public AuthenticationContractClient AuthProxy { get; }
-        public DataExchangeContractClient DataExchangeProxy { get; }
+        DataExchangeContractClient _dataExchangeProxy;
+        NotificationContractClient _notificationProxy;
 
         public MainWindowViewModel(Window mainWindow)
         {
-            DataExchangeProxy = new DataExchangeContractClient();
+            _dataExchangeProxy = new DataExchangeContractClient();
+            _notificationProxy = new NotificationContractClient(new InstanceContext(new CallbackHandler()));
+
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
 
@@ -97,15 +112,7 @@ namespace PresentationLayer.ViewModels
                 if (User.Boards.Count + User.PartBoards.Count > 0)
                     CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
 
-                if (CurBoard != null)
-                {
-                    GetColumns(CurBoard.Id);
-                    if (CurBoard.Columns.Count > 0)
-                        foreach (var col in CurBoard.Columns)
-                            GetColumnCards(col.Id);
-
-                    GetParticipants(CurBoard.Id);
-                }
+                LoadCurrentBoard();
 
                 AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
             }
@@ -119,7 +126,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    UserDTO userDTO = DataExchangeProxy.GetUser(token);
+                    UserDTO userDTO = _dataExchangeProxy.GetUser(token);
                     if (userDTO != null)
                     {
                         User.Id = userDTO.Id;
@@ -147,7 +154,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    boardsDTO = DataExchangeProxy.GetBoards(token, User.Id);
+                    boardsDTO = _dataExchangeProxy.GetBoards(token, User.Id);
                 }
                 catch (Exception e)
                 {
@@ -165,10 +172,14 @@ namespace PresentationLayer.ViewModels
                     case nameof(User.PartBoards):
                         User.PartBoards = new ObservableCollection<BoardModel>
                         (Mapper.Map<BoardDTO[], BoardModel[]>(boardsDTO));
+                        foreach (var board in User.PartBoards)
+                            board.ChangeBoard = ChangeCurrentBoard;
                         break;
                     case nameof(User.Boards):
                         User.Boards = new ObservableCollection<BoardModel>
                         (Mapper.Map<BoardDTO[], BoardModel[]>(boardsDTO));
+                        foreach (var board in User.Boards)
+                            board.ChangeBoard = ChangeCurrentBoard;
                         break;
                     default:
                         break;
@@ -184,7 +195,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    columnsDTO = DataExchangeProxy.GetColumns(token, id);
+                    columnsDTO = _dataExchangeProxy.GetColumns(token, id);
                 }
                 catch (Exception e)
                 {
@@ -210,11 +221,11 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    cardsDTO = DataExchangeProxy.GetCards(token, id);
+                    cardsDTO = _dataExchangeProxy.GetCards(token, id);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", 
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 LoaderVisible = false;
@@ -224,7 +235,7 @@ namespace PresentationLayer.ViewModels
 
             if (cardsDTO != null)
             {
-                CurBoard.Columns.Where(x => x.Id == id).FirstOrDefault().Cards = 
+                CurBoard.Columns.Where(x => x.Id == id).FirstOrDefault().Cards =
                     new ObservableCollection<CardModel>
                 (Mapper.Map<CardDTO[], CardModel[]>(cardsDTO));
             }
@@ -238,7 +249,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    partsDTO = DataExchangeProxy.GetParticipants(token, id);
+                    partsDTO = _dataExchangeProxy.GetParticipants(token, id);
                 }
                 catch (Exception e)
                 {
@@ -252,6 +263,75 @@ namespace PresentationLayer.ViewModels
 
             if (partsDTO != null)
                 CurBoard.Participants = new ObservableCollection<UserModel>(Mapper.Map<UserDTO[], UserModel[]>(partsDTO));
+        }
+
+        void ChangeCurrentBoard(int id)
+        {
+            if(id == CurBoard.Id)
+            {
+                OpenExpander = false;
+                return;
+            }
+
+            LoaderVisible = true;
+            BoardModel board = User.Boards.Where(x => x.Id == id).FirstOrDefault();
+            if(board == null)
+                board = User.PartBoards.Where(x => x.Id == id).FirstOrDefault();
+
+            if (board == null)
+                return;
+
+            Task task = new Task(() =>
+            {
+                try
+                {
+                    //_notificationProxy.UNSUBSCRIBE(token, CurBoard.Id);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoaderVisible = false;
+            });
+
+            CurBoard = board;
+            LoadCurrentBoard();
+        }
+
+        void LoadCurrentBoard()
+        {
+            if (CurBoard == null)
+                return;
+
+            LoaderVisible = true;
+            bool isSubscribe = false;
+            Task task = new Task(() =>
+            {
+                try
+                {
+                    isSubscribe = _notificationProxy.Subscribe(token, CurBoard.Id);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoaderVisible = false;
+                OpenExpander = false;
+            });
+            task.Start();
+            task.Wait();
+
+            if (!isSubscribe)
+                return;
+
+            GetColumns(CurBoard.Id);
+            if (CurBoard.Columns.Count > 0)
+                foreach (var col in CurBoard.Columns)
+                    GetColumnCards(col.Id);
+            GetParticipants(CurBoard.Id);
+
         }
 
         ////COMMANDS

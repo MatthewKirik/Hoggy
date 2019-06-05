@@ -146,6 +146,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CallbackHandler.cs" />
     <Compile Include="Helpers\DataExchange.cs" />
     <Compile Include="Helpers\MapperConfigurator.cs" />
     <Compile Include="Helpers\Validator.cs" />
