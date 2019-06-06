@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Bases;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -15,34 +16,38 @@ namespace DataAccessLayer.Repositories
             this.context = context;
         }
 
-        public void Add<T> (T item) where T : class
+        public void Add<T> (T item) where T : BaseEntity
         {
             context.Set<T>().Add(item);
         }
 
-        public void Delete<T>(T item) where T : class
+        public void Delete<T>(T item) where T : BaseEntity
         {
-            context.Set<T>().Remove(item);
+            T entity = context.Set<T>().FirstOrDefault(x => x.Id == item.Id);
+            if (entity == null)
+                return;
+            entity.IsDeleted = true;
+            Update(entity);
         }
 
-        public IEnumerable<T> GetList<T>() where T : class
+        public IEnumerable<T> GetList<T>() where T : BaseEntity
         {
-            return context.Set<T>();
+            return context.Set<T>().Where(x => !x.IsDeleted);
         }
 
-        public IEnumerable<T> GetList<T>(Func<T, bool> ex) where T : class
+        public IEnumerable<T> GetList<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().Where(ex);
+            return context.Set<T>().Where(x => !x.IsDeleted).Where(ex);
         }
 
-        public T GetItem<T>(Func<T, bool> ex) where T : class
+        public T GetItem<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().FirstOrDefault(ex);
+            return context.Set<T>().Where(x => !x.IsDeleted).FirstOrDefault(ex);
         }
 
-        public bool Contains<T>(Func<T, bool> ex) where T : class
+        public bool Contains<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().FirstOrDefault(ex) != null;
+            return context.Set<T>().Where(x => !x.IsDeleted).FirstOrDefault(ex) != null;
         }
 
         public void Save()
@@ -50,7 +55,7 @@ namespace DataAccessLayer.Repositories
             context.SaveChanges();
         }
 
-        public void Update<T>(T item) where T : class
+        public void Update<T>(T item) where T : BaseEntity
         {
             context.Entry(item).State = EntityState.Modified;
         }

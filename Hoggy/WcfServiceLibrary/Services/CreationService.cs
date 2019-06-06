@@ -41,8 +41,6 @@ namespace WcfServiceLibrary.Services
             toAdd.SecurityGroupId = securityGroup.Id;
             toAdd.Creator = user;
             _repository.Add(toAdd);
-            _repository.Save();
-            user.Boards.Add(toAdd);
             _repository.Update(user);
             _repository.Save();
             _notificator.OnBoardAdded(board);
@@ -59,7 +57,6 @@ namespace WcfServiceLibrary.Services
             toAdd.Column = dest;
             _repository.Add(toAdd);
             _repository.Save();
-            dest.Cards.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
@@ -87,7 +84,6 @@ namespace WcfServiceLibrary.Services
             toAdd.Board = dest;
             _repository.Add(toAdd);
             _repository.Save();
-            dest.Columns.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             column.Id = toAdd.Id;
@@ -115,7 +111,6 @@ namespace WcfServiceLibrary.Services
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Board = dest;
             _repository.Add(toAdd);
-            dest.Tags.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);

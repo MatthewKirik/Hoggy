@@ -7,7 +7,7 @@ namespace TestConsoleClient
         static void Main(string[] args)
         {
             Generator generator = new Generator();
-            generator.InitializeHierarchy(3, 2, 3, 3, 2);
+            generator.InitializeHierarchy(1, 2, 3, 3, 2);
 
             while (true)
                 Console.ReadLine();

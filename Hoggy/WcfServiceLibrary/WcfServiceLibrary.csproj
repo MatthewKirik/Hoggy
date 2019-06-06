@@ -51,6 +51,8 @@
     <Compile Include="Contracts\ICommunityContract.cs" />
     <Compile Include="Contracts\ICreationContract.cs" />
     <Compile Include="Contracts\IDataExchangeContract.cs" />
+    <Compile Include="Contracts\IDeletionContract.cs" />
+    <Compile Include="Contracts\IEditionContract.cs" />
     <Compile Include="Contracts\INotifiactionCallbackContract.cs" />
     <Compile Include="Contracts\INotificationContract.cs" />
     <Compile Include="Contracts\IRegistrationContract.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Services\CommunityService.cs" />
     <Compile Include="Services\CreationService.cs" />
     <Compile Include="Services\DataExchangeService.cs" />
+    <Compile Include="Services\DeletionService.cs" />
+    <Compile Include="Services\EditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
   </ItemGroup>

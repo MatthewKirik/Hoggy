@@ -23,5 +23,16 @@ namespace WcfServiceLibrary.Contracts
         void OnCardSubscribersAdded(UserDTO user, int cardId);
         [OperationContract]
         void OnCardCommentAdded(CommentDTO comment, int cardId);
+
+        [OperationContract]
+        void OnBoardDeleted(int boardId);
+        [OperationContract]
+        void OnColumnDeleted(int boardId, int columnId);
+        [OperationContract]
+        void OnBoardTagDeleted(int boardId, int tagId);
+        [OperationContract]
+        void OnCardDeleted(int boardId, int columnId, int cardId);
+        [OperationContract]
+        void OnCardTagDeleted(int boardId, int cardId, int tagId);
     }
 }
