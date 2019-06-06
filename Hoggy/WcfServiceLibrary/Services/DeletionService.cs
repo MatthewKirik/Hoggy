@@ -49,7 +49,7 @@ namespace WcfServiceLibrary.Services
         public bool DeleteBoardTag(AuthenticationToken token, int tagId)
         {
             TagEntity tag = _repository.GetItem<TagEntity>(x => x.Id == tagId);
-            if (!Validator.HasAccess<TagEntity>(_repository, token, tag))
+            if (!Validator.HasAccess(_repository, token, tag))
                 return false;
             int boardId = tag.Board.Id;
             tag.Cards.Clear();
@@ -63,7 +63,7 @@ namespace WcfServiceLibrary.Services
         public bool DeleteCard(AuthenticationToken token, int cardId)
         {
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == cardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return false;
             int boardId = card.Column.Board.Id;
             int columnId = card.Column.Id;
@@ -77,10 +77,10 @@ namespace WcfServiceLibrary.Services
         public bool DeleteCardTag(AuthenticationToken token, int cardId, int tagId)
         {
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == cardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return false;
             TagEntity tag = _repository.GetItem<TagEntity>(x => x.Id == tagId);
-            if (!Validator.HasAccess<TagEntity>(_repository, token, tag))
+            if (!Validator.HasAccess(_repository, token, tag))
                 return false;
             int boardId = card.Column.Board.Id;
             card.Tags.Remove(tag);
@@ -93,7 +93,7 @@ namespace WcfServiceLibrary.Services
         public bool DeleteColumn(AuthenticationToken token, int columnId)
         {
             ColumnEntity column = _repository.GetItem<ColumnEntity>(x => x.Id == columnId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, column))
+            if (!Validator.HasAccess(_repository, token, column))
                 return false;
             column.Board.Columns.Remove(column);
             foreach (var card in column.Cards)

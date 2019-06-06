@@ -12,6 +12,6 @@ namespace WcfServiceLibrary.Contracts
     public interface IEditionContract
     {
         [OperationContract]
-        void EditCard(AuthenticationToken token, CardDTO card);
+        bool EditCard(AuthenticationToken token, CardDTO card);
     }
 }

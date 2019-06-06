@@ -59,6 +59,11 @@ namespace HoggyServiceHost
             ServiceHost notificactionServiceHost = new ServiceHost(notificactionService);
             notificactionServiceHost.Open();
             _backlog.WriteLine("Notificaction service is started");
+
+            EditionService editionService = new EditionService(_repository, _notificator);
+            ServiceHost editionServiceHost = new ServiceHost(editionService);
+            editionServiceHost.Open();
+            _backlog.WriteLine("Edition service is started");
         }
     }
 }

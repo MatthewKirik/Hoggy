@@ -50,7 +50,7 @@ namespace WcfServiceLibrary.Services
         public bool AddCard(AuthenticationToken token, CardDTO card, int columnId)
         {
             ColumnEntity dest = _repository.GetItem<ColumnEntity>(x => x.Id == columnId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             CardEntity toAdd = AutoMapper.Mapper.Map<CardEntity>(card);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
@@ -77,7 +77,7 @@ namespace WcfServiceLibrary.Services
         public bool AddColumn(AuthenticationToken token, ColumnDTO column, int boardId)
         {
             BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             ColumnEntity toAdd = Mapper.Map<ColumnEntity>(column);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
@@ -105,7 +105,7 @@ namespace WcfServiceLibrary.Services
         public bool AddTagToBoard(AuthenticationToken token, TagDTO tag, int boardId)
         {
             BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             TagEntity toAdd = AutoMapper.Mapper.Map<TagEntity>(tag);
             toAdd.SecurityGroupId = dest.SecurityGroupId;

@@ -18,7 +18,6 @@ namespace DataAccessLayer.Entities
         public DateTime ExpireDate { get; set; }
 
         public virtual ColumnEntity Column { get; set; }
-        public virtual TagEntity Tag { get; set; }
 
         private ICollection<CommentEntity> _comments;
         public virtual ICollection<CommentEntity> Comments { get => _comments ?? (_comments = new List<CommentEntity>()); }
