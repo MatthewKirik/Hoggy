@@ -9,6 +9,7 @@ namespace DataTransferObjects
     public class CommentDTO
     {
         public int Id { get; set; }
+        public string Login MyProperty { get; set; }
         public string Text { get; set; }
     }
 }
