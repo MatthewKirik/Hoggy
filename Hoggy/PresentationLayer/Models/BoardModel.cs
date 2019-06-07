@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace PresentationLayer.Models
 {
@@ -27,6 +28,7 @@ namespace PresentationLayer.Models
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
+
         public ObservableCollection<ColumnModel> Columns { get; set; }
 
         public BoardModel()

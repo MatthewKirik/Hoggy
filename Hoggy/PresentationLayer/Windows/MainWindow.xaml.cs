@@ -24,8 +24,8 @@ namespace PresentationLayer.Windows
     {
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel(this);
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel(this);
         }
     }
 }

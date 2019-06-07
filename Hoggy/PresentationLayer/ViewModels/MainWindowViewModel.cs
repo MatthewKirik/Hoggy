@@ -208,8 +208,11 @@ namespace PresentationLayer.ViewModels
 
             if (columnsDTO != null)
             {
-                CurBoard.Columns = new ObservableCollection<ColumnModel>
-                (Mapper.Map<ColumnDTO[], ColumnModel[]>(columnsDTO));
+                CurBoard.Columns.Clear();
+                foreach (var col in columnsDTO)
+                {
+                    CurBoard.Columns.Add(Mapper.Map<ColumnModel>(col));
+                }
             }
         }
 
@@ -235,9 +238,14 @@ namespace PresentationLayer.ViewModels
 
             if (cardsDTO != null)
             {
-                CurBoard.Columns.Where(x => x.Id == id).FirstOrDefault().Cards =
-                    new ObservableCollection<CardModel>
-                (Mapper.Map<CardDTO[], CardModel[]>(cardsDTO));
+                ColumnModel col = CurBoard.Columns.Where(x => x.Id == id).FirstOrDefault();
+                if (col == null)
+                    return;
+                col.Cards.Clear();
+                foreach (var card in cardsDTO)
+                {
+                    col.Cards.Add(Mapper.Map<CardModel>(card));
+                }
             }
         }
 
@@ -267,36 +275,37 @@ namespace PresentationLayer.ViewModels
 
         void ChangeCurrentBoard(int id)
         {
-            if(id == CurBoard.Id)
-            {
-                OpenExpander = false;
+            OpenExpander = false;
+            if (id == CurBoard.Id)
                 return;
-            }
 
-            LoaderVisible = true;
             BoardModel board = User.Boards.Where(x => x.Id == id).FirstOrDefault();
-            if(board == null)
+            if (board == null)
                 board = User.PartBoards.Where(x => x.Id == id).FirstOrDefault();
 
             if (board == null)
                 return;
 
-            Task task = new Task(() =>
+            LoaderVisible = true;
+            Task.Run(() =>
             {
                 try
                 {
                     //_notificationProxy.UNSUBSCRIBE(token, CurBoard.Id);
+                    Thread.Sleep(3000);
+                    CurBoard = board;
+                    LoadCurrentBoard();
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                LoaderVisible = false;
+                finally
+                {
+                    LoaderVisible = false;
+                }
             });
-
-            CurBoard = board;
-            LoadCurrentBoard();
         }
 
         void LoadCurrentBoard()
@@ -305,32 +314,47 @@ namespace PresentationLayer.ViewModels
                 return;
 
             LoaderVisible = true;
-            bool isSubscribe = false;
-            Task task = new Task(() =>
+            Task.Run(() =>
             {
+                bool isSubscribe = false;
                 try
                 {
                     isSubscribe = _notificationProxy.Subscribe(token, CurBoard.Id);
+                    ColumnDTO[] columnsDTO = _dataExchangeProxy.GetColumns(token, CurBoard.Id);
+                    if (columnsDTO == null || columnsDTO.Length == 0)
+                        return;
+
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        CurBoard.Columns.Clear();
+                        foreach (var col in columnsDTO)
+                            CurBoard.Columns.Add(Mapper.Map<ColumnModel>(col));
+                    });
+
+                    foreach (var col in CurBoard.Columns)
+                    {
+                        CardDTO[] cardsDTO = _dataExchangeProxy.GetCards(token, col.Id);
+                        if (cardsDTO != null && cardsDTO.Length > 0)
+                        {
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                col.Cards.Clear();
+                                foreach (var card in cardsDTO)
+                                    col.Cards.Add(Mapper.Map<CardModel>(card));
+                            });
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                LoaderVisible = false;
-                OpenExpander = false;
+                finally
+                {
+                    LoaderVisible = false;
+                }
             });
-            task.Start();
-            task.Wait();
-
-            if (!isSubscribe)
-                return;
-
-            GetColumns(CurBoard.Id);
-            if (CurBoard.Columns.Count > 0)
-                foreach (var col in CurBoard.Columns)
-                    GetColumnCards(col.Id);
-            GetParticipants(CurBoard.Id);
 
         }
 

@@ -13,5 +13,10 @@ namespace PresentationLayer.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public ObservableCollection<CardModel> Cards { get; set; }
+
+        public ColumnModel()
+        {
+            Cards = new ObservableCollection<CardModel>();
+        }
     }
 }
