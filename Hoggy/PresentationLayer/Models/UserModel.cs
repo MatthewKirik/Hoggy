@@ -25,7 +25,7 @@ namespace PresentationLayer.Models
             {
                 _login = value;
                 RaisePropertyChanged(nameof(Login));
-                LoginErr = Validator.Check(CheckType.Empty, Login);
+                LoginErr = Validator.Check<int>(CheckType.Empty, Login);
             }
         }
 
@@ -37,8 +37,7 @@ namespace PresentationLayer.Models
             {
                 _loginErr = value;
                 RaisePropertyChanged(nameof(LoginErr));
-                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
-                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
+                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr); 
             }
         }
 
@@ -74,7 +73,7 @@ namespace PresentationLayer.Models
             {
                 _email = value;
                 RaisePropertyChanged(nameof(Email));
-                MailErr = Validator.Check(CheckType.Mail, Email);
+                MailErr = Validator.Check<int>(CheckType.Mail, Email);
             }
         }
         private string _mailErr;
@@ -86,6 +85,7 @@ namespace PresentationLayer.Models
                 _mailErr = value;
                 RaisePropertyChanged(nameof(MailErr));
                 CanSign = Validator.EmptyStrings(MailErr, PassErr, MailErr);
+                CanLogin = Validator.EmptyStrings(MailErr, PassErr);
             }
         }
 

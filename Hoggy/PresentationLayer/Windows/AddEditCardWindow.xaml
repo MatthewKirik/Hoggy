@@ -1,0 +1,100 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.AddEditCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="ADD/EDIT CARD" Height="600" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico"
+                   Background="{StaticResource SecondBrushLighter}"
+                   ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="470"/>
+            <RowDefinition />
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!--MAIN INFO-->
+        <Border Style="{StaticResource BackBorder}">
+            <StackPanel>
+
+                <Border Style="{StaticResource CardHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                        <TextBlock Text="CARD INFO:" Style="{StaticResource CardHeader}" />
+                    </WrapPanel>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Name" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                </Grid>
+                <TextBlock Visibility="{Binding NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding NameErr}" Style="{StaticResource Error}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Description" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" 
+                         Grid.Column="1" TextWrapping="Wrap" MinLines="5"/>
+                </Grid>
+                <TextBlock Visibility="{Binding DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding DescErr}" Style="{StaticResource Error}"/>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Expire date" Style="{StaticResource Lable}" />
+                    <metro:DateTimePicker Grid.Row="1" Grid.Column="1" Culture="uk-UA" FontSize="16"
+                                      SelectedDate="{Binding ExpireDate}" Margin="10" SelectedTimeFormat="Short"
+                                      />
+                </Grid>
+                <TextBlock Visibility="{Binding ExpDateErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding ExpDateErr}" Style="{StaticResource Error}"/>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="2" Height="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding SaveCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}">
+                        <Button.Content>
+                            <WrapPanel>
+                                <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
+                                <TextBlock Style="{StaticResource Lable}" Text="SAVE CAHANGES"/>
+                            </WrapPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
+                        <Button.Content>
+                            <WrapPanel>
+                                <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                            </WrapPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</metro:MetroWindow>

@@ -40,7 +40,6 @@ namespace PresentationLayer.ViewModels
             ///LOCAL TEST
             _user.Email = "user1@gmail.com";
             _user.Password = "user1";
-
             LoaderVisible = true;
             Task.Run(() =>
             {

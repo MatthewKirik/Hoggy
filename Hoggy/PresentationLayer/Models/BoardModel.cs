@@ -28,7 +28,6 @@ namespace PresentationLayer.Models
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
-
         public ObservableCollection<ColumnModel> Columns { get; set; }
 
         public BoardModel()

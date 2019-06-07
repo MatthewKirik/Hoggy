@@ -77,6 +77,42 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
+    <Style x:Key="AddCardBtn"  TargetType="Border">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Background" Value="#FFE0E0E0"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Border.Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#ff5d5d" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard FillBehavior="Stop">
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#FFE0E0E0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+                <Setter Property="Border.Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="2" Color="#555" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--CARD-->
     <Style x:Key="Card" TargetType="Border">
         <Setter Property="Background" Value="#fff"/>
@@ -201,6 +237,16 @@
     <Style x:Key="RightHeader" TargetType="TextBlock" BasedOn="{StaticResource LoginTxt}">
         <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
         <Setter Property="Padding" Value="5" />
+    </Style>
+
+    <!--ADD/EIT WINDOWS-->
+    <Style x:Key="BackBorder" TargetType="Border">
+        <Setter Property="Background" Value="#fff"/>
+        <Setter Property="Margin" Value="5 20 5 0"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WindColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="6"/>
     </Style>
 
 </ResourceDictionary>

@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace PresentationLayer.Windows
 {
     /// <summary>
-    /// Interaction logic for EditCard.xaml
+    /// Interaction logic for AddCardWindow.xaml
     /// </summary>
-    public partial class EditCard : MetroWindow
+    public partial class AddEditCardWindow : MetroWindow
     {
-        public EditCard(CardModel mvvm)
+        public AddEditCardWindow(CardModel card = null, int colId = -1)
         {
-            DataContext = mvvm;
+            DataContext = new CardModel(card, colId);
             InitializeComponent();
         }
     }

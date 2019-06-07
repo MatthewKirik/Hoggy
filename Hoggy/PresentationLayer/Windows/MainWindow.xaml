@@ -92,6 +92,10 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
                                 <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
                                           dd:DragDrop.IsDragSource="True"
@@ -143,6 +147,15 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+                                <Border Grid.Row="1" Style="{StaticResource AddCardBtn}">
+                                    <Border.InputBindings>
+                                        <MouseBinding Command="{Binding AddCardCmd}" MouseAction="LeftClick" />
+                                    </Border.InputBindings>
+                                    <WrapPanel>
+                                        <fa:FontAwesome Icon="PlusCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                                        <TextBlock Text="Add Card" Style="{StaticResource RightHeader}"/>
+                                    </WrapPanel>
+                                </Border>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
