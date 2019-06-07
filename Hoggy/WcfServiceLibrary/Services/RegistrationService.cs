@@ -22,15 +22,15 @@ namespace WcfServiceLibrary.Services
             {
 
                 UserProfileEntity profileEntity = new UserProfileEntity();
-                _repository.Add(profileEntity);
-                _repository.Save();
 
                 UserEntity newUser = new UserEntity();
                 newUser.Email = user.Email;
                 newUser.Login = user.Login;
                 newUser.Password = password;
                 newUser.Profile = profileEntity;
+                profileEntity.User = newUser;
                 _repository.Add(newUser);
+                _repository.Add(profileEntity);
                 _repository.Save();
                 return true;
             }

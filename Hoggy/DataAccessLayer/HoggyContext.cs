@@ -44,6 +44,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<InvitationEntity>()
                 .HasRequired(x => x.SecurityGroup)
                 .WithMany(x => x.Invitations);
+            modelBuilder.Entity<UserEntity>()
+                .HasRequired(x => x.Profile)
+                .WithRequiredDependent(x => x.User);
 
             base.OnModelCreating(modelBuilder);
         }

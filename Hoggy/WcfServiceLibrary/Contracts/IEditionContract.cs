@@ -13,5 +13,7 @@ namespace WcfServiceLibrary.Contracts
     {
         [OperationContract]
         bool EditCard(AuthenticationToken token, CardDTO card);
+        [OperationContract]
+        bool EditUserProfile(AuthenticationToken token, UserProfileDTO userProfile);
     }
 }

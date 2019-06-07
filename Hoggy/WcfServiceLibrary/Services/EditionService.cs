@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Interfaces;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
@@ -19,10 +20,12 @@ namespace WcfServiceLibrary.Services
     {
         private readonly IRepository _repository;
         private readonly INotificator _notificator;
-        public EditionService(IRepository repository, INotificator notificator)
+        private readonly IFileRepository _fileRepository;
+        public EditionService(IRepository repository, INotificator notificator, IFileRepository fileRepository)
         {
             _repository = repository;
             _notificator = notificator;
+            _fileRepository = fileRepository;
         }
         public bool EditCard(AuthenticationToken token, CardDTO card)
         {
@@ -32,6 +35,23 @@ namespace WcfServiceLibrary.Services
             original.Description = card.Description;
             original.CreationDate = card.CreationDate;
             original.Name = card.Name;
+            _repository.Update(original);
+            _repository.Save();
+            return true;
+        }
+
+        public bool EditUserProfile(AuthenticationToken token, UserProfileDTO userProfile)
+        {
+            UserProfileEntity original = _repository.GetItem<UserProfileEntity>(x => x.Id == userProfile.Id);
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            if (original.User.Id != user.Id)
+                return false;
+            original.Phone = userProfile.Phone;
+            original.Name = userProfile.Name;
+            string imgKey = _fileRepository.AddFile(userProfile.Image);
+            original.Image = imgKey;
+            _repository.Update(original);
+            _repository.Save();
             return true;
         }
     }

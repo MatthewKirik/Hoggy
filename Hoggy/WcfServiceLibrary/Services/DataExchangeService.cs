@@ -3,6 +3,7 @@ using System.ServiceModel;
 using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Interfaces;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
@@ -13,10 +14,12 @@ namespace WcfServiceLibrary.Services
     public class DataExchangeService : IDataExchangeContract
     {
         private readonly IRepository _repository;
+        private readonly IFileRepository _fileRepository;
 
-        public DataExchangeService(IRepository repository)
+        public DataExchangeService(IRepository repository, IFileRepository fileRepository)
         {
             _repository = repository;
+            _fileRepository = fileRepository;
         }
 
         public List<BoardDTO> GetBoards(AuthenticationToken token, int UserId)
@@ -120,6 +123,21 @@ namespace WcfServiceLibrary.Services
         {
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             return AutoMapper.Mapper.Map<UserDTO>(user);
+        }
+
+        public UserProfileDTO GetUserProfile(AuthenticationToken token)
+        {
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            UserProfileEntity profile = user.Profile;
+            byte[] img = _fileRepository.GetFile(profile.Image);
+            UserProfileDTO userProfileDTO = new UserProfileDTO()
+            {
+                Id = profile.Id,
+                Image = img,
+                Name = profile.Name,
+                Phone = profile.Phone
+            };
+            return userProfileDTO;
         }
 
         public List<TagDTO> GetBoardTags(AuthenticationToken token, int BoardId)

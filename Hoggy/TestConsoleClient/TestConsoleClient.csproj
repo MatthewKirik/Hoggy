@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\EditionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\RegistationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,6 +76,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\NotificationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\DeletionService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -112,6 +122,16 @@
     <None Include="Connected Services\DataExchangeService\dataExchangeService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\EditionService\EditionService.wsdl" />
+    <None Include="Connected Services\EditionService\editionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EditionService\editionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EditionService\editionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\RegistationService\RegistrationService.wsdl" />
     <None Include="Connected Services\RegistationService\registrationService.xsd">
       <SubType>Designer</SubType>
@@ -142,6 +162,16 @@
     <None Include="Connected Services\NotificationService\notificationService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\DeletionService\DeletionService.wsdl" />
+    <None Include="Connected Services\DeletionService\deletionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeletionService\deletionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeletionService\deletionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\DataTransferObjects.AuthenticationToken.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.BoardDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.CardDTO.datasource" />
@@ -159,9 +189,11 @@
     <WCFMetadataStorage Include="Connected Services\AuthenticationService\" />
     <WCFMetadataStorage Include="Connected Services\CreationService\" />
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
+    <WCFMetadataStorage Include="Connected Services\EditionService\" />
     <WCFMetadataStorage Include="Connected Services\RegistationService\" />
     <WCFMetadataStorage Include="Connected Services\CommunityService\" />
     <WCFMetadataStorage Include="Connected Services\NotificationService\" />
+    <WCFMetadataStorage Include="Connected Services\DeletionService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\RegistationService\registrationService.disco" />
@@ -259,6 +291,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\NotificationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\editionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\deletionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

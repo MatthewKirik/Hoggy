@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Interfaces;
 using DependencyInjections;
 using Ninject;
 using System.IO;
@@ -13,12 +14,14 @@ namespace HoggyServiceHost
     {
         private readonly IRepository _repository;
         private readonly INotificator _notificator;
+        private readonly IFileRepository _fileRepository;
         TextWriter _backlog;
 
         public HostConfigurator(TextWriter backlog)
         {
             _repository = Factory.Kernel.Get<IRepository>();
             _notificator = Factory.Kernel.Get<INotificator>();
+            _fileRepository = Factory.Kernel.Get<IFileRepository>();
             _backlog = backlog;
             MapperConfigurator.Configure();
         }
@@ -35,7 +38,7 @@ namespace HoggyServiceHost
             regServiceHost.Open();
             _backlog.WriteLine("Registration service is started");
 
-            DataExchangeService dataExService = new DataExchangeService(_repository);
+            DataExchangeService dataExService = new DataExchangeService(_repository, _fileRepository);
             ServiceHost dataExServiceHost = new ServiceHost(dataExService);
             dataExServiceHost.Open();
             _backlog.WriteLine("Data exchange service is started");
@@ -60,7 +63,7 @@ namespace HoggyServiceHost
             notificactionServiceHost.Open();
             _backlog.WriteLine("Notificaction service is started");
 
-            EditionService editionService = new EditionService(_repository, _notificator);
+            EditionService editionService = new EditionService(_repository, _notificator, _fileRepository);
             ServiceHost editionServiceHost = new ServiceHost(editionService);
             editionServiceHost.Open();
             _backlog.WriteLine("Edition service is started");

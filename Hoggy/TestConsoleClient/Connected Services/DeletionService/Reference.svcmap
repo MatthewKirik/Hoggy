@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1862909c-1229-4258-b4ca-43a5d1925224" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5001/deletionService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="deletionService.disco" MetadataType="Disco" ID="25b8850c-710c-4da9-830a-8078ab4b9068" SourceId="1" SourceUrl="http://localhost:5001/deletionService?disco" />
+    <MetadataFile FileName="DeletionService.wsdl" MetadataType="Wsdl" ID="85ff9d11-4b6f-4723-988b-72bd006b7780" SourceId="1" SourceUrl="http://localhost:5001/deletionService?wsdl" />
+    <MetadataFile FileName="deletionService.xsd" MetadataType="Schema" ID="c44fec12-f7e3-456d-928f-5d4079b00955" SourceId="1" SourceUrl="http://localhost:5001/deletionService?xsd=xsd2" />
+    <MetadataFile FileName="deletionService1.xsd" MetadataType="Schema" ID="0067acac-f627-4d0c-ab02-3713cef3db3e" SourceId="1" SourceUrl="http://localhost:5001/deletionService?xsd=xsd1" />
+    <MetadataFile FileName="deletionService2.xsd" MetadataType="Schema" ID="3c4ae562-4058-42da-82a6-977dda4d30dc" SourceId="1" SourceUrl="http://localhost:5001/deletionService?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

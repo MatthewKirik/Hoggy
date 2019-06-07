@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using Ninject.Modules;
 using System.Data.Entity;
@@ -14,6 +15,7 @@ namespace DependencyInjections
             Bind<DbContext>().To<HoggyContext>();
             Bind<IRepository>().To<MsSqlRepository>();
             Bind<INotificator>().To<Notificator>();
+            Bind<IFileRepository>().To<FileRepository>();
         }
     }
 }
