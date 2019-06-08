@@ -181,6 +181,7 @@
     <None Include="Properties\DataSources\DataTransferObjects.InvitationDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.TagDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.UserDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.UserProfileDTO.datasource" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

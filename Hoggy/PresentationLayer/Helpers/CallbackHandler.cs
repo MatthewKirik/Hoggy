@@ -1,58 +1,94 @@
-﻿using DataTransferObjects;
+﻿using AutoMapper;
+using DataTransferObjects;
+using PresentationLayer.Models;
 using PresentationLayer.NotificationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PresentationLayer.Helpers
 {
     public class CallbackHandler : INotificationContractCallback
     {
+        //HANDLERS
+        static Action<CardModel, int> _actAddCard;
+
+        public void AddNewCardHandler(Action<CardModel, int> actAddCard)
+        {
+            _actAddCard = actAddCard;
+        }
+
         public void OnBoardAdded(BoardDTO board)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public void OnBoardDeleted(int boardId)
+        {
+            
         }
 
         public void OnBoardTagAdded(TagDTO tag, int boardId)
         {
-            throw new NotImplementedException();
+           
+        }
+
+        public void OnBoardTagDeleted(int boardId, int tagId)
+        {
+            
         }
 
         public void OnCardAdded(CardDTO card, int columnId)
         {
-            throw new NotImplementedException();
+            _actAddCard(Mapper.Map<CardModel>(card), columnId);
         }
 
         public void OnCardCommentAdded(CommentDTO comment, int cardId)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public void OnCardDeleted(int boardId, int columnId, int cardId)
+        {
+            
         }
 
         public void OnCardSubscribersAdded(UserDTO user, int cardId)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void OnCardTagAdded(int tagId, int cardId)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public void OnCardTagDeleted(int boardId, int cardId, int tagId)
+        {
+            
         }
 
         public void OnColumnAdded(ColumnDTO column, int boardId)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public void OnColumnDeleted(int boardId, int columnId)
+        {
+            
         }
 
         public void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void OnParticipantAdded(UserDTO user, int boardId)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -5,34 +5,33 @@ namespace WcfServiceLibrary.Contracts
 {
     public interface INotifiactionCallbackContract
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnBoardAdded(BoardDTO board);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnParticipantAdded(UserDTO user, int boardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnColumnAdded(ColumnDTO column, int boardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnBoardTagAdded(TagDTO tag, int boardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardTagAdded(int tagId, int cardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardAdded(CardDTO card, int columnId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardSubscribersAdded(UserDTO user, int cardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardCommentAdded(CommentDTO comment, int cardId);
-
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnBoardDeleted(int boardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnColumnDeleted(int boardId, int columnId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnBoardTagDeleted(int boardId, int tagId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardDeleted(int boardId, int columnId, int cardId);
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnCardTagDeleted(int boardId, int cardId, int tagId);
     }
 }

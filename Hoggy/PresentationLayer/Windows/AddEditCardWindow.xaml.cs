@@ -21,9 +21,9 @@ namespace PresentationLayer.Windows
     /// </summary>
     public partial class AddEditCardWindow : MetroWindow
     {
-        public AddEditCardWindow(CardModel card = null, int colId = -1)
+        public AddEditCardWindow(CardModel card, int colId)
         {
-            DataContext = new CardModel(card, colId);
+            DataContext = new CardModel(card, colId, this);
             InitializeComponent();
         }
     }

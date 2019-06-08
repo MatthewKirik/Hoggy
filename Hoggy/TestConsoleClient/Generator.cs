@@ -41,8 +41,8 @@ namespace TestConsoleClient
             editionClient.Open();
             deletionClient = new DeletionContractClient();
             deletionClient.Open();
-            AuthenticationToken user = authenticationClient.Login("user1@gmail.com", "user1");
-            deletionClient.DeleteCard(user, 1);
+            //AuthenticationToken user = authenticationClient.Login("user1@gmail.com", "user1");
+            //deletionClient.DeleteCard(user, 1);
         }
 
         public void TestInvitations()

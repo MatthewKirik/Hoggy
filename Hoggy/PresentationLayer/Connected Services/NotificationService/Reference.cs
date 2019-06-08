@@ -25,32 +25,47 @@ namespace PresentationLayer.NotificationService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface INotificationContractCallback {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnBoardAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnBoardAdded")]
         void OnBoardAdded(DataTransferObjects.BoardDTO board);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnParticipantAdded", ReplyAction="http://tempuri.org/INotificationContract/OnParticipantAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnParticipantAdded")]
         void OnParticipantAdded(DataTransferObjects.UserDTO user, int boardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnColumnAdded", ReplyAction="http://tempuri.org/INotificationContract/OnColumnAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnColumnAdded")]
         void OnColumnAdded(DataTransferObjects.ColumnDTO column, int boardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardTagAdded", ReplyAction="http://tempuri.org/INotificationContract/OnBoardTagAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnBoardTagAdded")]
         void OnBoardTagAdded(DataTransferObjects.TagDTO tag, int boardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardTagAdded", ReplyAction="http://tempuri.org/INotificationContract/OnCardTagAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardTagAdded")]
         void OnCardTagAdded(int tagId, int cardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnHistoryEventAdded", ReplyAction="http://tempuri.org/INotificationContract/OnHistoryEventAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnHistoryEventAdded")]
         void OnHistoryEventAdded(DataTransferObjects.HistoryEventDTO historyEvent, int boardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnCardAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardAdded")]
         void OnCardAdded(DataTransferObjects.CardDTO card, int columnId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardSubscribersAdded", ReplyAction="http://tempuri.org/INotificationContract/OnCardSubscribersAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardSubscribersAdded")]
         void OnCardSubscribersAdded(DataTransferObjects.UserDTO user, int cardId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardCommentAdded", ReplyAction="http://tempuri.org/INotificationContract/OnCardCommentAddedResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardCommentAdded")]
         void OnCardCommentAdded(DataTransferObjects.CommentDTO comment, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnBoardDeleted")]
+        void OnBoardDeleted(int boardId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnColumnDeleted")]
+        void OnColumnDeleted(int boardId, int columnId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnBoardTagDeleted")]
+        void OnBoardTagDeleted(int boardId, int tagId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardDeleted")]
+        void OnCardDeleted(int boardId, int columnId, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardTagDeleted")]
+        void OnCardTagDeleted(int boardId, int cardId, int tagId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

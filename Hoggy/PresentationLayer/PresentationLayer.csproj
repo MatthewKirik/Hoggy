@@ -136,6 +136,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\DeletionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\EditionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,9 +159,11 @@
     <Compile Include="Helpers\CallbackHandler.cs" />
     <Compile Include="Helpers\DataExchange.cs" />
     <Compile Include="Helpers\MapperConfigurator.cs" />
+    <Compile Include="Helpers\NetProxy.cs" />
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
+    <Compile Include="ViewModels\TagsWindowViewModel.cs" />
     <Compile Include="Windows\AddEditCardWindow.xaml.cs">
       <DependentUpon>AddEditCardWindow.xaml</DependentUpon>
     </Compile>
@@ -160,6 +172,9 @@
     </Compile>
     <Compile Include="Windows\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TagsWindow.xaml.cs">
+      <DependentUpon>TagsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlAssistants\BoolToVisibilityConverter.cs" />
     <Compile Include="XamlAssistants\PasswordBoxAssistant.cs" />
@@ -231,6 +246,26 @@
     <None Include="Connected Services\DataExchangeService\dataExchangeService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\DeletionService\DeletionService.wsdl" />
+    <None Include="Connected Services\DeletionService\deletionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeletionService\deletionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeletionService\deletionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EditionService\EditionService.wsdl" />
+    <None Include="Connected Services\EditionService\editionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EditionService\editionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EditionService\editionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\NotificationService\NotificationService.wsdl" />
     <None Include="Connected Services\NotificationService\notificationService.xsd">
       <SubType>Designer</SubType>
@@ -261,6 +296,7 @@
     <None Include="Properties\DataSources\DataTransferObjects.InvitationDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.TagDTO.datasource" />
     <None Include="Properties\DataSources\DataTransferObjects.UserDTO.datasource" />
+    <None Include="Properties\DataSources\DataTransferObjects.UserProfileDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -288,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TagsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,6 +367,8 @@
     <WCFMetadataStorage Include="Connected Services\CommunityService\" />
     <WCFMetadataStorage Include="Connected Services\CreationService\" />
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
+    <WCFMetadataStorage Include="Connected Services\DeletionService\" />
+    <WCFMetadataStorage Include="Connected Services\EditionService\" />
     <WCFMetadataStorage Include="Connected Services\NotificationService\" />
     <WCFMetadataStorage Include="Connected Services\RegistrationService\" />
   </ItemGroup>
@@ -416,6 +458,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\NotificationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\deletionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeletionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\editionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EditionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

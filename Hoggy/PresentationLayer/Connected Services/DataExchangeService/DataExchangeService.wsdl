@@ -21,6 +21,12 @@
   <wsdl:message name="IDataExchangeContract_GetUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetUserProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserProfile" />
+  </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetUserProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserProfileResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetBoards_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBoards" />
   </wsdl:message>
@@ -92,6 +98,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUser" message="tns:IDataExchangeContract_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserResponse" message="tns:IDataExchangeContract_GetUser_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserProfile" message="tns:IDataExchangeContract_GetUserProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserProfileResponse" message="tns:IDataExchangeContract_GetUserProfile_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetBoards">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoards" message="tns:IDataExchangeContract_GetBoards_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoardsResponse" message="tns:IDataExchangeContract_GetBoards_OutputMessage" />
@@ -142,6 +152,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="GetUser">
       <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserProfile">
+      <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetUserProfile" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using AutoMapper;
+using DataTransferObjects;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using PresentationLayer.Helpers;
 using PresentationLayer.Windows;
@@ -6,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,10 +16,12 @@ using System.Windows.Media;
 
 namespace PresentationLayer.Models
 {
-    public class CardModel : ViewModelBase, ICloneable
+    public class CardModel : ViewModelBase
     {
         public int Id { get; set; }
+
         int _columnId;
+        bool _isCreate;
 
         private string _name;
         public string Name
@@ -91,6 +96,17 @@ namespace PresentationLayer.Models
             }
         }
 
+        private bool _loaderVisible;
+        public bool LoaderVisible
+        {
+            get => _loaderVisible;
+            set
+            {
+                _loaderVisible = value;
+                RaisePropertyChanged(nameof(LoaderVisible));
+            }
+        }
+
         private string _expDateErr;
         public string ExpDateErr
         {
@@ -120,7 +136,6 @@ namespace PresentationLayer.Models
 
         public CardModel()
         {
-            _columnId = -1;
             Tags = new ObservableCollection<TagModel>();
             Comments = new ObservableCollection<CommentModel>();
             Participants = new ObservableCollection<UserModel>();
@@ -129,36 +144,43 @@ namespace PresentationLayer.Models
             ExpireDate = DateTime.Now;
         }
 
-        public CardModel(CardModel model, int colId) : this()
-        {
-            _columnId = colId;
-            
-        }
+        Window _window;
 
-        public object Clone()
+        public CardModel(CardModel card, int colId, Window window) : this()
         {
-            return new NotImplementedException();
-            //return new CardModel
-            //{
-            //    Id = Id,
-            //    Name = Name,
-            //    Description = Description,
-            //    CreationDate = CreationDate,
-            //    ExpireDate = ExpireDate,
-            //    DateColor = DateColor,
-            //    Tags = new ObservableCollection<TagModel>(Tags),
-            //    Comments = new ObservableCollection<CommentModel>(Comments),
-            //    Participants = new ObservableCollection<UserModel>(Participants)
-            //};
+            _window = window;
+            _columnId = colId;
+            _isCreate = (card == null) ? true : false;
         }
 
         void AddNewCard()
         {
-            MessageBox.Show(
-                Name + "\n" + Description + "\n" + ExpireDate + "\n" 
-                );
+
+            CreationDate = DateTime.Now;
+            CardDTO card = Mapper.Map<CardDTO>(this);
+            LoaderVisible = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    if (!NetProxy.CreationProxy.AddCard(NetProxy.Token, card, _columnId))
+                        MessageBox.Show("No card added!");
+                    else
+                        App.Current.Dispatcher.Invoke(()=> { _window.Close(); });
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                               MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    LoaderVisible = false;
+                }
+            });
+
         }
-        
+
         //COMMANDS
         private RelayCommand _editCardCmd;
         public RelayCommand EditCardCmd
@@ -180,10 +202,25 @@ namespace PresentationLayer.Models
             {
                 return _saveCmd ?? (_saveCmd = new RelayCommand(() =>
                 {
-                    if (_columnId > 0)
-                        MessageBox.Show("Edit");
+                    if (_isCreate)
+                        AddNewCard();
                     else
                         AddNewCard();
+                }));
+            }
+        }
+
+        private RelayCommand _editTagsCmd;
+        public RelayCommand EditTagsCmd
+        {
+            get
+            {
+                return _editTagsCmd ?? (_editTagsCmd = new RelayCommand(() =>
+                {
+                    TagsWindow tagsWindow = new TagsWindow(Mapper.Map<ObservableCollection<TagModel>,
+                                                                    ObservableCollection<TagModel>>(Tags));
+
+                    tagsWindow.ShowDialog();
                 }));
             }
         }

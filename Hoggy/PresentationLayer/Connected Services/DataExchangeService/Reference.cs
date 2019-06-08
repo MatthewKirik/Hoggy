@@ -21,6 +21,12 @@ namespace PresentationLayer.DataExchangeService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUser", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUserProfile", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserProfileResponse")]
+        DataTransferObjects.UserProfileDTO GetUserProfile(DataTransferObjects.AuthenticationToken token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUserProfile", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserProfileResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.UserProfileDTO> GetUserProfileAsync(DataTransferObjects.AuthenticationToken token);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetBoards", ReplyAction="http://tempuri.org/IDataExchangeContract/GetBoardsResponse")]
         DataTransferObjects.BoardDTO[] GetBoards(DataTransferObjects.AuthenticationToken token, int UserId);
         
@@ -121,6 +127,14 @@ namespace PresentationLayer.DataExchangeService {
         
         public System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token) {
             return base.Channel.GetUserAsync(token);
+        }
+        
+        public DataTransferObjects.UserProfileDTO GetUserProfile(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetUserProfile(token);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.UserProfileDTO> GetUserProfileAsync(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetUserProfileAsync(token);
         }
         
         public DataTransferObjects.BoardDTO[] GetBoards(DataTransferObjects.AuthenticationToken token, int UserId) {

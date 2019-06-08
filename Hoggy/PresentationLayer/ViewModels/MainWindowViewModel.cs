@@ -80,17 +80,12 @@ namespace PresentationLayer.ViewModels
                 RaisePropertyChanged(nameof(User));
             }
         }
-
-        AuthenticationToken token;
         Window _mainWindow;
-
-        DataExchangeContractClient _dataExchangeProxy;
-        NotificationContractClient _notificationProxy;
 
         public MainWindowViewModel(Window mainWindow)
         {
-            _dataExchangeProxy = new DataExchangeContractClient();
-            _notificationProxy = new NotificationContractClient(new InstanceContext(new CallbackHandler()));
+            NetProxy.Configure();
+            NetProxy.CallbackHandler.AddNewCardHandler(AddNewCard); 
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -102,7 +97,8 @@ namespace PresentationLayer.ViewModels
             {
                 RegistrationWindowViewModel regModel = (RegistrationWindowViewModel)auth.DataContext;
 
-                token = regModel.Token;
+                NetProxy.SetToken(regModel.Token);
+                
                 User = new UserModel();
 
                 GetUser();
@@ -113,9 +109,15 @@ namespace PresentationLayer.ViewModels
                     CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
 
                 LoadCurrentBoard();
-
                 AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
             }
+        }
+        
+        void AddNewCard(CardModel card, int colId)
+        {
+            ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
+            if (col != null)
+                col.Cards.Add(card);
         }
 
         void GetUser()
@@ -126,7 +128,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    UserDTO userDTO = _dataExchangeProxy.GetUser(token);
+                    UserDTO userDTO = NetProxy.DataExchProxy.GetUser(NetProxy.Token);
                     if (userDTO != null)
                     {
                         User.Id = userDTO.Id;
@@ -154,7 +156,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    boardsDTO = _dataExchangeProxy.GetBoards(token, User.Id);
+                    boardsDTO = NetProxy.DataExchProxy.GetBoards(NetProxy.Token, User.Id);
                 }
                 catch (Exception e)
                 {
@@ -195,7 +197,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    columnsDTO = _dataExchangeProxy.GetColumns(token, id);
+                    columnsDTO = NetProxy.DataExchProxy.GetColumns(NetProxy.Token, id);
                 }
                 catch (Exception e)
                 {
@@ -224,7 +226,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    cardsDTO = _dataExchangeProxy.GetCards(token, id);
+                    cardsDTO = NetProxy.DataExchProxy.GetCards(NetProxy.Token, id);
                 }
                 catch (Exception e)
                 {
@@ -257,7 +259,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    partsDTO = _dataExchangeProxy.GetParticipants(token, id);
+                    partsDTO = NetProxy.DataExchProxy.GetParticipants(NetProxy.Token, id);
                 }
                 catch (Exception e)
                 {
@@ -319,8 +321,9 @@ namespace PresentationLayer.ViewModels
                 bool isSubscribe = false;
                 try
                 {
-                    isSubscribe = _notificationProxy.Subscribe(token, CurBoard.Id);
-                    ColumnDTO[] columnsDTO = _dataExchangeProxy.GetColumns(token, CurBoard.Id);
+                    //NetProxy.Configure();
+                    isSubscribe = NetProxy.NotificationProxy.Subscribe(NetProxy.Token, CurBoard.Id);
+                    ColumnDTO[] columnsDTO = NetProxy.DataExchProxy.GetColumns(NetProxy.Token, CurBoard.Id);
                     if (columnsDTO == null || columnsDTO.Length == 0)
                         return;
 
@@ -333,7 +336,7 @@ namespace PresentationLayer.ViewModels
 
                     foreach (var col in CurBoard.Columns)
                     {
-                        CardDTO[] cardsDTO = _dataExchangeProxy.GetCards(token, col.Id);
+                        CardDTO[] cardsDTO = NetProxy.DataExchProxy.GetCards(NetProxy.Token, col.Id);
                         if (cardsDTO != null && cardsDTO.Length > 0)
                         {
                             App.Current.Dispatcher.Invoke(() =>

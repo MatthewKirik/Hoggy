@@ -24,56 +24,44 @@
   <wsdl:message name="INotificationContract_OnBoardAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnBoardAdded" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnBoardAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnBoardAddedResponse" />
-  </wsdl:message>
   <wsdl:message name="INotificationContract_OnParticipantAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnParticipantAdded" />
-  </wsdl:message>
-  <wsdl:message name="INotificationContract_OnParticipantAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnParticipantAddedResponse" />
   </wsdl:message>
   <wsdl:message name="INotificationContract_OnColumnAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnColumnAdded" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnColumnAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnColumnAddedResponse" />
-  </wsdl:message>
   <wsdl:message name="INotificationContract_OnBoardTagAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnBoardTagAdded" />
-  </wsdl:message>
-  <wsdl:message name="INotificationContract_OnBoardTagAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnBoardTagAddedResponse" />
   </wsdl:message>
   <wsdl:message name="INotificationContract_OnCardTagAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardTagAdded" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnCardTagAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCardTagAddedResponse" />
-  </wsdl:message>
   <wsdl:message name="INotificationContract_OnHistoryEventAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnHistoryEventAdded" />
-  </wsdl:message>
-  <wsdl:message name="INotificationContract_OnHistoryEventAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnHistoryEventAddedResponse" />
   </wsdl:message>
   <wsdl:message name="INotificationContract_OnCardAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardAdded" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnCardAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCardAddedResponse" />
-  </wsdl:message>
   <wsdl:message name="INotificationContract_OnCardSubscribersAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardSubscribersAdded" />
-  </wsdl:message>
-  <wsdl:message name="INotificationContract_OnCardSubscribersAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCardSubscribersAddedResponse" />
   </wsdl:message>
   <wsdl:message name="INotificationContract_OnCardCommentAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardCommentAdded" />
   </wsdl:message>
-  <wsdl:message name="INotificationContract_OnCardCommentAdded_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCardCommentAddedResponse" />
+  <wsdl:message name="INotificationContract_OnBoardDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnBoardDeleted" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_OnColumnDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnColumnDeleted" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_OnBoardTagDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnBoardTagDeleted" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_OnCardDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnCardDeleted" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_OnCardTagDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnCardTagDeleted" />
   </wsdl:message>
   <wsdl:portType name="INotificationContract">
     <wsdl:operation name="Subscribe">
@@ -82,39 +70,45 @@
     </wsdl:operation>
     <wsdl:operation name="OnBoardAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardAdded" message="tns:INotificationContract_OnBoardAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnBoardAddedResponse" message="tns:INotificationContract_OnBoardAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnParticipantAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnParticipantAdded" message="tns:INotificationContract_OnParticipantAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnParticipantAddedResponse" message="tns:INotificationContract_OnParticipantAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnColumnAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnColumnAdded" message="tns:INotificationContract_OnColumnAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnColumnAddedResponse" message="tns:INotificationContract_OnColumnAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnBoardTagAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardTagAdded" message="tns:INotificationContract_OnBoardTagAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnBoardTagAddedResponse" message="tns:INotificationContract_OnBoardTagAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnCardTagAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardTagAdded" message="tns:INotificationContract_OnCardTagAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnCardTagAddedResponse" message="tns:INotificationContract_OnCardTagAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnHistoryEventAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnHistoryEventAdded" message="tns:INotificationContract_OnHistoryEventAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnHistoryEventAddedResponse" message="tns:INotificationContract_OnHistoryEventAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnCardAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardAdded" message="tns:INotificationContract_OnCardAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnCardAddedResponse" message="tns:INotificationContract_OnCardAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnCardSubscribersAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardSubscribersAdded" message="tns:INotificationContract_OnCardSubscribersAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnCardSubscribersAddedResponse" message="tns:INotificationContract_OnCardSubscribersAdded_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnCardCommentAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardCommentAdded" message="tns:INotificationContract_OnCardCommentAdded_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnCardCommentAddedResponse" message="tns:INotificationContract_OnCardCommentAdded_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnBoardDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardDeleted" message="tns:INotificationContract_OnBoardDeleted_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnColumnDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnColumnDeleted" message="tns:INotificationContract_OnColumnDeleted_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnBoardTagDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardTagDeleted" message="tns:INotificationContract_OnBoardTagDeleted_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCardDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardDeleted" message="tns:INotificationContract_OnCardDeleted_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCardTagDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardTagDeleted" message="tns:INotificationContract_OnCardTagDeleted_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="notificationPoint" type="tns:INotificationContract">
@@ -131,81 +125,84 @@
     </wsdl:operation>
     <wsdl:operation name="OnBoardAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnBoardAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnParticipantAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnParticipantAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnColumnAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnColumnAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnBoardTagAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnBoardTagAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnCardTagAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardTagAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnHistoryEventAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnHistoryEventAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnCardAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnCardSubscribersAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardSubscribersAdded" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="OnCardCommentAdded">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardCommentAdded" style="document" />
-      <wsdl:input>
+      <wsdl:output>
         <soap12:body use="literal" />
-      </wsdl:input>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnBoardDeleted">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnBoardDeleted" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnColumnDeleted">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnColumnDeleted" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnBoardTagDeleted">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnBoardTagDeleted" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCardDeleted">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardDeleted" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCardTagDeleted">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardTagDeleted" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

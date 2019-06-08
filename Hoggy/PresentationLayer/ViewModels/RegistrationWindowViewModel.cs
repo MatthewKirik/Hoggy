@@ -23,16 +23,12 @@ namespace PresentationLayer.ViewModels
     public class RegistrationWindowViewModel : ViewModelBase
     {
         Window _window;
-        public RegistrationContractClient RegProxy { get; }
-        public AuthenticationContractClient AuthProxy {  get; }
         UserModel _user;
         public UserModel User { get => _user; }
         public AuthenticationToken Token { get; set; }
 
         public RegistrationWindowViewModel(Window window)
         {
-            RegProxy = new RegistrationContractClient();
-            AuthProxy = new AuthenticationContractClient();
             _window = window;
             _user = new UserModel();
 
@@ -45,7 +41,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    Token = AuthProxy.Login(User.Email, User.Password);
+                    Token = NetProxy.AuthProxy.Login(User.Email, User.Password);
                     if (Token != null)
                     {
                         _window.Dispatcher.Invoke(() =>
@@ -87,9 +83,9 @@ namespace PresentationLayer.ViewModels
                     Task.Run(() => {
                         try
                         {
-                            if (RegProxy.RegisterUser(new UserDTO { Login = User.Login, Email = User.Email }, User.Password))
+                            if (NetProxy.RegProxy.RegisterUser(new UserDTO { Login = User.Login, Email = User.Email }, User.Password))
                             {
-                                Token = AuthProxy.Login(User.Email, User.Password);
+                                Token = NetProxy.AuthProxy.Login(User.Email, User.Password);
                                 _window.Dispatcher.Invoke(() =>
                                 {
                                     _window.DialogResult = true;
@@ -121,7 +117,7 @@ namespace PresentationLayer.ViewModels
                     Task.Run(() => {
                         try
                         {
-                            Token = AuthProxy.Login(User.Email, User.Password);
+                            Token = NetProxy.AuthProxy.Login(User.Email, User.Password);
                             if (Token != null)
                             {
                                 _window.Dispatcher.Invoke(() =>

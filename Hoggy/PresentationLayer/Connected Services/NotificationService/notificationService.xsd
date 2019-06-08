@@ -23,22 +23,12 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnBoardAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="OnParticipantAdded">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q3:UserDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnParticipantAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="OnColumnAdded">
@@ -49,22 +39,12 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnColumnAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="OnBoardTagAdded">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="tag" nillable="true" type="q5:TagDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnBoardTagAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="OnCardTagAdded">
@@ -75,22 +55,12 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnCardTagAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="OnHistoryEventAdded">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="historyEvent" nillable="true" type="q6:HistoryEventDTO" />
         <xs:element minOccurs="0" name="boardId" type="xs:int" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnHistoryEventAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="OnCardAdded">
@@ -101,22 +71,12 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnCardAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="OnCardSubscribersAdded">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="user" nillable="true" type="q8:UserDTO" />
         <xs:element minOccurs="0" name="cardId" type="xs:int" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnCardSubscribersAddedResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="OnCardCommentAdded">
@@ -127,9 +87,45 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnCardCommentAddedResponse">
+  <xs:element name="OnBoardDeleted">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="boardId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnColumnDeleted">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="boardId" type="xs:int" />
+        <xs:element minOccurs="0" name="columnId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnBoardTagDeleted">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="boardId" type="xs:int" />
+        <xs:element minOccurs="0" name="tagId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnCardDeleted">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="boardId" type="xs:int" />
+        <xs:element minOccurs="0" name="columnId" type="xs:int" />
+        <xs:element minOccurs="0" name="cardId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnCardTagDeleted">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="boardId" type="xs:int" />
+        <xs:element minOccurs="0" name="cardId" type="xs:int" />
+        <xs:element minOccurs="0" name="tagId" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

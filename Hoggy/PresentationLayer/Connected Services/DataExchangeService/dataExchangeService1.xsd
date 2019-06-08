@@ -14,6 +14,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
+  <xs:complexType name="UserProfileDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Image" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserProfileDTO" nillable="true" type="tns:UserProfileDTO" />
   <xs:complexType name="ArrayOfBoardDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BoardDTO" nillable="true" type="tns:BoardDTO" />
@@ -98,6 +107,7 @@
   <xs:element name="ArrayOfCardDTO" nillable="true" type="tns:ArrayOfCardDTO" />
   <xs:complexType name="CardDTO">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Comments" nillable="true" type="tns:ArrayOfCommentDTO" />
       <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
@@ -116,6 +126,7 @@
   <xs:complexType name="CommentDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

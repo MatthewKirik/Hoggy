@@ -20,6 +20,12 @@ namespace TestConsoleClient.EditionService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditCard", ReplyAction="http://tempuri.org/IEditionContract/EditCardResponse")]
         System.Threading.Tasks.Task<bool> EditCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditUserProfile", ReplyAction="http://tempuri.org/IEditionContract/EditUserProfileResponse")]
+        bool EditUserProfile(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditUserProfile", ReplyAction="http://tempuri.org/IEditionContract/EditUserProfileResponse")]
+        System.Threading.Tasks.Task<bool> EditUserProfileAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace TestConsoleClient.EditionService {
         
         public System.Threading.Tasks.Task<bool> EditCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card) {
             return base.Channel.EditCardAsync(token, card);
+        }
+        
+        public bool EditUserProfile(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile) {
+            return base.Channel.EditUserProfile(token, userProfile);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditUserProfileAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile) {
+            return base.Channel.EditUserProfileAsync(token, userProfile);
         }
     }
 }

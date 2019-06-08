@@ -123,6 +123,35 @@
                                                         </Grid>
                                                     </Border>
                                                     <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="30"/>
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <fa:FontAwesome Icon="Tags" Style="{StaticResource TagsIcon}" >
+                                                            <fa:FontAwesome.InputBindings>
+                                                                <MouseBinding Command="{Binding EditTagsCmd}" MouseAction="LeftClick" />
+                                                            </fa:FontAwesome.InputBindings>
+                                                        </fa:FontAwesome>
+
+                                                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Tags}">
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Border>
+                                                                        <TextBlock Text="Name"/>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <WrapPanel />
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                        </ItemsControl>
+                                                    </Grid>
+                                                    
                                                     <Border Style="{StaticResource CardFooterBorder}">
                                                         <WrapPanel>
                                                             <fa:FontAwesome Icon="ClockOutline" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
