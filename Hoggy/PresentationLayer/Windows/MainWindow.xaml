@@ -50,29 +50,52 @@
             </WrapPanel>
         </Grid>
         <!--SIDE PANEL-->
-        <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100">
+        <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100" IsExpanded="{Binding OpenExpander}">
             <StackPanel Background="{StaticResource SecondBrushDark}">
                 <WrapPanel>
                     <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
                     <TextBlock Style="{StaticResource MenuHeader}">BOARDS</TextBlock>
                 </WrapPanel>
-                <ListBox ItemsSource="{Binding User.Boards}">
+                <ListBox Name="UserBoards" ItemsSource="{Binding User.Boards}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}"/>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ChangeBoardCmd}" MouseAction="LeftClick" />
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <WrapPanel>
+                    <fa:FontAwesome Icon="ListAlt" Style="{StaticResource Icon}"/>
+                    <TextBlock Style="{StaticResource MenuHeader}">PARTICIPATED BOARDS</TextBlock>
+                </WrapPanel>
+                <ListBox ItemsSource="{Binding User.PartBoards}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MenuText}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Command="{Binding ChangeBoardCmd}" MouseAction="LeftClick" />
+                                </TextBlock.InputBindings>
+                            </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
         </Expander>
-        
+
         <!--BOARD-->
         <Grid Grid.Row="1" Margin="50 15 0 0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
                                 <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
                                           dd:DragDrop.IsDragSource="True"
@@ -82,14 +105,86 @@
                                             <Border Style="{StaticResource Card}">
                                                 <StackPanel>
                                                     <Border Style="{StaticResource CardHeaderBorder}">
-                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition Width="30"/>
+                                                            </Grid.ColumnDefinitions>
+                                                        <WrapPanel>
+                                                            <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                                                            <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                        </WrapPanel>
+                                                            <fa:FontAwesome Icon="Edit" Style="{StaticResource IconHover}" 
+                                                                            Foreground="White" Grid.Column="1" ToolTip="Edit card">
+                                                                <fa:FontAwesome.InputBindings>
+                                                                    <MouseBinding Command="{Binding EditCardCmd}" MouseAction="LeftClick" />
+                                                                </fa:FontAwesome.InputBindings>
+                                                            </fa:FontAwesome>
+                                                        </Grid>
                                                     </Border>
                                                     <TextBlock Text="{Binding Description}" Style="{StaticResource CardDescription}" />
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="30"/>
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <fa:FontAwesome Icon="Tags" Style="{StaticResource TagsIcon}" >
+                                                            <fa:FontAwesome.InputBindings>
+                                                                <MouseBinding Command="{Binding EditTagsCmd}" MouseAction="LeftClick" />
+                                                            </fa:FontAwesome.InputBindings>
+                                                        </fa:FontAwesome>
+
+                                                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Tags}">
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Border>
+                                                                        <TextBlock Text="Name"/>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <WrapPanel />
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                        </ItemsControl>
+                                                    </Grid>
+                                                    
+                                                    <Border Style="{StaticResource CardFooterBorder}">
+                                                        <WrapPanel>
+                                                            <fa:FontAwesome Icon="ClockOutline" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40"/>
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock Text="Create:" Style="{StaticResource CardFooterHeader}" />
+                                                                <TextBlock Grid.Column="1" Text="{Binding CreationDate}" Style="{StaticResource CardFooterText}" />
+                                                                <TextBlock Grid.Row="1" Text="Expire:" Style="{StaticResource CardFooterHeader}" />
+                                                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ExpireDate}" Style="{StaticResource CardFooterText}" />
+                                                            </Grid>
+                                                        </WrapPanel>
+                                                    </Border>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+                                <Border Grid.Row="1" Style="{StaticResource AddCardBtn}">
+                                    <Border.InputBindings>
+                                        <MouseBinding Command="{Binding AddCardCmd}" MouseAction="LeftClick" />
+                                    </Border.InputBindings>
+                                    <WrapPanel>
+                                        <fa:FontAwesome Icon="PlusCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                                        <TextBlock Text="Add Card" Style="{StaticResource RightHeader}"/>
+                                    </WrapPanel>
+                                </Border>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -101,9 +196,24 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
+<!--RIGHT PANEL-->
+        <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}">
+            <StackPanel>
+                <WrapPanel Style="{StaticResource RightWrap}">
+                    <fa:FontAwesome Icon="UserCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                    <TextBlock Text="PARTICIPANTS" Style="{StaticResource RightHeader}"/>
+                </WrapPanel>
 
-        <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}"/>
+                <ListBox ItemsSource="{Binding CurBoard.Participants}">
 
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+                Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
+            <metro:ProgressRing />
+        </Border>
 
     </Grid>
 </metro:MetroWindow>

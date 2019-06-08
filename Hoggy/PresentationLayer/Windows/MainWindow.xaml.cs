@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using DataTransferObjects;
+using MahApps.Metro.Controls;
 using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,12 @@ using System.Windows.Shapes;
 
 namespace PresentationLayer.Windows
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel();
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel(this);
         }
     }
 }

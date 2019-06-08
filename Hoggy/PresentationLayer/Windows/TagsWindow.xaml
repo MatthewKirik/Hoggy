@@ -1,0 +1,57 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.TagsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="Tags" Height="450" Width="300" 
+                   Icon="pack://application:,,,/Resources/icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="85"/>
+        </Grid.RowDefinitions>
+
+
+        <ListBox ItemsSource="{Binding Tags}" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{Binding Color}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Button Command="{Binding SaveCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}" Margin="10 5">
+                <Button.Content>
+                    <WrapPanel>
+                        <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
+                        <TextBlock Style="{StaticResource Lable}" Text="SAVE AND CLOSE"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}" Margin="10 5">
+                <Button.Content>
+                    <WrapPanel>
+                        <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
+                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
+
+    </Grid>
+</metro:MetroWindow>

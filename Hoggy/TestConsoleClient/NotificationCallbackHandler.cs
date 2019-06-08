@@ -15,9 +15,19 @@ namespace TestConsoleClient
             Console.WriteLine(board.Name + " added");
         }
 
+        public void OnBoardDeleted(int boardId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OnBoardTagAdded(TagDTO tag, int boardId)
         {
             Console.WriteLine(tag.Name + " added");
+        }
+
+        public void OnBoardTagDeleted(int boardId, int tagId)
+        {
+            throw new NotImplementedException();
         }
 
         public void OnCardAdded(CardDTO card, int columnId)
@@ -30,6 +40,11 @@ namespace TestConsoleClient
 
         }
 
+        public void OnCardDeleted(int boardId, int columnId, int cardId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OnCardSubscribersAdded(UserDTO user, int cardId)
         {
 
@@ -40,9 +55,19 @@ namespace TestConsoleClient
 
         }
 
+        public void OnCardTagDeleted(int boardId, int cardId, int tagId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OnColumnAdded(ColumnDTO column, int boardId)
         {
             Console.WriteLine(column.Name + " added");
+        }
+
+        public void OnColumnDeleted(int boardId, int columnId)
+        {
+            throw new NotImplementedException();
         }
 
         public void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId)
