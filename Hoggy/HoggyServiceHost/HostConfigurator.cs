@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Interfaces;
 using DependencyInjections;
 using Ninject;
 using System.IO;
@@ -13,12 +14,14 @@ namespace HoggyServiceHost
     {
         private readonly IRepository _repository;
         private readonly INotificator _notificator;
+        private readonly IFileRepository _fileRepository;
         TextWriter _backlog;
 
         public HostConfigurator(TextWriter backlog)
         {
             _repository = Factory.Kernel.Get<IRepository>();
             _notificator = Factory.Kernel.Get<INotificator>();
+            _fileRepository = Factory.Kernel.Get<IFileRepository>();
             _backlog = backlog;
             MapperConfigurator.Configure();
         }
@@ -27,34 +30,43 @@ namespace HoggyServiceHost
         {
             AuthenticationService authService = new AuthenticationService(_repository);
             ServiceHost authServiceHost = new ServiceHost(authService);
+            authServiceHost.Open();
+            _backlog.WriteLine("Authantication service is started");
 
             RegistrationService regService = new RegistrationService(_repository);
             ServiceHost regServiceHost = new ServiceHost(regService);
+            regServiceHost.Open();
+            _backlog.WriteLine("Registration service is started");
 
-            DataExchangeService dataExService = new DataExchangeService(_repository);
+            DataExchangeService dataExService = new DataExchangeService(_repository, _fileRepository);
             ServiceHost dataExServiceHost = new ServiceHost(dataExService);
+            dataExServiceHost.Open();
+            _backlog.WriteLine("Data exchange service is started");
 
             CreationService creationService = new CreationService(_repository, _notificator);
             ServiceHost creationServiceHost = new ServiceHost(creationService);
+            creationServiceHost.Open();
+            _backlog.WriteLine("Creation service is started");
 
             CommunityService communityService = new CommunityService(_repository, _notificator);
             ServiceHost communityServiceHost = new ServiceHost(communityService);
+            communityServiceHost.Open();
+            _backlog.WriteLine("Community service is started");
+
+            DeletionService deletionService = new DeletionService(_repository, _notificator);
+            ServiceHost deletionServiceHost = new ServiceHost(deletionService);
+            deletionServiceHost.Open();
+            _backlog.WriteLine("Deletion service is started");
 
             NotificationService notificactionService = new NotificationService(_repository, _notificator);
             ServiceHost notificactionServiceHost = new ServiceHost(notificactionService);
-
-            authServiceHost.Open();
-            _backlog.WriteLine("Authantication service is started");
-            regServiceHost.Open();
-            _backlog.WriteLine("Registration service is started");
-            dataExServiceHost.Open();
-            _backlog.WriteLine("Data exchange service is started");
-            creationServiceHost.Open();
-            _backlog.WriteLine("Creation service is started");
-            communityServiceHost.Open();
-            _backlog.WriteLine("Community service is started");
             notificactionServiceHost.Open();
             _backlog.WriteLine("Notificaction service is started");
+
+            EditionService editionService = new EditionService(_repository, _notificator, _fileRepository);
+            ServiceHost editionServiceHost = new ServiceHost(editionService);
+            editionServiceHost.Open();
+            _backlog.WriteLine("Edition service is started");
         }
     }
 }

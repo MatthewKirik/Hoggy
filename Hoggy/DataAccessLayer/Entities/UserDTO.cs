@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTransferObjects
+namespace DataTransferObjects.Entities
 {
-    public class CommentDTO
+    public class UserDTO
     {
         public int Id { get; set; }
         public string Login { get; set; }
-        public string Text { get; set; }
+        public string Email { get; set; }
     }
 }

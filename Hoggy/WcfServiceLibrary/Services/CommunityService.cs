@@ -24,13 +24,12 @@ namespace WcfServiceLibrary.Services
         {
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             CardEntity dest = _repository.GetItem<CardEntity>(x => x.Id == cardId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             CommentEntity toAdd = AutoMapper.Mapper.Map<CommentEntity>(comment);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Author = user;
             _repository.Add(toAdd);
-            dest.Comments.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardCommentAdded(comment, cardId);
@@ -40,7 +39,7 @@ namespace WcfServiceLibrary.Services
         public bool SendInvitation(AuthenticationToken token, int boardId, string email)
         {
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+            if (!Validator.HasAccess(_repository, token, board))
                 return false;
             UserEntity recepient = _repository.GetItem<UserEntity>(x => x.Email == email);
             UserEntity sender = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
@@ -68,7 +67,7 @@ namespace WcfServiceLibrary.Services
         {
             UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == cardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return false;
             card.Subscribers.Add(user);
             user.SubscriptedCards.Add(card);
@@ -83,15 +82,13 @@ namespace WcfServiceLibrary.Services
         {
             CardEntity dest = _repository.GetItem<CardEntity>(x => x.Id == cardId);
             TagEntity tag = _repository.GetItem<TagEntity>(x => x.Id == tagId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
-            if (!Validator.HasAccess<TagEntity>(_repository, token, tag))
+            if (!Validator.HasAccess(_repository, token, tag))
                 return false;
 
             tag.Cards.Add(dest);
-            dest.Tags.Add(tag);
             _repository.Update(tag);
-            _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardTagAdded(tagId, cardId);
             return true;

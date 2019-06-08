@@ -20,8 +20,8 @@ namespace WcfServiceLibrary.Helpers
                 cfg.CreateMap<ColumnEntity, ColumnDTO>();
                 cfg.CreateMap<TagEntity, TagDTO>();
                 cfg.CreateMap<TagDTO, TagEntity>();
-                cfg.CreateMap<UserEntity, UserDTO>();
-                cfg.CreateMap<UserDTO, UserEntity>();
+                cfg.CreateMap<CommentEntity, CommentDTO>().ForMember(d => d.Login, s => s.MapFrom(x => x.Author.Login));
+                cfg.CreateMap<CommentDTO, CommentEntity>();
                 cfg.CreateMap<HistoryEventEntity, HistoryEventDTO>();
             });
         }

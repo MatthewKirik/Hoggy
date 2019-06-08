@@ -41,8 +41,6 @@ namespace WcfServiceLibrary.Services
             toAdd.SecurityGroupId = securityGroup.Id;
             toAdd.Creator = user;
             _repository.Add(toAdd);
-            _repository.Save();
-            user.Boards.Add(toAdd);
             _repository.Update(user);
             _repository.Save();
             _notificator.OnBoardAdded(board);
@@ -52,14 +50,13 @@ namespace WcfServiceLibrary.Services
         public bool AddCard(AuthenticationToken token, CardDTO card, int columnId)
         {
             ColumnEntity dest = _repository.GetItem<ColumnEntity>(x => x.Id == columnId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             CardEntity toAdd = AutoMapper.Mapper.Map<CardEntity>(card);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Column = dest;
             _repository.Add(toAdd);
             _repository.Save();
-            dest.Cards.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
@@ -80,14 +77,13 @@ namespace WcfServiceLibrary.Services
         public bool AddColumn(AuthenticationToken token, ColumnDTO column, int boardId)
         {
             BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             ColumnEntity toAdd = Mapper.Map<ColumnEntity>(column);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Board = dest;
             _repository.Add(toAdd);
             _repository.Save();
-            dest.Columns.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             column.Id = toAdd.Id;
@@ -109,13 +105,12 @@ namespace WcfServiceLibrary.Services
         public bool AddTagToBoard(AuthenticationToken token, TagDTO tag, int boardId)
         {
             BoardEntity dest = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, dest))
+            if (!Validator.HasAccess(_repository, token, dest))
                 return false;
             TagEntity toAdd = AutoMapper.Mapper.Map<TagEntity>(tag);
             toAdd.SecurityGroupId = dest.SecurityGroupId;
             toAdd.Board = dest;
             _repository.Add(toAdd);
-            dest.Tags.Add(toAdd);
             _repository.Update(dest);
             _repository.Save();
             _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);

@@ -14,5 +14,6 @@ namespace DataTransferObjects
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public List<TagDTO> Tags { get; set; }
+        public List<CommentDTO> Comments { get; set; }
     }
 }

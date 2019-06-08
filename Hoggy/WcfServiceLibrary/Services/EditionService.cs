@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using DataAccessLayer;
+using DataAccessLayer.Entities;
+using DataAccessLayer.Interfaces;
+using DataTransferObjects;
+using WcfServiceLibrary.Contracts;
+using WcfServiceLibrary.Helpers;
+using WcfServiceLibrary.Interfaces;
+
+namespace WcfServiceLibrary.Services
+{
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class EditionService : IEditionContract
+    {
+        private readonly IRepository _repository;
+        private readonly INotificator _notificator;
+        private readonly IFileRepository _fileRepository;
+        public EditionService(IRepository repository, INotificator notificator, IFileRepository fileRepository)
+        {
+            _repository = repository;
+            _notificator = notificator;
+            _fileRepository = fileRepository;
+        }
+        public bool EditCard(AuthenticationToken token, CardDTO card)
+        {
+            CardEntity original = _repository.GetItem<CardEntity>(x => x.Id == card.Id);
+            if (!Validator.HasAccess(_repository, token, original))
+                return false;
+            original.Description = card.Description;
+            original.CreationDate = card.CreationDate;
+            original.Name = card.Name;
+            _repository.Update(original);
+            _repository.Save();
+            return true;
+        }
+
+        public bool EditUserProfile(AuthenticationToken token, UserProfileDTO userProfile)
+        {
+            UserProfileEntity original = _repository.GetItem<UserProfileEntity>(x => x.Id == userProfile.Id);
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            if (original.User.Id != user.Id)
+                return false;
+            original.Phone = userProfile.Phone;
+            original.Name = userProfile.Name;
+            string imgKey = _fileRepository.AddFile(userProfile.Image);
+            original.Image = imgKey;
+            _repository.Update(original);
+            _repository.Save();
+            return true;
+        }
+    }
+}

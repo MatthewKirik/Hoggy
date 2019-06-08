@@ -7,7 +7,7 @@ namespace WcfServiceLibrary.Helpers
 {
     public static class Validator
     {
-        public static bool HasAccess<T>(IRepository repository, AuthenticationToken token, BaseSecureEntity entity) 
+        public static bool HasAccess<T>(IRepository repository, AuthenticationToken token, T entity) 
             where T : BaseSecureEntity
         {
             UserEntity user = repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;

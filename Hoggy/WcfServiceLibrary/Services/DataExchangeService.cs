@@ -3,6 +3,7 @@ using System.ServiceModel;
 using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Interfaces;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
@@ -13,10 +14,12 @@ namespace WcfServiceLibrary.Services
     public class DataExchangeService : IDataExchangeContract
     {
         private readonly IRepository _repository;
+        private readonly IFileRepository _fileRepository;
 
-        public DataExchangeService(IRepository repository)
+        public DataExchangeService(IRepository repository, IFileRepository fileRepository)
         {
             _repository = repository;
+            _fileRepository = fileRepository;
         }
 
         public List<BoardDTO> GetBoards(AuthenticationToken token, int UserId)
@@ -71,7 +74,7 @@ namespace WcfServiceLibrary.Services
         public List<ColumnDTO> GetColumns(AuthenticationToken token, int BoardId)
         {
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+            if (!Validator.HasAccess(_repository, token, board))
                 return null;
             return Mapper.Map<ICollection<ColumnEntity>, List<ColumnDTO>>(board.Columns);
         }
@@ -79,7 +82,7 @@ namespace WcfServiceLibrary.Services
         public List<HistoryEventDTO> GetHistoryEvents(AuthenticationToken token, int BoardId)
         {
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+            if (!Validator.HasAccess(_repository, token, board))
                 return null;
             return Mapper.Map<ICollection<HistoryEventEntity>, List<HistoryEventDTO>>(board.HistoryEvents);
         }
@@ -87,7 +90,7 @@ namespace WcfServiceLibrary.Services
         public List<CardDTO> GetCards(AuthenticationToken token, int ColumnId)
         {
             ColumnEntity column = _repository.GetItem<ColumnEntity>(x => x.Id == ColumnId);
-            if (!Validator.HasAccess<ColumnEntity>(_repository, token, column))
+            if (!Validator.HasAccess(_repository, token, column))
                 return null;
             return Mapper.Map<ICollection<CardEntity>, List<CardDTO>>(column.Cards);
         }
@@ -103,7 +106,7 @@ namespace WcfServiceLibrary.Services
         public List<UserDTO> GetCardSubscribers(AuthenticationToken token, int CardId)
         {
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == CardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return null;
             return Mapper.Map<ICollection<UserEntity>, List<UserDTO>>(card.Subscribers);
         }
@@ -111,7 +114,7 @@ namespace WcfServiceLibrary.Services
         public List<CommentDTO> GetCardComments(AuthenticationToken token, int CardId)
         {
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == CardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return null;
             return Mapper.Map<ICollection<CommentEntity>, List<CommentDTO>>(card.Comments);
         }
@@ -122,10 +125,25 @@ namespace WcfServiceLibrary.Services
             return AutoMapper.Mapper.Map<UserDTO>(user);
         }
 
+        public UserProfileDTO GetUserProfile(AuthenticationToken token)
+        {
+            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+            UserProfileEntity profile = user.Profile;
+            byte[] img = _fileRepository.GetFile(profile.Image);
+            UserProfileDTO userProfileDTO = new UserProfileDTO()
+            {
+                Id = profile.Id,
+                Image = img,
+                Name = profile.Name,
+                Phone = profile.Phone
+            };
+            return userProfileDTO;
+        }
+
         public List<TagDTO> GetBoardTags(AuthenticationToken token, int BoardId)
         {
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+            if (!Validator.HasAccess(_repository, token, board))
                 return null;
             return Mapper.Map<ICollection<TagEntity>, List<TagDTO>>(board.Tags);
         }
@@ -133,7 +151,7 @@ namespace WcfServiceLibrary.Services
         public List<TagDTO> GetCardTags(AuthenticationToken token, int CardId)
         {
             CardEntity card = _repository.GetItem<CardEntity>(x => x.Id == CardId);
-            if (!Validator.HasAccess<CardEntity>(_repository, token, card))
+            if (!Validator.HasAccess(_repository, token, card))
                 return null;
             return Mapper.Map<ICollection<TagEntity>, List<TagDTO>>(card.Tags);
         }

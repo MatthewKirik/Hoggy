@@ -93,6 +93,45 @@ namespace WcfServiceLibrary.Logic
                 s.Callback.OnParticipantAdded(user, boardId);
             }
         }
-        
+
+        public void OnBoardDeleted(int boardId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                s.Callback.OnBoardDeleted(boardId);
+            }
+        }
+
+        public void OnColumnDeleted(int boardId, int columnId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                s.Callback.OnColumnDeleted(boardId, columnId);
+            }
+        }
+
+        public void OnBoardTagDeleted(int boardId, int tagId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                s.Callback.OnBoardTagDeleted(boardId, tagId);
+            }
+        }
+
+        public void OnCardDeleted(int boardId, int columnId, int cardId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                s.Callback.OnCardDeleted(boardId, columnId, cardId);
+            }
+        }
+
+        public void OnCardTagDeleted(int boardId, int cardId, int tagId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                s.Callback.OnCardTagDeleted(boardId, cardId, tagId);
+            }
+        }
     }
 }

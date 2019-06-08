@@ -7,6 +7,8 @@ using TestConsoleClient.AuthenticationService;
 using TestConsoleClient.CommunityService;
 using TestConsoleClient.CreationService;
 using TestConsoleClient.DataExchangeService;
+using TestConsoleClient.DeletionService;
+using TestConsoleClient.EditionService;
 using TestConsoleClient.NotificationService;
 using TestConsoleClient.RegistationService;
 
@@ -20,6 +22,8 @@ namespace TestConsoleClient
         CreationContractClient creationClient;
         NotificationContractClient notificationClient;
         CommunityContractClient communityClient;
+        EditionContractClient editionClient;
+        DeletionContractClient deletionClient;
 
         public Generator()
         {
@@ -33,13 +37,14 @@ namespace TestConsoleClient
             creationClient.Open();
             communityClient = new CommunityContractClient();
             communityClient.Open();
-            //notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
-            ////notificationClient.Open();
-            //InitializeHierarchy(1, 1, 1, 1, 1);
-            //AuthenticationToken token = authenticationClient.Login("user1@gmail.com", "user1");
-            //BoardDTO board = dataExchangeClient.GetFullBoard(token, 1);
-            //Console.WriteLine(board.Columns[0].Cards[0].Name);
+            editionClient = new EditionContractClient();
+            editionClient.Open();
+            deletionClient = new DeletionContractClient();
+            deletionClient.Open();
+            AuthenticationToken user = authenticationClient.Login("user1@gmail.com", "user1");
+            deletionClient.DeleteCard(user, 1);
         }
+
         public void TestInvitations()
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(2);

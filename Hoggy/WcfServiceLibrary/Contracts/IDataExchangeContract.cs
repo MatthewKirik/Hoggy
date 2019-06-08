@@ -10,6 +10,8 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract]
         UserDTO GetUser(AuthenticationToken token);
         [OperationContract]
+        UserProfileDTO GetUserProfile(AuthenticationToken token);
+        [OperationContract]
         List<BoardDTO> GetBoards(AuthenticationToken token, int UserId);
         [OperationContract]
         List<BoardDTO> GetParticipatedBoards(AuthenticationToken token, int UserId);
