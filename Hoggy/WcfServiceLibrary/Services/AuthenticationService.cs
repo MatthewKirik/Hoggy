@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace WcfServiceLibrary.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class AuthenticationService : IAuthenticationContract
     {
         private readonly IRepository _repository;
@@ -36,32 +36,39 @@ namespace WcfServiceLibrary.Services
 
         public AuthenticationToken Login(string email, string password)
         {
-            UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == email);
-
-            if (user == null)
-                return null;
-
-            if(password == user.Password)
+            try
             {
-                AuthenticationTokenEntity oldToken = _repository.GetItem<AuthenticationTokenEntity>(x => x.User == user);
-                if (oldToken != null)
-                    _repository.Delete(oldToken);
-                AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
-                tokenEntity.User = user;
-                SHA256Managed cryptor = new SHA256Managed();
+                UserEntity user = _repository.GetItem<UserEntity>(x => x.Email == email);
 
-                tokenEntity.Value = Encoding.Unicode.GetString(
-                    cryptor.ComputeHash(
-                        Encoding.Unicode.GetBytes(email + "hoggySaLt" + DateTime.Now.ToString() + password)));
-                _repository.Add(tokenEntity);
-                _repository.Save();
+                if (user == null)
+                    return null;
 
-                AuthenticationToken token = new AuthenticationToken();
-                token.Value = tokenEntity.Value.Clone() as string;
-                return token;
+                if (password == user.Password)
+                {
+                    AuthenticationTokenEntity oldToken = _repository.GetItem<AuthenticationTokenEntity>(x => x.User == user);
+                    if (oldToken != null)
+                        _repository.Delete(oldToken);
+                    AuthenticationTokenEntity tokenEntity = new AuthenticationTokenEntity();
+                    tokenEntity.User = user;
+                    SHA256Managed cryptor = new SHA256Managed();
+
+                    tokenEntity.Value = Encoding.Unicode.GetString(
+                        cryptor.ComputeHash(
+                            Encoding.Unicode.GetBytes(email + "hoggySaLt" + DateTime.Now.ToString() + password)));
+                    _repository.Add(tokenEntity);
+                    _repository.Save();
+
+                    AuthenticationToken token = new AuthenticationToken();
+                    token.Value = tokenEntity.Value.Clone() as string;
+                    return token;
+                }
+                else
+                    return null;
             }
-            else
+            catch (Exception)
+            {
                 return null;
+            }
         }
     }
 }

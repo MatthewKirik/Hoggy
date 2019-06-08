@@ -14,7 +14,7 @@ using WcfServiceLibrary.Contracts;
 
 namespace WcfServiceLibrary.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class FileExchangeService : IFileExchangeContract
     {
         private readonly IRepository _repository;
@@ -27,32 +27,46 @@ namespace WcfServiceLibrary.Services
 
         public GetImageResponseMessage GetUserProfileImage(GetImageRequestMessage request)
         {
-            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == request.Token.Value).User;
-            if (user == null)
-                return null;
-            UserProfileEntity profile = user.Profile;
-            MemoryStream memoryStream = new MemoryStream();
-            byte[] file = _fileRepository.GetFile(profile.Image);
-            memoryStream.Write(file, 0, file.Length);
-            GetImageResponseMessage response = new GetImageResponseMessage()
+            try
             {
-                FileByteStream = memoryStream
-            };
-            return response;
+                UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == request.Token.Value).User;
+                if (user == null)
+                    return null;
+                UserProfileEntity profile = user.Profile;
+                MemoryStream memoryStream = new MemoryStream();
+                byte[] file = _fileRepository.GetFile(profile.Image);
+                memoryStream.Write(file, 0, file.Length);
+                GetImageResponseMessage response = new GetImageResponseMessage()
+                {
+                    FileByteStream = memoryStream
+                };
+                return response;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public void SetUserProfileImage(AddImageRequestMessage request)
         {
-            UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == request.Token.Value).User;
-            if (user == null)
+            try
+            {
+                UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == request.Token.Value).User;
+                if (user == null)
+                    return;
+                UserProfileEntity profile = user.Profile;
+                byte[] file = new byte[request.FileByteStream.Length];
+                request.FileByteStream.Read(file, 0, file.Length);
+                string key = _fileRepository.AddFile(file);
+                profile.Image = key;
+                _repository.Update(profile);
+                _repository.Save();
+            }
+            catch (Exception)
+            {
                 return;
-            UserProfileEntity profile = user.Profile;
-            byte[] file = new byte[request.FileByteStream.Length];
-            request.FileByteStream.Read(file, 0, file.Length);
-            string key = _fileRepository.AddFile(file);
-            profile.Image = key;
-            _repository.Update(profile);
-            _repository.Save();
+            }
         }
     }
 }

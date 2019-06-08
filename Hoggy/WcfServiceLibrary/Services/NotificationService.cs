@@ -14,8 +14,7 @@ using WcfServiceLibrary.Models;
 
 namespace WcfServiceLibrary.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
-        ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class NotificationService : INotificationContract
     {
         private readonly IRepository _repository;
@@ -29,17 +28,24 @@ namespace WcfServiceLibrary.Services
 
         public bool Subscribe(AuthenticationToken token, int boardId)
         {
-            BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess(_repository, token, board))
-                return false;
-
-            SubscriberModel toAdd = new SubscriberModel()
+            try
             {
-                Callback = OperationContext.Current.GetCallbackChannel<INotifiactionCallbackContract>(),
-                SecurityGroupId = board.SecurityGroupId
-            };
-            _notificator.Subscribers.Add(toAdd);
-            return true;
+                BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
+                if (!Validator.HasAccess(_repository, token, board))
+                    return false;
+
+                SubscriberModel toAdd = new SubscriberModel()
+                {
+                    Callback = OperationContext.Current.GetCallbackChannel<INotifiactionCallbackContract>(),
+                    SecurityGroupId = board.SecurityGroupId
+                };
+                _notificator.Subscribers.Add(toAdd);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

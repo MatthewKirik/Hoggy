@@ -12,6 +12,7 @@ namespace WcfServiceLibrary.Logic
 {
     public class Notificator : INotificator
     {
+        private static object _subscribersLocker = null;
         private List<SubscriberModel> _subscribers;
         public List<SubscriberModel> Subscribers { get => _subscribers ?? (_subscribers = new List<SubscriberModel>()); }
         int TargetSecurityGroup { get; set; }
@@ -26,7 +27,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnBoardAdded(board);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnBoardAdded(board);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -34,7 +48,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnBoardTagAdded(tag, boardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnBoardTagAdded(tag, boardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -42,7 +69,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardAdded(card, columnId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardAdded(card, columnId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -50,7 +90,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardCommentAdded(comment, cardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardCommentAdded(comment, cardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -58,7 +111,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardSubscribersAdded(user, cardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardSubscribersAdded(user, cardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -66,7 +132,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardTagAdded(tagId, cardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardTagAdded(tagId, cardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -74,7 +153,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnColumnAdded(column, boardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnColumnAdded(column, boardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -82,7 +174,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnHistoryEventAdded(historyEvent, boardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnHistoryEventAdded(historyEvent, boardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -90,7 +195,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnParticipantAdded(user, boardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnParticipantAdded(user, boardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -98,7 +216,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnBoardDeleted(boardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnBoardDeleted(boardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -106,7 +237,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnColumnDeleted(boardId, columnId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnColumnDeleted(boardId, columnId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -114,7 +258,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnBoardTagDeleted(boardId, tagId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnBoardTagDeleted(boardId, tagId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -122,7 +279,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardDeleted(boardId, columnId, cardId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardDeleted(boardId, columnId, cardId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
 
@@ -130,7 +300,20 @@ namespace WcfServiceLibrary.Logic
         {
             foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
             {
-                s.Callback.OnCardTagDeleted(boardId, cardId, tagId);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardTagDeleted(boardId, cardId, tagId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
             }
         }
     }
