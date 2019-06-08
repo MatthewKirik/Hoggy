@@ -9,7 +9,6 @@ namespace DataTransferObjects
     public class UserProfileDTO
     {
         public int Id { get; set; }
-        public byte[] Image { get; set; }
         public string Phone { get; set; }
         public string Name { get; set; }
     }

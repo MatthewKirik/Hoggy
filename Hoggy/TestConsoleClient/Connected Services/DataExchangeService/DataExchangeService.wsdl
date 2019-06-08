@@ -4,6 +4,7 @@
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <msf:Streamed xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy" />
         <wsaw:UsingAddressing />
       </wsp:All>
     </wsp:ExactlyOne>
@@ -20,6 +21,12 @@
   </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetUserProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserProfile" />
+  </wsdl:message>
+  <wsdl:message name="IDataExchangeContract_GetUserProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserProfileResponse" />
   </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetBoards_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBoards" />
@@ -50,12 +57,6 @@
   </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetColumns_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetColumnsResponse" />
-  </wsdl:message>
-  <wsdl:message name="IDataExchangeContract_GetFullBoard_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFullBoard" />
-  </wsdl:message>
-  <wsdl:message name="IDataExchangeContract_GetFullBoard_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetFullBoardResponse" />
   </wsdl:message>
   <wsdl:message name="IDataExchangeContract_GetBoardTags_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBoardTags" />
@@ -98,6 +99,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUser" message="tns:IDataExchangeContract_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserResponse" message="tns:IDataExchangeContract_GetUser_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserProfile" message="tns:IDataExchangeContract_GetUserProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetUserProfileResponse" message="tns:IDataExchangeContract_GetUserProfile_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetBoards">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoards" message="tns:IDataExchangeContract_GetBoards_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoardsResponse" message="tns:IDataExchangeContract_GetBoards_OutputMessage" />
@@ -117,10 +122,6 @@
     <wsdl:operation name="GetColumns">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetColumns" message="tns:IDataExchangeContract_GetColumns_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetColumnsResponse" message="tns:IDataExchangeContract_GetColumns_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetFullBoard">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetFullBoard" message="tns:IDataExchangeContract_GetFullBoard_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataExchangeContract/GetFullBoardResponse" message="tns:IDataExchangeContract_GetFullBoard_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetBoardTags">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataExchangeContract/GetBoardTags" message="tns:IDataExchangeContract_GetBoardTags_InputMessage" />
@@ -152,6 +153,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="GetUser">
       <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserProfile">
+      <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetUserProfile" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -197,15 +207,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetColumns">
       <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetColumns" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFullBoard">
-      <soap12:operation soapAction="http://tempuri.org/IDataExchangeContract/GetFullBoard" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

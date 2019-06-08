@@ -1,6 +1,7 @@
 ﻿using DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using TestConsoleClient.AuthenticationService;
@@ -41,8 +42,6 @@ namespace TestConsoleClient
             editionClient.Open();
             deletionClient = new DeletionContractClient();
             deletionClient.Open();
-            AuthenticationToken user = authenticationClient.Login("user1@gmail.com", "user1");
-            deletionClient.DeleteCard(user, 1);
         }
 
         public void TestInvitations()

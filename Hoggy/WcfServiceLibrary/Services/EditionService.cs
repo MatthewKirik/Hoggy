@@ -20,12 +20,10 @@ namespace WcfServiceLibrary.Services
     {
         private readonly IRepository _repository;
         private readonly INotificator _notificator;
-        private readonly IFileRepository _fileRepository;
-        public EditionService(IRepository repository, INotificator notificator, IFileRepository fileRepository)
+        public EditionService(IRepository repository, INotificator notificator)
         {
             _repository = repository;
             _notificator = notificator;
-            _fileRepository = fileRepository;
         }
         public bool EditCard(AuthenticationToken token, CardDTO card)
         {
@@ -48,8 +46,6 @@ namespace WcfServiceLibrary.Services
                 return false;
             original.Phone = userProfile.Phone;
             original.Name = userProfile.Name;
-            string imgKey = _fileRepository.AddFile(userProfile.Image);
-            original.Image = imgKey;
             _repository.Update(original);
             _repository.Save();
             return true;

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +49,9 @@
     <Compile Include="CommentDTO.cs" />
     <Compile Include="HistoryEventDTO.cs" />
     <Compile Include="InvitationDTO.cs" />
+    <Compile Include="Messages\AddImageRequestMessage.cs" />
+    <Compile Include="Messages\GetImageRequestMessage.cs" />
+    <Compile Include="Messages\GetImageResponseMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagDTO.cs" />
     <Compile Include="UserDTO.cs" />

@@ -30,7 +30,7 @@ namespace WcfServiceLibrary.Services
         public bool Subscribe(AuthenticationToken token, int boardId)
         {
             BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
-            if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+            if (!Validator.HasAccess(_repository, token, board))
                 return false;
 
             SubscriberModel toAdd = new SubscriberModel()

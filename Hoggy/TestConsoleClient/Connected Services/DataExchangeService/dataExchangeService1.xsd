@@ -14,6 +14,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
+  <xs:complexType name="UserProfileDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Image" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserProfileDTO" nillable="true" type="tns:UserProfileDTO" />
   <xs:complexType name="ArrayOfBoardDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BoardDTO" nillable="true" type="tns:BoardDTO" />
@@ -22,62 +31,13 @@
   <xs:element name="ArrayOfBoardDTO" nillable="true" type="tns:ArrayOfBoardDTO" />
   <xs:complexType name="BoardDTO">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Columns" nillable="true" type="tns:ArrayOfColumnDTO" />
       <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Tags" nillable="true" type="tns:ArrayOfTagDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BoardDTO" nillable="true" type="tns:BoardDTO" />
-  <xs:complexType name="ArrayOfColumnDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfColumnDTO" nillable="true" type="tns:ArrayOfColumnDTO" />
-  <xs:complexType name="ColumnDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cards" nillable="true" type="tns:ArrayOfCardDTO" />
-      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
-  <xs:complexType name="ArrayOfCardDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="CardDTO" nillable="true" type="tns:CardDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfCardDTO" nillable="true" type="tns:ArrayOfCardDTO" />
-  <xs:complexType name="CardDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Comments" nillable="true" type="tns:ArrayOfTagDTO" />
-      <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Tags" nillable="true" type="tns:ArrayOfTagDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="CardDTO" nillable="true" type="tns:CardDTO" />
-  <xs:complexType name="ArrayOfTagDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagDTO" nillable="true" type="tns:TagDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTagDTO" nillable="true" type="tns:ArrayOfTagDTO" />
-  <xs:complexType name="TagDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Color" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TagDTO" nillable="true" type="tns:TagDTO" />
   <xs:complexType name="ArrayOfInvitationDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="InvitationDTO" nillable="true" type="tns:InvitationDTO" />
@@ -98,6 +58,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUserDTO" nillable="true" type="tns:ArrayOfUserDTO" />
+  <xs:complexType name="ArrayOfColumnDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfColumnDTO" nillable="true" type="tns:ArrayOfColumnDTO" />
+  <xs:complexType name="ColumnDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ColumnDTO" nillable="true" type="tns:ColumnDTO" />
+  <xs:complexType name="ArrayOfTagDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagDTO" nillable="true" type="tns:TagDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTagDTO" nillable="true" type="tns:ArrayOfTagDTO" />
+  <xs:complexType name="TagDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Color" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TagDTO" nillable="true" type="tns:TagDTO" />
   <xs:complexType name="ArrayOfHistoryEventDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="HistoryEventDTO" nillable="true" type="tns:HistoryEventDTO" />
@@ -111,6 +99,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="HistoryEventDTO" nillable="true" type="tns:HistoryEventDTO" />
+  <xs:complexType name="ArrayOfCardDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CardDTO" nillable="true" type="tns:CardDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCardDTO" nillable="true" type="tns:ArrayOfCardDTO" />
+  <xs:complexType name="CardDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Comments" nillable="true" type="tns:ArrayOfCommentDTO" />
+      <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tags" nillable="true" type="tns:ArrayOfTagDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CardDTO" nillable="true" type="tns:CardDTO" />
   <xs:complexType name="ArrayOfCommentDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="CommentDTO" nillable="true" type="tns:CommentDTO" />
@@ -120,6 +126,7 @@
   <xs:complexType name="CommentDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

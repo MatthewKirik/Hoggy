@@ -38,7 +38,7 @@ namespace HoggyServiceHost
             regServiceHost.Open();
             _backlog.WriteLine("Registration service is started");
 
-            DataExchangeService dataExService = new DataExchangeService(_repository, _fileRepository);
+            DataExchangeService dataExService = new DataExchangeService(_repository);
             ServiceHost dataExServiceHost = new ServiceHost(dataExService);
             dataExServiceHost.Open();
             _backlog.WriteLine("Data exchange service is started");
@@ -63,7 +63,7 @@ namespace HoggyServiceHost
             notificactionServiceHost.Open();
             _backlog.WriteLine("Notificaction service is started");
 
-            EditionService editionService = new EditionService(_repository, _notificator, _fileRepository);
+            EditionService editionService = new EditionService(_repository, _notificator);
             ServiceHost editionServiceHost = new ServiceHost(editionService);
             editionServiceHost.Open();
             _backlog.WriteLine("Edition service is started");
