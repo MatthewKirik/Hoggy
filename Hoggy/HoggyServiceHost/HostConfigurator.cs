@@ -67,6 +67,11 @@ namespace HoggyServiceHost
             ServiceHost editionServiceHost = new ServiceHost(editionService);
             editionServiceHost.Open();
             _backlog.WriteLine("Edition service is started");
+
+            InteractionService interactionService = new InteractionService(_repository, _notificator);
+            ServiceHost interactionServiceHost = new ServiceHost(interactionService);
+            interactionServiceHost.Open();
+            _backlog.WriteLine("Interaction service is started");
         }
     }
 }
