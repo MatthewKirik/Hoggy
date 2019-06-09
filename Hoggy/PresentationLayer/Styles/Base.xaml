@@ -12,6 +12,8 @@
     <SolidColorBrush x:Key="SecondBrushMiddle" Color="#2DBCB8"/>
     <SolidColorBrush x:Key="SecondBrushDark" Color="Teal"/>
     <SolidColorBrush x:Key="SecondBrushDarkest" Color="#FF004949"/>
+    <SolidColorBrush x:Key="IconColor" Color="#FFE63B3B"/>
+    <SolidColorBrush x:Key="IconHoverColor" Color="#FF951C1C"/>
     <SolidColorBrush x:Key="WindColor" Color="#2DBCB8"/>
     
     <Style x:Key="Lable" TargetType="TextBlock">

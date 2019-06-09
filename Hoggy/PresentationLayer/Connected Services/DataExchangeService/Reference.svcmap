@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9a5a991f-9bd1-41dc-9257-411ed0c7dc36" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5001/dataExchangeService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="dataExchangeService.disco" MetadataType="Disco" ID="d6cdfdd0-f937-4a33-b845-af0cd642f9d9" SourceId="1" SourceUrl="http://localhost:5001/dataExchangeService?disco" />
+    <MetadataFile FileName="DataExchangeService.wsdl" MetadataType="Wsdl" ID="0f7b765d-592a-4c5b-9b13-cee59fa118d5" SourceId="1" SourceUrl="http://localhost:5001/dataExchangeService?wsdl" />
+    <MetadataFile FileName="dataExchangeService.xsd" MetadataType="Schema" ID="762d75a4-5bc1-4626-80fd-d0646be0a329" SourceId="1" SourceUrl="http://localhost:5001/dataExchangeService?xsd=xsd1" />
+    <MetadataFile FileName="dataExchangeService1.xsd" MetadataType="Schema" ID="72ab2774-f974-4f7f-9b62-17ca01a2f8e8" SourceId="1" SourceUrl="http://localhost:5001/dataExchangeService?xsd=xsd2" />
+    <MetadataFile FileName="dataExchangeService2.xsd" MetadataType="Schema" ID="10a6c2c7-e08f-406a-877e-4c9c141e1c81" SourceId="1" SourceUrl="http://localhost:5001/dataExchangeService?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

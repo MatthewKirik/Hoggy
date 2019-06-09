@@ -28,9 +28,6 @@ namespace TestConsoleClient.NotificationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnBoardAddedResponse")]
         void OnBoardAdded(DataTransferObjects.BoardDTO board);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnParticipatedBoardAdded", ReplyAction="http://tempuri.org/INotificationContract/OnParticipatedBoardAddedResponse")]
-        void OnParticipatedBoardAdded(DataTransferObjects.BoardDTO board);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnParticipantAdded", ReplyAction="http://tempuri.org/INotificationContract/OnParticipantAddedResponse")]
         void OnParticipantAdded(DataTransferObjects.UserDTO user, int boardId);
         
@@ -54,6 +51,21 @@ namespace TestConsoleClient.NotificationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardCommentAdded", ReplyAction="http://tempuri.org/INotificationContract/OnCardCommentAddedResponse")]
         void OnCardCommentAdded(DataTransferObjects.CommentDTO comment, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardDeleted", ReplyAction="http://tempuri.org/INotificationContract/OnBoardDeletedResponse")]
+        void OnBoardDeleted(int boardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnColumnDeleted", ReplyAction="http://tempuri.org/INotificationContract/OnColumnDeletedResponse")]
+        void OnColumnDeleted(int boardId, int columnId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnBoardTagDeleted", ReplyAction="http://tempuri.org/INotificationContract/OnBoardTagDeletedResponse")]
+        void OnBoardTagDeleted(int boardId, int tagId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardDeleted", ReplyAction="http://tempuri.org/INotificationContract/OnCardDeletedResponse")]
+        void OnCardDeleted(int boardId, int columnId, int cardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnCardTagDeleted", ReplyAction="http://tempuri.org/INotificationContract/OnCardTagDeletedResponse")]
+        void OnCardTagDeleted(int boardId, int cardId, int tagId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
