@@ -316,5 +316,26 @@ namespace WcfServiceLibrary.Logic
                 });
             }
         }
+
+        public void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardMoved(cardId, originalColumnId, destinationColumnId);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
+            }
+        }
     }
 }

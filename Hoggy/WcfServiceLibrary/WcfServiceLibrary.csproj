@@ -54,6 +54,7 @@
     <Compile Include="Contracts\IDeletionContract.cs" />
     <Compile Include="Contracts\IEditionContract.cs" />
     <Compile Include="Contracts\IFileExchangeContract.cs" />
+    <Compile Include="Contracts\IInteractionContract.cs" />
     <Compile Include="Contracts\INotifiactionCallbackContract.cs" />
     <Compile Include="Contracts\INotificationContract.cs" />
     <Compile Include="Contracts\IRegistrationContract.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Services\DeletionService.cs" />
     <Compile Include="Services\EditionService.cs" />
     <Compile Include="Services\FileExchangeService.cs" />
+    <Compile Include="Services\InteractionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
   </ItemGroup>
