@@ -12,7 +12,7 @@ namespace WcfServiceLibrary.Logic
 {
     public class Notificator : INotificator
     {
-        private static object _subscribersLocker = null;
+        private static object _subscribersLocker = new object();
         private List<SubscriberModel> _subscribers;
         public List<SubscriberModel> Subscribers { get => _subscribers ?? (_subscribers = new List<SubscriberModel>()); }
         int TargetSecurityGroup { get; set; }
@@ -25,44 +25,50 @@ namespace WcfServiceLibrary.Logic
 
         public void OnBoardAdded(BoardDTO board)
         {
-            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
                 {
-                    try
+                    Task.Run(() =>
                     {
-                        s.Callback.OnBoardAdded(board);
-                    }
-                    catch (Exception)
-                    {
-                        lock (_subscribersLocker)
+                        try
                         {
-                            Subscribers.Remove(s);
+                            s.Callback.OnBoardAdded(board);
                         }
-                    }
-                });
-            }
+                        catch (Exception)
+                        {
+                            lock (_subscribersLocker)
+                            {
+                                Subscribers.Remove(s);
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         public void OnBoardTagAdded(TagDTO tag, int boardId)
         {
-            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
                 {
-                    try
+                    Task.Run(() =>
                     {
-                        s.Callback.OnBoardTagAdded(tag, boardId);
-                    }
-                    catch (Exception)
-                    {
-                        lock (_subscribersLocker)
+                        try
                         {
-                            Subscribers.Remove(s);
+                            s.Callback.OnBoardTagAdded(tag, boardId);
                         }
-                    }
-                });
-            }
+                        catch (Exception)
+                        {
+                            lock (_subscribersLocker)
+                            {
+                                Subscribers.Remove(s);
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         public void OnCardAdded(CardDTO card, int columnId)
@@ -199,6 +205,7 @@ namespace WcfServiceLibrary.Logic
                 {
                     try
                     {
+                        Console.WriteLine("Participant added");
                         s.Callback.OnParticipantAdded(user, boardId);
                     }
                     catch (Exception)
