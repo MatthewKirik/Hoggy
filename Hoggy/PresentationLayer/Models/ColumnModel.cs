@@ -3,9 +3,11 @@ using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PresentationLayer.Models
 {
@@ -19,6 +21,12 @@ namespace PresentationLayer.Models
         public ColumnModel()
         {
             Cards = new ObservableCollection<CardModel>();
+            Cards.CollectionChanged += CollectionChanged;
+        }
+
+        void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            MessageBox.Show(Cards.Count.ToString());
         }
 
         //COMMANDS

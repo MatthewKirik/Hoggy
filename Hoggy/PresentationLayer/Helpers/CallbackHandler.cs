@@ -15,10 +15,16 @@ namespace PresentationLayer.Helpers
     {
         //HANDLERS
         static Action<CardModel, int> _actAddCard;
+        static Action<int, int, int> _actMoveCard;
 
         public void AddNewCardHandler(Action<CardModel, int> actAddCard)
         {
             _actAddCard = actAddCard;
+        }
+
+        public void AddMoveCardHandler(Action<int, int, int> actMoveCard)
+        {
+            _actMoveCard = actMoveCard;
         }
 
         public void OnBoardAdded(BoardDTO board)
@@ -52,6 +58,11 @@ namespace PresentationLayer.Helpers
         }
 
         public void OnCardDeleted(int boardId, int columnId, int cardId)
+        {
+            
+        }
+
+        public void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId)
         {
             
         }
