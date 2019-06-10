@@ -331,7 +331,11 @@ namespace PresentationLayer.ViewModels
                     {
                         CurBoard.Columns.Clear();
                         foreach (var col in columnsDTO)
-                            CurBoard.Columns.Add(Mapper.Map<ColumnModel>(col));
+                        {
+                            ColumnModel columnModel = Mapper.Map<ColumnModel>(col);
+                            columnModel.MoveCardAct = MoveCard;
+                            CurBoard.Columns.Add(columnModel);
+                        }
                     });
 
                     foreach (var col in CurBoard.Columns)
@@ -358,6 +362,12 @@ namespace PresentationLayer.ViewModels
                     LoaderVisible = false;
                 }
             });
+
+        }
+
+        void MoveCard(int cardId, int colId, int position)
+        {
+            MessageBox.Show(cardId + " " + colId + " " + position);
 
         }
 

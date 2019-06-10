@@ -98,8 +98,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
                                 <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
-                                          dd:DragDrop.IsDragSource="True"
-                                          dd:DragDrop.IsDropTarget="True">
+                                          dd:DragDrop.IsDragSource="True" 
+                                          dd:DragDrop.IsDropTarget="True"
+                                          dd:DragDrop.DropHandler="{Binding}" >
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Style="{StaticResource Card}">

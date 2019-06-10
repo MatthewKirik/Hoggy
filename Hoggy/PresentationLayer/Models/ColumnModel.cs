@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GongSolutions.Wpf.DragDrop;
 using PresentationLayer.Windows;
 using System;
 using System.Collections.Generic;
@@ -11,22 +13,28 @@ using System.Windows;
 
 namespace PresentationLayer.Models
 {
-    public class ColumnModel
+    public class ColumnModel : ViewModelBase, IDropTarget
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public ObservableCollection<CardModel> Cards { get; set; }
+        public Action<int, int, int> MoveCardAct{ get; set; }
 
         public ColumnModel()
         {
             Cards = new ObservableCollection<CardModel>();
-            Cards.CollectionChanged += CollectionChanged;
         }
 
-        void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        public void DragOver(IDropInfo dropInfo)
         {
-            MessageBox.Show(Cards.Count.ToString());
+            GongSolutions.Wpf.DragDrop.DragDrop.DefaultDropHandler.DragOver(dropInfo);
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            MoveCardAct.Invoke((dropInfo.DragInfo.SourceItem as CardModel).Id,
+                Id, dropInfo.InsertIndex);
         }
 
         //COMMANDS
@@ -39,6 +47,18 @@ namespace PresentationLayer.Models
                 {
                     AddEditCardWindow addCard = new AddEditCardWindow(null, Id);
                     addCard.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand _dropH;
+        public RelayCommand DropH
+        {
+            get
+            {
+                return _dropH ?? (_dropH = new RelayCommand(() =>
+                {
+                    MessageBox.Show("Hello!");
                 }));
             }
         }
