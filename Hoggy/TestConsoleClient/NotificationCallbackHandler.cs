@@ -12,22 +12,20 @@ namespace TestConsoleClient
     {
         public void OnBoardAdded(BoardDTO board)
         {
-            Console.WriteLine(board.Name + " added");
+            Console.WriteLine(board.Name + " added notification");
         }
 
         public void OnBoardDeleted(int boardId)
         {
-            throw new NotImplementedException();
         }
 
         public void OnBoardTagAdded(TagDTO tag, int boardId)
         {
-            Console.WriteLine(tag.Name + " added");
+            Console.WriteLine(tag.Name + " added notification");
         }
 
         public void OnBoardTagDeleted(int boardId, int tagId)
         {
-            throw new NotImplementedException();
         }
 
         public void OnCardAdded(CardDTO card, int columnId)
@@ -42,7 +40,6 @@ namespace TestConsoleClient
 
         public void OnCardDeleted(int boardId, int columnId, int cardId)
         {
-            throw new NotImplementedException();
         }
 
         public void OnCardSubscribersAdded(UserDTO user, int cardId)
@@ -57,17 +54,15 @@ namespace TestConsoleClient
 
         public void OnCardTagDeleted(int boardId, int cardId, int tagId)
         {
-            throw new NotImplementedException();
         }
 
         public void OnColumnAdded(ColumnDTO column, int boardId)
         {
-            Console.WriteLine(column.Name + " added");
+            Console.WriteLine(column.Name + " added notification");
         }
 
         public void OnColumnDeleted(int boardId, int columnId)
         {
-            throw new NotImplementedException();
         }
 
         public void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId)
@@ -77,7 +72,7 @@ namespace TestConsoleClient
 
         public void OnParticipantAdded(UserDTO user, int boardId)
         {
-
+            Console.WriteLine("participant added notification");
         }
 
         public void OnParticipatedBoardAdded(BoardDTO board)

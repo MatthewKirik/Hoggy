@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using TestConsoleClient.AuthenticationService;
 using TestConsoleClient.CommunityService;
 using TestConsoleClient.CreationService;
@@ -42,6 +43,37 @@ namespace TestConsoleClient
             editionClient.Open();
             deletionClient = new DeletionContractClient();
             deletionClient.Open();
+        }
+
+        public void CreateGroup(int participantsAmount)
+        {
+            List<AuthenticationToken> peopleTokens = RegisterAndLoginUsers(participantsAmount);
+            AuthenticationToken mainToken = peopleTokens[0];
+            UserDTO mainUser = dataExchangeClient.GetUser(mainToken);
+            peopleTokens.RemoveAt(0);
+            List<UserDTO> people = new List<UserDTO>();
+            foreach (var token in peopleTokens)
+            {
+                people.Add(dataExchangeClient.GetUser(token));
+            }
+            AddBoards(mainToken, 1);
+            BoardDTO board = dataExchangeClient.GetBoards(mainToken, mainUser.Id)[0];
+            //notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
+            //notificationClient.Open();
+            //notificationClient.Subscribe(mainToken, board.Id);
+            Task.Run(() =>
+            {
+                for (int i = 0; i < people.Count; i++)
+                {
+                    communityClient.SendInvitation(mainToken, board.Id, people[i].Email);
+                    InvitationDTO invitation = dataExchangeClient.GetIncomeInvitations(peopleTokens[i], people[i].Id)[0];
+                    communityClient.AcceptInvitation(peopleTokens[i], invitation.Key);
+                    //notificationClient.Subscribe(peopleTokens[i], board.Id);
+                }
+                AddColumns(mainToken, board.Id, 5);
+            });
+
+
         }
 
         public void TestInvitations()
