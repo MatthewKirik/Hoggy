@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6b7734aa-6375-437e-8045-58acc293fb00" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5001/interactionService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="InteractionService.wsdl" MetadataType="Wsdl" ID="1ffcf907-e889-40b8-b268-acb256a839fb" SourceId="1" SourceUrl="http://localhost:5001/interactionService?wsdl" />
+    <MetadataFile FileName="interactionService.xsd" MetadataType="Schema" ID="f655fb5f-1ea9-421c-b40f-caa361f8b586" SourceId="1" SourceUrl="http://localhost:5001/interactionService?xsd=xsd1" />
+    <MetadataFile FileName="interactionService1.xsd" MetadataType="Schema" ID="05bce05f-2746-44e9-bb16-bf7e57123b6f" SourceId="1" SourceUrl="http://localhost:5001/interactionService?xsd=xsd0" />
+    <MetadataFile FileName="interactionService2.xsd" MetadataType="Schema" ID="0a294d2d-3b10-4d32-b2aa-78509428abfd" SourceId="1" SourceUrl="http://localhost:5001/interactionService?xsd=xsd2" />
+    <MetadataFile FileName="interactionService.disco" MetadataType="Disco" ID="23a508d7-928b-46bf-9588-2077bb3804a9" SourceId="1" SourceUrl="http://localhost:5001/interactionService?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

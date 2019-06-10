@@ -146,6 +146,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\InteractionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -166,6 +171,9 @@
     <Compile Include="ViewModels\TagsWindowViewModel.cs" />
     <Compile Include="Windows\AddEditCardWindow.xaml.cs">
       <DependentUpon>AddEditCardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditCardWindow.xaml.cs">
+      <DependentUpon>EditCardWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -266,6 +274,16 @@
     <None Include="Connected Services\EditionService\editionService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\InteractionService\InteractionService.wsdl" />
+    <None Include="Connected Services\InteractionService\interactionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\InteractionService\interactionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\InteractionService\interactionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\NotificationService\NotificationService.wsdl" />
     <None Include="Connected Services\NotificationService\notificationService.xsd">
       <SubType>Designer</SubType>
@@ -319,6 +337,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EditCardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -369,6 +391,7 @@
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
     <WCFMetadataStorage Include="Connected Services\DeletionService\" />
     <WCFMetadataStorage Include="Connected Services\EditionService\" />
+    <WCFMetadataStorage Include="Connected Services\InteractionService\" />
     <WCFMetadataStorage Include="Connected Services\NotificationService\" />
     <WCFMetadataStorage Include="Connected Services\RegistrationService\" />
   </ItemGroup>
@@ -488,6 +511,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\EditionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\InteractionService\interactionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\InteractionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\InteractionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\InteractionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -34,7 +34,7 @@ namespace PresentationLayer.Models
         public void Drop(IDropInfo dropInfo)
         {
             MoveCardAct.Invoke((dropInfo.DragInfo.SourceItem as CardModel).Id,
-                Id, dropInfo.InsertIndex);
+                (dropInfo.DragInfo.SourceItem as CardModel).ColumnId, Id);
         }
 
         //COMMANDS

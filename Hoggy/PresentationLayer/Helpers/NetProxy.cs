@@ -5,6 +5,7 @@ using PresentationLayer.CreationService;
 using PresentationLayer.DataExchangeService;
 using PresentationLayer.DeletionService;
 using PresentationLayer.EditionService;
+using PresentationLayer.InteractionService;
 using PresentationLayer.NotificationService;
 using PresentationLayer.RegistrationService;
 using System;
@@ -45,6 +46,9 @@ namespace PresentationLayer.Helpers
         static RegistrationContractClient _regProxy;
         public static RegistrationContractClient RegProxy { get => _regProxy; }
 
+        static InteractionContractClient _interProxy;
+        public static InteractionContractClient InterProxy { get => _interProxy; }
+
         static CallbackHandler _callbackHandler;
         public static CallbackHandler CallbackHandler { get => _callbackHandler; }
         
@@ -68,6 +72,9 @@ namespace PresentationLayer.Helpers
 
             _editionProxy = new EditionContractClient();
             _editionProxy.Open();
+
+            _interProxy = new InteractionContractClient();
+            _interProxy.Open();
 
             _notificationProxy = new NotificationContractClient(new InstanceContext(new CallbackHandler()));
             _notificationProxy.Open();

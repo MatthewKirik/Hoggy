@@ -85,7 +85,8 @@ namespace PresentationLayer.ViewModels
         public MainWindowViewModel(Window mainWindow)
         {
             NetProxy.Configure();
-            NetProxy.CallbackHandler.AddNewCardHandler(AddNewCard); 
+            NetProxy.CallbackHandler.AddNewCardHandler(AddNewCard);
+            NetProxy.CallbackHandler.AddMoveCardHandler(MoveCardCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -96,11 +97,8 @@ namespace PresentationLayer.ViewModels
             else
             {
                 RegistrationWindowViewModel regModel = (RegistrationWindowViewModel)auth.DataContext;
-
                 NetProxy.SetToken(regModel.Token);
-                
                 User = new UserModel();
-
                 GetUser();
                 GetBoards(nameof(User.Boards));
                 GetBoards(nameof(User.PartBoards));
@@ -112,7 +110,7 @@ namespace PresentationLayer.ViewModels
                 AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
             }
         }
-        
+
         void AddNewCard(CardModel card, int colId)
         {
             ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
@@ -293,7 +291,6 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    //_notificationProxy.UNSUBSCRIBE(token, CurBoard.Id);
                     Thread.Sleep(3000);
                     CurBoard = board;
                     LoadCurrentBoard();
@@ -347,7 +344,11 @@ namespace PresentationLayer.ViewModels
                             {
                                 col.Cards.Clear();
                                 foreach (var card in cardsDTO)
-                                    col.Cards.Add(Mapper.Map<CardModel>(card));
+                                {
+                                    CardModel cardModel = Mapper.Map<CardModel>(card);
+                                    cardModel.ColumnId = col.Id;
+                                    col.Cards.Add(cardModel);
+                                }
                             });
                         }
                     }
@@ -365,12 +366,57 @@ namespace PresentationLayer.ViewModels
 
         }
 
-        void MoveCard(int cardId, int colId, int position)
+        void MoveCard(int cardId, int originalColumnId, int destinationColumnId)
         {
-            MessageBox.Show(cardId + " " + colId + " " + position);
-
+            LoaderVisible = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    NetProxy.InterProxy.MoveCard(NetProxy.Token, cardId, destinationColumnId);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    LoaderVisible = false;
+                }
+            });
         }
 
+        void MoveCardCallback(int cardId, int originalColumnId, int destinationColumnId)
+        {
+            LoaderVisible = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    ColumnModel col = CurBoard.Columns.Where(c => c.Id == originalColumnId).FirstOrDefault();
+                    ColumnModel destcol = CurBoard.Columns.Where(c => c.Id == destinationColumnId).FirstOrDefault();
+                    CardModel card = col.Cards.Where(c => c.Id == cardId).FirstOrDefault();
+
+                    if (col == null || destcol == null || card == null)
+                        return;
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        col.Cards.Remove(card);
+                        destcol.Cards.Add(card);
+                    });
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    LoaderVisible = false;
+                }
+            });
+        }
         ////COMMANDS
     }
 }

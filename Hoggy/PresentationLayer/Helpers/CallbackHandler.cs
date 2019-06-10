@@ -64,7 +64,7 @@ namespace PresentationLayer.Helpers
 
         public void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId)
         {
-            
+            _actMoveCard(cardId, originalColumnId, destinationColumnId);
         }
 
         public void OnCardSubscribersAdded(UserDTO user, int cardId)

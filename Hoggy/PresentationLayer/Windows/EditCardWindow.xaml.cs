@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 
 namespace PresentationLayer.Windows
 {
-    public partial class AddEditCardWindow : MetroWindow
+    /// <summary>
+    /// Interaction logic for EditCardWindow.xaml
+    /// </summary>
+    public partial class EditCardWindow : MetroWindow
     {
-        public AddEditCardWindow(CardModel card, int colId)
+        public EditCardWindow(CardModel card)
         {
-            DataContext = new CardModel(card, colId, this);
+            DataContext = card;
             InitializeComponent();
         }
     }

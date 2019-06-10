@@ -130,6 +130,8 @@ namespace PresentationLayer.Models
             }
         }
 
+        public int ColumnId { get; set; }
+
         public ObservableCollection<TagModel> Tags { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
@@ -189,8 +191,8 @@ namespace PresentationLayer.Models
             {
                 return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
                 {
-                    //EditCard editCardwindow = new EditCard((CardModel)Clone());
-                    //editCardwindow.ShowDialog();
+                    EditCardWindow editCardwindow = new EditCardWindow(this);
+                    editCardwindow.ShowDialog();
                 }));
             }
         }
