@@ -29,9 +29,11 @@ namespace PresentationLayer.Models
         public DateTime CreationDate { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
         public ObservableCollection<ColumnModel> Columns { get; set; }
+        public ObservableCollection<TagModel> Tags { get; set; }
 
         public BoardModel()
         {
+            Tags = new ObservableCollection<TagModel>();
             Columns = new ObservableCollection<ColumnModel>();
             Participants = new ObservableCollection<UserModel>();
         }

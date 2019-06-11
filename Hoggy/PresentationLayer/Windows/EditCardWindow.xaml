@@ -108,6 +108,12 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel>
+                <Border Style="{StaticResource CardHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                        <TextBlock Text="CARD TAGS:" Style="{StaticResource CardHeader}" />
+                    </WrapPanel>
+                </Border>
                 <ListBox ItemsSource="{Binding Tags}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -120,9 +126,19 @@
                 <Border Style="{StaticResource CardHeaderBorder}">
                     <WrapPanel>
                         <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                        <TextBlock Text="TAGS:" Style="{StaticResource CardHeader}" />
+                        <TextBlock Text="UNUSED TAGS:" Style="{StaticResource CardHeader}" />
                     </WrapPanel>
                 </Border>
+                <ListBox ItemsSource="{Binding BoardTags}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <TextBlock Text="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
             </StackPanel>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">

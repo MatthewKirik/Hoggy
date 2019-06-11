@@ -131,11 +131,13 @@ namespace PresentationLayer.Models
         }
 
         public int ColumnId { get; set; }
+        public int BoardId { get; set; }
 
         public ObservableCollection<TagModel> Tags { get; set; }
+        public ObservableCollection<TagModel> BoardTags { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
-
+        
         //TagModel _curTag;
         //public TagModel CurTag
         //{
@@ -150,15 +152,15 @@ namespace PresentationLayer.Models
         public CardModel()
         {
             Tags = new ObservableCollection<TagModel>();
+            BoardTags = new ObservableCollection<TagModel>();
             Comments = new ObservableCollection<CommentModel>();
             Participants = new ObservableCollection<UserModel>();
+            
             _nameErr = "Empty field";
             _descErr = "Empty field";
             ExpireDate = DateTime.Now;
         }
-
         Window _window;
-
         public CardModel(CardModel card, int colId, Window window) : this()
         {
             _window = window;
@@ -168,7 +170,6 @@ namespace PresentationLayer.Models
 
         void AddNewCard()
         {
-
             CreationDate = DateTime.Now;
             CardDTO card = Mapper.Map<CardDTO>(this);
             LoaderVisible = true;

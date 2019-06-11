@@ -80,8 +80,8 @@ namespace PresentationLayer.ViewModels
                 RaisePropertyChanged(nameof(User));
             }
         }
-        Window _mainWindow;
 
+        Window _mainWindow;
         public MainWindowViewModel(Window mainWindow)
         {
             NetProxy.Configure();
@@ -323,7 +323,10 @@ namespace PresentationLayer.ViewModels
                     ColumnDTO[] columnsDTO = NetProxy.DataExchProxy.GetColumns(NetProxy.Token, CurBoard.Id);
                     if (columnsDTO == null || columnsDTO.Length == 0)
                         return;
-
+                    TagDTO[] allTags = NetProxy.DataExchProxy.GetBoardTags(NetProxy.Token, CurBoard.Id);
+                    if(allTags != null)
+                        CurBoard.Tags = Mapper.Map<TagDTO[], ObservableCollection<TagModel>>(allTags);
+   
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         CurBoard.Columns.Clear();
@@ -347,6 +350,8 @@ namespace PresentationLayer.ViewModels
                                 {
                                     CardModel cardModel = Mapper.Map<CardModel>(card);
                                     cardModel.ColumnId = col.Id;
+                                    cardModel.BoardId = CurBoard.Id;
+                                    cardModel.Tags = CurBoard.Tags;
                                     col.Cards.Add(cardModel);
                                 }
                             });
@@ -417,6 +422,7 @@ namespace PresentationLayer.ViewModels
                 }
             });
         }
+        
         ////COMMANDS
     }
 }
