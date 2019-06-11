@@ -10,89 +10,148 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   Title="ADD/EDIT CARD" Height="600" Width="500" 
+                   Title="ADD/EDIT CARD" Height="600" Width="1000" 
                    Icon="pack://application:,,,/Resources/icon.ico"
                    Background="{StaticResource SecondBrushLighter}"
                    ResizeMode="NoResize">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="50"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <!--MAIN INFO-->
-        <StackPanel>
-            <Border Style="{StaticResource CardHeaderBorder}">
-                <WrapPanel>
-                    <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                    <TextBlock Text="CARD INFO:" Style="{StaticResource CardHeader}" />
-                </WrapPanel>
-            </Border>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Name" Style="{StaticResource Lable}" />
-                <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-            </Grid>
-            <TextBlock Visibility="{Binding NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <Border Style="{StaticResource CardHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                        <TextBlock Text="CARD INFO:" Style="{StaticResource CardHeader}" />
+                    </WrapPanel>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Name" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                </Grid>
+                <TextBlock Visibility="{Binding NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
                                    Text="{Binding NameErr}" Style="{StaticResource Error}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Description" Style="{StaticResource Lable}" />
-                <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Description" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" 
                          Grid.Column="1" TextWrapping="Wrap" MinLines="5"/>
-            </Grid>
-            <TextBlock Visibility="{Binding DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                </Grid>
+                <TextBlock Visibility="{Binding DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
                                    Text="{Binding DescErr}" Style="{StaticResource Error}"/>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Expire date" Style="{StaticResource Lable}" />
+                    <metro:DateTimePicker Grid.Row="1" Grid.Column="1" Culture="uk-UA" FontSize="16"
+                                      SelectedDate="{Binding ExpireDate}" Margin="10" SelectedTimeFormat="Short" />
+                </Grid>
+                <TextBlock Visibility="{Binding ExpDateErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding ExpDateErr}" Style="{StaticResource Error}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Expire date" Style="{StaticResource Lable}" />
-                <metro:DateTimePicker Grid.Row="1" Grid.Column="1" Culture="uk-UA" FontSize="16"
-                                      SelectedDate="{Binding ExpireDate}" Margin="10" SelectedTimeFormat="Short" />
+                <Button Command="{Binding SaveEditedCardCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}">
+                    <Button.Content>
+                        <WrapPanel>
+                            <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
+                            <TextBlock Style="{StaticResource Lable}" Text="SAVE CAHANGES"/>
+                        </WrapPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
+                    <Button.Content>
+                        <WrapPanel>
+                            <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
+                            <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                        </WrapPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
-            <TextBlock Visibility="{Binding ExpDateErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding ExpDateErr}" Style="{StaticResource Error}"/>
-        </StackPanel>
-
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding SaveCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}">
-                <Button.Content>
-                    <WrapPanel>
-                        <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
-                        <TextBlock Style="{StaticResource Lable}" Text="SAVE CAHANGES"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
-                <Button.Content>
-                    <WrapPanel>
-                        <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
-                        <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
         </Grid>
 
+        <!--TAGS EDIT-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <ListBox ItemsSource="{Binding Tags}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <TextBlock Text="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border Style="{StaticResource CardHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                        <TextBlock Text="TAGS:" Style="{StaticResource CardHeader}" />
+                    </WrapPanel>
+                </Border>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding SaveEditedCardCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}">
+                    <Button.Content>
+                        <WrapPanel>
+                            <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
+                            <TextBlock Style="{StaticResource Lable}" Text="ADD NEW TAG"/>
+                        </WrapPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
+                    <Button.Content>
+                        <WrapPanel>
+                            <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
+                            <TextBlock Style="{StaticResource Lable}" Text="REMOVE TAG"/>
+                        </WrapPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+        </Grid>
         <!--<Border Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
             <metro:ProgressRing />
         </Border>-->
-
     </Grid>
 </metro:MetroWindow>

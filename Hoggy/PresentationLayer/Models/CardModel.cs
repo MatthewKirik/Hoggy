@@ -136,6 +136,17 @@ namespace PresentationLayer.Models
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
 
+        //TagModel _curTag;
+        //public TagModel CurTag
+        //{
+        //    get => _curTag;
+        //    set
+        //    {
+        //        _curTag = value;
+        //        RaisePropertyChanged(nameof(CurTag));
+        //    }
+        //}
+
         public CardModel()
         {
             Tags = new ObservableCollection<TagModel>();
@@ -180,7 +191,6 @@ namespace PresentationLayer.Models
                     LoaderVisible = false;
                 }
             });
-
         }
 
         //COMMANDS
@@ -193,6 +203,35 @@ namespace PresentationLayer.Models
                 {
                     EditCardWindow editCardwindow = new EditCardWindow(this);
                     editCardwindow.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand _saveEditedCard;
+        public RelayCommand SaveEditedCardCmd
+        {
+            get
+            {
+                return _saveEditedCard ?? (_saveEditedCard = new RelayCommand(() =>
+                {
+                    LoaderVisible = true;
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            if (!NetProxy.EditionProxy.EditCard(NetProxy.Token, Mapper.Map<CardDTO>(this)))
+                                MessageBox.Show("Card is not edited!");
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                                       MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        finally
+                        {
+                            LoaderVisible = false;
+                        }
+                    });
                 }));
             }
         }
