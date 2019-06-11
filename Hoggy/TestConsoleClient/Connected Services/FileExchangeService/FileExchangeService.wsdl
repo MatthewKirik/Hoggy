@@ -27,10 +27,14 @@
   <wsdl:message name="GetImageResponseMessage">
     <wsdl:part name="parameters" element="tns:GetImageResponseMessage" />
   </wsdl:message>
+  <wsdl:message name="GetImageResponseMessage_Headers">
+    <wsdl:part name="Length" element="tns:Length" />
+  </wsdl:message>
   <wsdl:message name="AddImageRequestMessage">
     <wsdl:part name="parameters" element="tns:AddImageRequestMessage" />
   </wsdl:message>
   <wsdl:message name="AddImageRequestMessage_Headers">
+    <wsdl:part name="Length" element="tns:Length" />
     <wsdl:part name="Token" element="tns:Token" />
   </wsdl:message>
   <wsdl:portType name="IFileExchangeContract">
@@ -53,12 +57,14 @@
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output name="GetImageResponseMessage">
+        <soap12:header message="tns:GetImageResponseMessage_Headers" part="Length" use="literal" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="SetUserProfileImage">
       <soap12:operation soapAction="http://tempuri.org/IFileExchangeContract/SetUserProfileImage" style="document" />
       <wsdl:input name="AddImageRequestMessage">
+        <soap12:header message="tns:AddImageRequestMessage_Headers" part="Length" use="literal" />
         <soap12:header message="tns:AddImageRequestMessage_Headers" part="Token" use="literal" />
         <soap12:body use="literal" />
       </wsdl:input>

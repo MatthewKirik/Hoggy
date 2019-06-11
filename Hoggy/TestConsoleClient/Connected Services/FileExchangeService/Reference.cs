@@ -15,14 +15,12 @@ namespace TestConsoleClient.FileExchangeService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FileExchangeService.IFileExchangeContract")]
     public interface IFileExchangeContract {
         
-        // CODEGEN: Generating message contract since the wrapper name (GetImageRequestMessage) of message GetImageRequestMessage does not match the default value (GetUserProfileImage)
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFileExchangeContract/GetUserProfileImage", ReplyAction="http://tempuri.org/IFileExchangeContract/GetUserProfileImageResponse")]
         TestConsoleClient.FileExchangeService.GetImageResponseMessage GetUserProfileImage(TestConsoleClient.FileExchangeService.GetImageRequestMessage request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFileExchangeContract/GetUserProfileImage", ReplyAction="http://tempuri.org/IFileExchangeContract/GetUserProfileImageResponse")]
         System.Threading.Tasks.Task<TestConsoleClient.FileExchangeService.GetImageResponseMessage> GetUserProfileImageAsync(TestConsoleClient.FileExchangeService.GetImageRequestMessage request);
         
-        // CODEGEN: Generating message contract since the wrapper name (AddImageRequestMessage) of message AddImageRequestMessage does not match the default value (SetUserProfileImage)
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFileExchangeContract/SetUserProfileImage")]
         void SetUserProfileImage(TestConsoleClient.FileExchangeService.AddImageRequestMessage request);
         
@@ -32,7 +30,6 @@ namespace TestConsoleClient.FileExchangeService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="GetImageRequestMessage", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class GetImageRequestMessage {
         
@@ -53,9 +50,11 @@ namespace TestConsoleClient.FileExchangeService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="GetImageResponseMessage", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class GetImageResponseMessage {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        public long Length;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public System.IO.Stream FileByteStream;
@@ -63,16 +62,19 @@ namespace TestConsoleClient.FileExchangeService {
         public GetImageResponseMessage() {
         }
         
-        public GetImageResponseMessage(System.IO.Stream FileByteStream) {
+        public GetImageResponseMessage(long Length, System.IO.Stream FileByteStream) {
+            this.Length = Length;
             this.FileByteStream = FileByteStream;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="AddImageRequestMessage", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class AddImageRequestMessage {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        public long Length;
         
         [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
         public DataTransferObjects.AuthenticationToken Token;
@@ -83,7 +85,8 @@ namespace TestConsoleClient.FileExchangeService {
         public AddImageRequestMessage() {
         }
         
-        public AddImageRequestMessage(DataTransferObjects.AuthenticationToken Token, System.IO.Stream FileByteStream) {
+        public AddImageRequestMessage(long Length, DataTransferObjects.AuthenticationToken Token, System.IO.Stream FileByteStream) {
+            this.Length = Length;
             this.Token = Token;
             this.FileByteStream = FileByteStream;
         }
@@ -116,53 +119,20 @@ namespace TestConsoleClient.FileExchangeService {
                 base(binding, remoteAddress) {
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        TestConsoleClient.FileExchangeService.GetImageResponseMessage TestConsoleClient.FileExchangeService.IFileExchangeContract.GetUserProfileImage(TestConsoleClient.FileExchangeService.GetImageRequestMessage request) {
+        public TestConsoleClient.FileExchangeService.GetImageResponseMessage GetUserProfileImage(TestConsoleClient.FileExchangeService.GetImageRequestMessage request) {
             return base.Channel.GetUserProfileImage(request);
         }
         
-        public System.IO.Stream GetUserProfileImage(DataTransferObjects.AuthenticationToken Token, int UserId) {
-            TestConsoleClient.FileExchangeService.GetImageRequestMessage inValue = new TestConsoleClient.FileExchangeService.GetImageRequestMessage();
-            inValue.Token = Token;
-            inValue.UserId = UserId;
-            TestConsoleClient.FileExchangeService.GetImageResponseMessage retVal = ((TestConsoleClient.FileExchangeService.IFileExchangeContract)(this)).GetUserProfileImage(inValue);
-            return retVal.FileByteStream;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TestConsoleClient.FileExchangeService.GetImageResponseMessage> TestConsoleClient.FileExchangeService.IFileExchangeContract.GetUserProfileImageAsync(TestConsoleClient.FileExchangeService.GetImageRequestMessage request) {
+        public System.Threading.Tasks.Task<TestConsoleClient.FileExchangeService.GetImageResponseMessage> GetUserProfileImageAsync(TestConsoleClient.FileExchangeService.GetImageRequestMessage request) {
             return base.Channel.GetUserProfileImageAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TestConsoleClient.FileExchangeService.GetImageResponseMessage> GetUserProfileImageAsync(DataTransferObjects.AuthenticationToken Token, int UserId) {
-            TestConsoleClient.FileExchangeService.GetImageRequestMessage inValue = new TestConsoleClient.FileExchangeService.GetImageRequestMessage();
-            inValue.Token = Token;
-            inValue.UserId = UserId;
-            return ((TestConsoleClient.FileExchangeService.IFileExchangeContract)(this)).GetUserProfileImageAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void TestConsoleClient.FileExchangeService.IFileExchangeContract.SetUserProfileImage(TestConsoleClient.FileExchangeService.AddImageRequestMessage request) {
+        public void SetUserProfileImage(TestConsoleClient.FileExchangeService.AddImageRequestMessage request) {
             base.Channel.SetUserProfileImage(request);
         }
         
-        public void SetUserProfileImage(DataTransferObjects.AuthenticationToken Token, System.IO.Stream FileByteStream) {
-            TestConsoleClient.FileExchangeService.AddImageRequestMessage inValue = new TestConsoleClient.FileExchangeService.AddImageRequestMessage();
-            inValue.Token = Token;
-            inValue.FileByteStream = FileByteStream;
-            ((TestConsoleClient.FileExchangeService.IFileExchangeContract)(this)).SetUserProfileImage(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task TestConsoleClient.FileExchangeService.IFileExchangeContract.SetUserProfileImageAsync(TestConsoleClient.FileExchangeService.AddImageRequestMessage request) {
+        public System.Threading.Tasks.Task SetUserProfileImageAsync(TestConsoleClient.FileExchangeService.AddImageRequestMessage request) {
             return base.Channel.SetUserProfileImageAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task SetUserProfileImageAsync(DataTransferObjects.AuthenticationToken Token, System.IO.Stream FileByteStream) {
-            TestConsoleClient.FileExchangeService.AddImageRequestMessage inValue = new TestConsoleClient.FileExchangeService.AddImageRequestMessage();
-            inValue.Token = Token;
-            inValue.FileByteStream = FileByteStream;
-            return ((TestConsoleClient.FileExchangeService.IFileExchangeContract)(this)).SetUserProfileImageAsync(inValue);
         }
     }
 }

@@ -52,12 +52,30 @@ namespace TestConsoleClient
         public void TestFiles()
         {
             AuthenticationToken token = RegisterAndLoginUsers(1)[0];
+            Stream stream = File.OpenRead("img.png");
             AddImageRequestMessage requestMessage = new AddImageRequestMessage()
             {
-                FileByteStream = File.OpenRead("img.png"),
-                Token = token
+                FileByteStream = stream,
+                Token = token,
+                Length = stream.Length
             };
-            //fileExchangeClient.SetUserProfileImage(requestMessage);
+            fileExchangeClient.SetUserProfileImage(requestMessage);
+            GetImageRequestMessage getImgRequest = new GetImageRequestMessage()
+            {
+                Token = token, 
+                UserId = 1
+            };
+            GetImageResponseMessage response = fileExchangeClient.GetUserProfileImage(getImgRequest);
+            using (FileStream outStream = File.Open("inImg.png", FileMode.OpenOrCreate))
+            {
+                byte[] buffer = new byte[2048];
+                int readBytes = 0;
+                do
+                {
+                    readBytes = response.FileByteStream.Read(buffer, 0, buffer.Length);
+                    outStream.Write(buffer, 0, readBytes);
+                } while (outStream.Length < response.Length);
+            }
         }
 
         public void CreateGroup(int participantsAmount)

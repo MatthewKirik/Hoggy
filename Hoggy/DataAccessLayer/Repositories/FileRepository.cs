@@ -11,17 +11,21 @@ namespace DataAccessLayer.Repositories
     public class FileRepository : IFileRepository
     {
         private readonly string _standartPath;
+        private readonly string _standartExtension;
         private FileStream _stream;
 
         public FileRepository()
         {
-            _standartPath = "UserFiles\\";
+            _standartPath = @"UserFiles\";
+            _standartExtension = ".hoggyData";
+            if (!Directory.Exists(_standartPath))
+                Directory.CreateDirectory(_standartPath);
         }
 
         public string AddFile(byte[] file)
         {
             string key = KeyGenerator();
-            string path = _standartPath + key;
+            string path = _standartPath + key + _standartExtension;
             try
             {
                 using (_stream = new FileStream(path, FileMode.OpenOrCreate))
@@ -38,7 +42,7 @@ namespace DataAccessLayer.Repositories
 
         public byte[] GetFile(string key)
         {
-            string path = _standartPath + key;
+            string path = _standartPath + key + _standartExtension;
             try
             {
                 using (_stream = File.OpenRead(path))
@@ -56,7 +60,7 @@ namespace DataAccessLayer.Repositories
         
         private string KeyGenerator()
         {
-            return DateTime.Now + "_" + Guid.NewGuid();
+            return DateTime.Now.Ticks.ToString() + "_" + Guid.NewGuid();
         }
     }
 }
