@@ -65,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\FileExchangeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\RegistationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +137,22 @@
     <None Include="Connected Services\EditionService\editionService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\FileExchangeService\FileExchangeService.wsdl" />
+    <None Include="Connected Services\FileExchangeService\fileExchangeService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FileExchangeService\fileExchangeService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FileExchangeService\fileExchangeService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FileExchangeService\fileExchangeService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FileExchangeService\TestConsoleClient.FileExchangeService.GetImageResponseMessage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\RegistationService\RegistrationService.wsdl" />
     <None Include="Connected Services\RegistationService\registrationService.xsd">
       <SubType>Designer</SubType>
@@ -191,6 +212,7 @@
     <WCFMetadataStorage Include="Connected Services\CreationService\" />
     <WCFMetadataStorage Include="Connected Services\DataExchangeService\" />
     <WCFMetadataStorage Include="Connected Services\EditionService\" />
+    <WCFMetadataStorage Include="Connected Services\FileExchangeService\" />
     <WCFMetadataStorage Include="Connected Services\RegistationService\" />
     <WCFMetadataStorage Include="Connected Services\CommunityService\" />
     <WCFMetadataStorage Include="Connected Services\NotificationService\" />
@@ -322,6 +344,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\DeletionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FileExchangeService\fileExchangeService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FileExchangeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FileExchangeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FileExchangeService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

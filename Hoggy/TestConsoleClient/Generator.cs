@@ -11,6 +11,7 @@ using TestConsoleClient.CreationService;
 using TestConsoleClient.DataExchangeService;
 using TestConsoleClient.DeletionService;
 using TestConsoleClient.EditionService;
+using TestConsoleClient.FileExchangeService;
 using TestConsoleClient.NotificationService;
 using TestConsoleClient.RegistationService;
 
@@ -26,6 +27,7 @@ namespace TestConsoleClient
         CommunityContractClient communityClient;
         EditionContractClient editionClient;
         DeletionContractClient deletionClient;
+        FileExchangeContractClient fileExchangeClient;
 
         public Generator()
         {
@@ -43,6 +45,19 @@ namespace TestConsoleClient
             editionClient.Open();
             deletionClient = new DeletionContractClient();
             deletionClient.Open();
+            fileExchangeClient = new FileExchangeContractClient();
+            fileExchangeClient.Open();
+        }
+
+        public void TestFiles()
+        {
+            AuthenticationToken token = RegisterAndLoginUsers(1)[0];
+            AddImageRequestMessage requestMessage = new AddImageRequestMessage()
+            {
+                FileByteStream = File.OpenRead("img.png"),
+                Token = token
+            };
+            //fileExchangeClient.SetUserProfileImage(requestMessage);
         }
 
         public void CreateGroup(int participantsAmount)

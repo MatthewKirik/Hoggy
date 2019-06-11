@@ -11,6 +11,8 @@ namespace DataTransferObjects.Messages
     public class GetImageResponseMessage
     {
         [MessageBodyMember(Order = 1)]
+        public int Length;
+        [MessageBodyMember(Order = 2)]
         public System.IO.Stream FileByteStream;
     }
 }
