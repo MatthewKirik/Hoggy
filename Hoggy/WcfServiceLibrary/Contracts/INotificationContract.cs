@@ -8,5 +8,7 @@ namespace WcfServiceLibrary.Contracts
     {
         [OperationContract]
         bool Subscribe(AuthenticationToken token, int boardId);
+        [OperationContract]
+        bool UnSubscribe(AuthenticationToken token, int boardId);
     }
 }

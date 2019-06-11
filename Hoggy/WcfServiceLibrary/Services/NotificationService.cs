@@ -47,5 +47,25 @@ namespace WcfServiceLibrary.Services
                 return false;
             }
         }
+
+        public bool UnSubscribe(AuthenticationToken token, int boardId)
+        {
+            try
+            {
+                BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
+                if (!Validator.HasAccess(_repository, token, board))
+                    return false;
+
+                SubscriberModel sub = _notificator.Subscribers.FirstOrDefault(x => x.SecurityGroupId == board.SecurityGroupId);
+                if (sub == null)
+                    return false;
+                _notificator.Subscribers.Remove(sub);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
