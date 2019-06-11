@@ -12,6 +12,8 @@ namespace DataTransferObjects.Messages
     {
         [MessageHeader(MustUnderstand = true)]
         public AuthenticationToken Token;
+        [MessageHeader(MustUnderstand = true)]
+        public long Length;
         [MessageBodyMember(Order = 1)]
         public System.IO.Stream FileByteStream;
     }

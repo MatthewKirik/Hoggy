@@ -36,9 +36,12 @@ namespace WcfServiceLibrary.Services
                 MemoryStream memoryStream = new MemoryStream();
                 byte[] file = _fileRepository.GetFile(profile.Image);
                 memoryStream.Write(file, 0, file.Length);
+                memoryStream.Flush();
+                memoryStream.Position = 0;
                 GetImageResponseMessage response = new GetImageResponseMessage()
                 {
-                    FileByteStream = memoryStream
+                    FileByteStream = memoryStream,
+                    Length = memoryStream.Length
                 };
                 return response;
             }
@@ -56,8 +59,21 @@ namespace WcfServiceLibrary.Services
                 if (user == null)
                     return;
                 UserProfileEntity profile = user.Profile;
-                byte[] file = new byte[request.FileByteStream.Length];
-                request.FileByteStream.Read(file, 0, file.Length);
+
+                MemoryStream stream = new MemoryStream();
+                byte[] buffer = new byte[2048];
+                int bytesRead = 0;
+                do
+                {
+                    bytesRead = request.FileByteStream.Read(buffer, 0, buffer.Length);
+                    stream.Write(buffer, 0, bytesRead);
+                } while (stream.Length < request.Length);
+
+
+                byte[] file = new byte[stream.Length];
+                stream.Flush();
+                stream.Position = 0;
+                stream.Read(file, 0, file.Length);
                 string key = _fileRepository.AddFile(file);
                 profile.Image = key;
                 _repository.Update(profile);
