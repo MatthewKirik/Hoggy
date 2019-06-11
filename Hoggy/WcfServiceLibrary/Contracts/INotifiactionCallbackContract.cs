@@ -23,6 +23,7 @@ namespace WcfServiceLibrary.Contracts
         void OnCardSubscribersAdded(UserDTO user, int cardId);
         [OperationContract(IsOneWay = true)]
         void OnCardCommentAdded(CommentDTO comment, int cardId);
+
         [OperationContract(IsOneWay = true)]
         void OnBoardDeleted(int boardId);
         [OperationContract(IsOneWay = true)]
@@ -33,6 +34,9 @@ namespace WcfServiceLibrary.Contracts
         void OnCardDeleted(int boardId, int columnId, int cardId);
         [OperationContract(IsOneWay = true)]
         void OnCardTagDeleted(int boardId, int cardId, int tagId);
+
+        [OperationContract(IsOneWay = true)]
+        void OnCardEdited(CardDTO card);
 
         [OperationContract(IsOneWay = true)]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);

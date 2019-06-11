@@ -7,8 +7,8 @@ namespace TestConsoleClient
         static void Main(string[] args)
         {
             Generator generator = new Generator();
-            //generator.InitializeHierarchy(1, 2, 3, 3, 2);
-            generator.CreateGroup(10);
+            generator.InitializeHierarchy(1, 2, 3, 3, 2);
+            //generator.CreateGroup(10);
             while (true)
                 Console.ReadLine();
         }

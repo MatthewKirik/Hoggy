@@ -37,6 +37,7 @@ namespace WcfServiceLibrary.Services
                 original.Name = card.Name;
                 _repository.Update(original);
                 _repository.Save();
+                _notificator.WithSecurityGroup(original.SecurityGroupId).OnCardEdited(card);
                 return true;
             }
             catch (Exception)

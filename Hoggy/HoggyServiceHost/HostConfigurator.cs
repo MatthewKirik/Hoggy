@@ -43,6 +43,11 @@ namespace HoggyServiceHost
             dataExServiceHost.Open();
             _backlog.WriteLine("Data exchange service is started");
 
+            FileExchangeService fileExService = new FileExchangeService(_repository, _fileRepository);
+            ServiceHost fileExServiceHost = new ServiceHost(fileExService);
+            fileExServiceHost.Open();
+            _backlog.WriteLine("File exchange service is started");
+
             CreationService creationService = new CreationService(_repository, _notificator);
             ServiceHost creationServiceHost = new ServiceHost(creationService);
             creationServiceHost.Open();

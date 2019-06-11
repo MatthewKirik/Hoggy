@@ -344,5 +344,26 @@ namespace WcfServiceLibrary.Logic
                 });
             }
         }
+
+        public void OnCardEdited(CardDTO card)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnCardEdited(card);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
+            }
+        }
     }
 }
