@@ -69,8 +69,6 @@
         </Style.Triggers>
     </Style>
 
-
-
     <Style x:Key="SmallIcon" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
         <Setter Property="Margin" Value="5" />
         <Setter Property="FontSize" Value="16" />
@@ -93,7 +91,7 @@
     
     <Style x:Key="Column" TargetType="ItemsControl">
         <Setter Property="Background" Value="#fff"/>
-        <Setter Property="Margin" Value="5 20 5 0"/>
+        <Setter Property="Margin" Value="5 0"/>
         <Setter Property="Padding" Value="3"/>
         <Setter Property="Width" Value="250"/>
         <Setter Property="BorderBrush" Value="{StaticResource WindColor}"/>
@@ -239,7 +237,13 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{StaticResource FirstBrushLighter}" />
     </Style>
-    
+
+    <Style x:Key="ColumnDesc" TargetType="TextBlock" BasedOn="{StaticResource EmailTxt}">
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushDark}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="5 2 0 5" />
+    </Style>
+
     <!--RIGHT PANEL-->
     <Style x:Key="RightBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource FirstBrushLighter}" />
@@ -299,8 +303,41 @@
         <Setter Property="Margin" Value="5"/>
     </Style>
 
+    <Style x:Key="TopBtn" TargetType="Button" BasedOn="{StaticResource Btn}">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="2"/>
+    </Style>
+
     <Style x:Key="IconMiddle" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
         <Setter Property="Margin" Value="0" />
+        <Setter Property="FontSize" Value="16" />
     </Style>
+
+    <Style x:Key="ColIcon" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Foreground" Value="Teal" />
+        <Style.Triggers>
+            <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color" To="#FF004949" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard FillBehavior="Stop">
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Foreground.Color" To="Teal" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 
 </ResourceDictionary>

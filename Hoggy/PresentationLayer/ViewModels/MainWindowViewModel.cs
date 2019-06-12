@@ -100,6 +100,8 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddMoveCardHandler(MoveCardCallback);
             NetProxy.CallbackHandler.AddEditCardHandler(EditCardCallback);
             NetProxy.CallbackHandler.AddNewTagToBoardHandler(AddTagToBoardCallback);
+            NetProxy.CallbackHandler.AddNewColumnHandler(AddColumnCallback);
+            NetProxy.CallbackHandler.AddDelColumnHandler(DeleteColumnCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -330,11 +332,6 @@ namespace PresentationLayer.ViewModels
                     ColumnDTO[] columnsDTO = NetProxy.DataExchProxy.GetColumns(NetProxy.Token, CurBoard.Id);
                     if (columnsDTO == null || columnsDTO.Length == 0)
                         return;
-                    TagDTO[] allTags = NetProxy.DataExchProxy.GetBoardTags(NetProxy.Token, CurBoard.Id);
-                    MessageBox.Show(allTags.Length.ToString());
-                    if(allTags != null)
-                        CurBoard.Tags = Mapper.Map<TagDTO[], ObservableCollection<TagModel>>(allTags);
-   
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         CurBoard.Columns.Clear();
@@ -342,9 +339,15 @@ namespace PresentationLayer.ViewModels
                         {
                             ColumnModel columnModel = Mapper.Map<ColumnModel>(col);
                             columnModel.MoveCardAct = MoveCard;
+                            columnModel.MainWindow = _mainWindow;
                             CurBoard.Columns.Add(columnModel);
                         }
                     });
+                    //load tags
+                    TagDTO[] allTags = NetProxy.DataExchProxy.GetBoardTags(NetProxy.Token, CurBoard.Id);
+
+                    if (allTags != null)
+                        CurBoard.Tags = Mapper.Map<TagDTO[], ObservableCollection<TagModel>>(allTags);
 
                     foreach (var col in CurBoard.Columns)
                     {
@@ -459,9 +462,23 @@ namespace PresentationLayer.ViewModels
         void AddTagToBoardCallback(TagDTO tag)
         {
             if (tag != null)
-                CurBoard.Tags.Add(new TagModel {Name = tag.Name,
+                CurBoard.Tags.Add(new TagModel
+                {
+                    Name = tag.Name,
                     Color = (Color)ColorConverter.ConvertFromString(tag.Color)
                 });
+        }
+
+        void AddColumnCallback(ColumnDTO columnDTO)
+        {
+            CurBoard.Columns.Add(Mapper.Map<ColumnModel>(columnDTO));
+        }
+
+        void DeleteColumnCallback(int colId)
+        {
+            ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
+            if (col != null)
+                CurBoard.Columns.Remove(col);
         }
 
         ////COMMANDS
@@ -477,8 +494,11 @@ namespace PresentationLayer.ViewModels
                     {
                         try
                         {
-                            if (!NetProxy.CreationProxy.AddTagToBoard(NetProxy.Token, new TagDTO {Name = CurTag.Name,
-                            Color = CurTag.Color.ToString()}, CurBoard.Id))
+                            if (!NetProxy.CreationProxy.AddTagToBoard(NetProxy.Token, new TagDTO
+                            {
+                                Name = CurTag.Name,
+                                Color = CurTag.Color.ToString()
+                            }, CurBoard.Id))
                                 MessageBox.Show("Can't add tag!");
                             else
                                 CurTag = new TagModel();
@@ -493,6 +513,19 @@ namespace PresentationLayer.ViewModels
                             LoaderVisible = false;
                         }
                     });
+                }));
+            }
+        }
+
+        private RelayCommand _addColumnCmd;
+        public RelayCommand AddColumnCmd
+        {
+            get
+            {
+                return _addColumnCmd ?? (_addColumnCmd = new RelayCommand(() =>
+                {
+                    AddEditColumnWindow addColWind = new AddEditColumnWindow(CurBoard.Id);
+                    addColWind.ShowDialog();
                 }));
             }
         }

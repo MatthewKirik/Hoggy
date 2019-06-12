@@ -18,6 +18,8 @@ namespace PresentationLayer.Helpers
         static Action<int, int, int> _actMoveCard;
         static Action<CardDTO> _actEditCard;
         static Action<TagDTO> _actAddTagToBoard;
+        static Action<ColumnDTO> _actAddColumn;
+        static Action<int> _actDelColumn;
 
         //ADD ACTIONS
         public void AddNewCardHandler(Action<CardModel, int> actAddCard)
@@ -40,6 +42,17 @@ namespace PresentationLayer.Helpers
             _actAddTagToBoard = actAddTagToBoard;
         }
 
+        public void AddNewColumnHandler(Action<ColumnDTO> actAddColumn)
+        {
+            _actAddColumn = actAddColumn;
+        }
+
+        public void AddDelColumnHandler(Action<int> actDelColumn)
+        {
+            _actDelColumn = actDelColumn;
+        }
+
+        //CALL CALBACKS
         public void OnBoardAdded(BoardDTO board)
         {
             
@@ -97,12 +110,12 @@ namespace PresentationLayer.Helpers
 
         public void OnColumnAdded(ColumnDTO column, int boardId)
         {
-            
+            _actAddColumn(column);
         }
 
         public void OnColumnDeleted(int boardId, int columnId)
         {
-            
+            _actDelColumn(columnId);
         }
 
         public void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId)

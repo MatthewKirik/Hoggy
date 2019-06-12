@@ -8,6 +8,7 @@
     <SolidColorBrush x:Key="FirstBrushLight" Color="#FFFFDD6A"/>
     <SolidColorBrush x:Key="FirstBrushLighter" Color="#FFFFFAEB"/>
     <SolidColorBrush x:Key="FirstBrushMiddle" Color="#FFFFC500"/>
+    <SolidColorBrush x:Key="FirstBrushDark" Color="#FF5D4800"/>
     <SolidColorBrush x:Key="SecondBrushLighter" Color="#FFE2FFF5"/>
     <SolidColorBrush x:Key="SecondBrushMiddle" Color="#2DBCB8"/>
     <SolidColorBrush x:Key="SecondBrushDark" Color="Teal"/>

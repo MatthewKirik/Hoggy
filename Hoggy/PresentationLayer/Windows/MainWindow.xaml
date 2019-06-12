@@ -31,7 +31,9 @@
         <Grid Margin="50 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -49,6 +51,16 @@
                 <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
                 <TextBlock Text="{Binding User.Email}" Style="{StaticResource EmailTxt}"/>
             </WrapPanel>
+            <WrapPanel Grid.Column="2" VerticalAlignment="Bottom">
+                <fa:FontAwesome Icon="Pagelines" Style="{StaticResource SmallIcon}"/>
+                <TextBlock  Text="{Binding CurBoard.Name}" Style="{StaticResource LoginTxt}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Top">
+                <fa:FontAwesome Icon="Info" Style="{StaticResource SmallIcon}"/>
+                <TextBlock  Text="{Binding CurBoard.Description}" Style="{StaticResource EmailTxt}"/>
+            </WrapPanel>
+            <Button Grid.Column="3" Style="{StaticResource TopBtn}" Content="Edit" Command="{Binding EditBoardCmd}" />
+            <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource TopBtn}" Content="Add column" Command="{Binding AddColumnCmd}"/>
         </Grid>
         <!--SIDE PANEL-->
         <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100" IsExpanded="{Binding OpenExpander}">
@@ -100,9 +112,33 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
-                                <ItemsControl ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="20"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource ColHeader}"/>
+                                    <fa:FontAwesome Grid.Column="1" Icon="Edit" Style="{StaticResource ColIcon}">
+                                        <fa:FontAwesome.InputBindings>
+                                            <MouseBinding Command="{Binding EditColumnCmd}" MouseAction="LeftClick" />
+                                        </fa:FontAwesome.InputBindings>
+                                    </fa:FontAwesome>
+                                    <fa:FontAwesome Grid.Column="2" Icon="Close" Style="{StaticResource ColIcon}" Foreground="{StaticResource IconColor}">
+                                        <fa:FontAwesome.InputBindings>
+                                            <MouseBinding Command="{Binding DeleteColumnCmd}" MouseAction="LeftClick" />
+                                        </fa:FontAwesome.InputBindings>
+                                    </fa:FontAwesome>
+                                    <TextBlock Text="{Binding Description}" Style="{StaticResource ColumnDesc}" 
+                                               Grid.Row="1" />
+                                </Grid>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Cards}" Style="{StaticResource Column}"
                                           dd:DragDrop.IsDragSource="True" 
                                           dd:DragDrop.IsDropTarget="True"
                                           dd:DragDrop.DropHandler="{Binding}" >
@@ -182,7 +218,7 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <Border Grid.Row="1" Style="{StaticResource AddCardBtn}">
+                                <Border Grid.Row="2" Style="{StaticResource AddCardBtn}">
                                     <Border.InputBindings>
                                         <MouseBinding Command="{Binding AddCardCmd}" MouseAction="LeftClick" />
                                     </Border.InputBindings>
@@ -253,16 +289,14 @@
                 </Border>
             </StackPanel>
         </Grid>
-<!--RIGHT PANEL-->
+        <!--RIGHT PANEL-->
         <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}">
             <StackPanel>
                 <WrapPanel Style="{StaticResource RightWrap}">
                     <fa:FontAwesome Icon="UserCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
                     <TextBlock Text="PARTICIPANTS" Style="{StaticResource RightHeader}"/>
                 </WrapPanel>
-
                 <ListBox ItemsSource="{Binding CurBoard.Participants}">
-
                 </ListBox>
             </StackPanel>
         </Border>
