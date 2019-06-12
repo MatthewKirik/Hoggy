@@ -62,7 +62,6 @@ namespace WcfServiceLibrary.Services
                     return false;
                 int boardId = tag.Board.Id;
                 tag.Cards.Clear();
-                tag.Board.Tags.Remove(tag);
                 _repository.Delete(tag);
                 _repository.Save();
                 _notificator.WithSecurityGroup(tag.SecurityGroupId).OnBoardTagDeleted(boardId, tagId);
@@ -83,7 +82,6 @@ namespace WcfServiceLibrary.Services
                     return false;
                 int boardId = card.Column.Board.Id;
                 int columnId = card.Column.Id;
-                card.Column.Cards.Remove(card);
                 _repository.Delete(card);
                 _repository.Save();
                 _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardDeleted(boardId, columnId, cardId);
@@ -125,8 +123,7 @@ namespace WcfServiceLibrary.Services
                 ColumnEntity column = _repository.GetItem<ColumnEntity>(x => x.Id == columnId);
                 if (!Validator.HasAccess(_repository, token, column))
                     return false;
-                column.Board.Columns.Remove(column);
-                foreach (var card in column.Cards)
+                foreach (var card in column.Cards.ToList())
                     _repository.Delete(card);
                 _repository.Delete(column);
                 _repository.Save();

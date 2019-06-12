@@ -46,6 +46,26 @@ namespace WcfServiceLibrary.Services
             }
         }
 
+        public bool EditColumn(AuthenticationToken token, ColumnDTO column)
+        {
+            try
+            {
+                ColumnEntity original = _repository.GetItem<ColumnEntity>(x => x.Id == column.Id);
+                if (!Validator.HasAccess(_repository, token, original))
+                    return false;
+                original.Description = column.Description;
+                original.Name = column.Name;
+                _repository.Update(original);
+                _repository.Save();
+                _notificator.WithSecurityGroup(original.SecurityGroupId).OnColumnEdited(column);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool EditUserProfile(AuthenticationToken token, UserProfileDTO userProfile)
         {
             try
