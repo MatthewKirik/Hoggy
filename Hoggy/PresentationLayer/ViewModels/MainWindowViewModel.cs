@@ -81,12 +81,25 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        TagModel _curTag;
+        public TagModel CurTag
+        {
+            get => _curTag;
+            set
+            {
+                _curTag = value;
+                RaisePropertyChanged(nameof(CurTag));
+            }
+        }
+
         Window _mainWindow;
         public MainWindowViewModel(Window mainWindow)
         {
             NetProxy.Configure();
             NetProxy.CallbackHandler.AddNewCardHandler(AddNewCard);
             NetProxy.CallbackHandler.AddMoveCardHandler(MoveCardCallback);
+            NetProxy.CallbackHandler.AddEditCardHandler(EditCardCallback);
+            NetProxy.CallbackHandler.AddNewTagToBoardHandler(AddTagToBoardCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -108,14 +121,8 @@ namespace PresentationLayer.ViewModels
 
                 LoadCurrentBoard();
                 AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
+                CurTag = new TagModel();
             }
-        }
-
-        void AddNewCard(CardModel card, int colId)
-        {
-            ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
-            if (col != null)
-                col.Cards.Add(card);
         }
 
         void GetUser()
@@ -324,6 +331,7 @@ namespace PresentationLayer.ViewModels
                     if (columnsDTO == null || columnsDTO.Length == 0)
                         return;
                     TagDTO[] allTags = NetProxy.DataExchProxy.GetBoardTags(NetProxy.Token, CurBoard.Id);
+                    MessageBox.Show(allTags.Length.ToString());
                     if(allTags != null)
                         CurBoard.Tags = Mapper.Map<TagDTO[], ObservableCollection<TagModel>>(allTags);
    
@@ -392,6 +400,14 @@ namespace PresentationLayer.ViewModels
             });
         }
 
+        //CALLBACKS
+        void AddNewCard(CardModel card, int colId)
+        {
+            ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
+            if (col != null)
+                col.Cards.Add(card);
+        }
+
         void MoveCardCallback(int cardId, int originalColumnId, int destinationColumnId)
         {
             LoaderVisible = true;
@@ -422,7 +438,63 @@ namespace PresentationLayer.ViewModels
                 }
             });
         }
-        
+
+        void EditCardCallback(CardDTO cardDTO)
+        {
+            CardModel cardModel = null;
+            foreach (var col in CurBoard.Columns)
+            {
+                cardModel = col.Cards.Where(c => c.Id == cardDTO.Id).FirstOrDefault();
+                if (cardModel != null)
+                    break;
+            }
+            if (cardModel == null)
+                return;
+
+            cardModel.Name = cardDTO.Name;
+            cardModel.Description = cardDTO.Description;
+            cardModel.ExpireDate = cardDTO.ExpireDate;
+        }
+
+        void AddTagToBoardCallback(TagDTO tag)
+        {
+            if (tag != null)
+                CurBoard.Tags.Add(new TagModel {Name = tag.Name,
+                    Color = (Color)ColorConverter.ConvertFromString(tag.Color)
+                });
+        }
+
         ////COMMANDS
+        private RelayCommand _newTagCmd;
+        public RelayCommand NewTagCmd
+        {
+            get
+            {
+                return _newTagCmd ?? (_newTagCmd = new RelayCommand(() =>
+                {
+                    LoaderVisible = true;
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            if (!NetProxy.CreationProxy.AddTagToBoard(NetProxy.Token, new TagDTO {Name = CurTag.Name,
+                            Color = CurTag.Color.ToString()}, CurBoard.Id))
+                                MessageBox.Show("Can't add tag!");
+                            else
+                                CurTag = new TagModel();
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                                       MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        finally
+                        {
+                            LoaderVisible = false;
+                        }
+                    });
+                }));
+            }
+        }
     }
 }

@@ -67,6 +67,9 @@ namespace PresentationLayer.NotificationService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardTagDeleted")]
         void OnCardTagDeleted(int boardId, int cardId, int tagId);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardEdited")]
+        void OnCardEdited(DataTransferObjects.CardDTO card);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardMoved")]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);
     }

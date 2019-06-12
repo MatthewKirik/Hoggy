@@ -16,7 +16,7 @@ using System.Windows.Media;
 
 namespace PresentationLayer.Models
 {
-    public class CardModel : ViewModelBase
+    public class CardModel : ViewModelBase, ICloneable
     {
         public int Id { get; set; }
 
@@ -137,17 +137,6 @@ namespace PresentationLayer.Models
         public ObservableCollection<TagModel> BoardTags { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
-        
-        //TagModel _curTag;
-        //public TagModel CurTag
-        //{
-        //    get => _curTag;
-        //    set
-        //    {
-        //        _curTag = value;
-        //        RaisePropertyChanged(nameof(CurTag));
-        //    }
-        //}
 
         public CardModel()
         {
@@ -202,7 +191,7 @@ namespace PresentationLayer.Models
             {
                 return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
                 {
-                    EditCardWindow editCardwindow = new EditCardWindow(this);
+                    EditCardWindow editCardwindow = new EditCardWindow((CardModel)this.Clone());
                     editCardwindow.ShowDialog();
                 }));
             }
@@ -261,10 +250,28 @@ namespace PresentationLayer.Models
                 {
                     TagsWindow tagsWindow = new TagsWindow(Mapper.Map<ObservableCollection<TagModel>,
                                                                     ObservableCollection<TagModel>>(Tags));
-
                     tagsWindow.ShowDialog();
                 }));
             }
+        }
+
+        public object Clone()
+        {
+            return new CardModel
+            {
+                Id = Id,
+                Name = Name,
+                Description = Description,
+                CreationDate = CreationDate,
+                ExpireDate = ExpireDate,
+                ColumnId = ColumnId,
+                DateColor = DateColor,
+                BoardTags = BoardTags,
+                Tags = Tags,
+                Comments = Comments,
+                Participants = Participants,
+                
+            };
         }
     }
 }

@@ -128,6 +128,13 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="OnCardEdited">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="card" nillable="true" type="q10:CardDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OnCardMoved">
     <xs:complexType>
       <xs:sequence>

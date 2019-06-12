@@ -272,4 +272,35 @@
         <Setter Property="CornerRadius" Value="6"/>
     </Style>
 
+    <Style x:Key="MiddleHeaderBorder" TargetType="Border" BasedOn="{StaticResource CardHeaderBorder}">
+        <Setter Property="CornerRadius" Value="5 5 0 0" />
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MiddleHeader" TargetType="TextBlock" BasedOn="{StaticResource CardHeader}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MiddleTextBox" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Verdana"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style x:Key="MiddleBtn" TargetType="Button" BasedOn="{StaticResource Btn}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="IconMiddle" TargetType="TextBlock" BasedOn="{StaticResource Icon}">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
 </ResourceDictionary>

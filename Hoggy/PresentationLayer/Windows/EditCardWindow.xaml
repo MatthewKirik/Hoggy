@@ -8,6 +8,7 @@
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
         xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    Title="ADD/EDIT CARD" Height="600" Width="1000" 
@@ -126,7 +127,27 @@
                 <Border Style="{StaticResource CardHeaderBorder}">
                     <WrapPanel>
                         <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                        <TextBlock Text="UNUSED TAGS:" Style="{StaticResource CardHeader}" />
+                        <TextBlock Text="ADD TAG:" Style="{StaticResource CardHeader}" />
+                    </WrapPanel>
+                </Border>
+                <Border>
+                    <StackPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <TextBox  Width="290" Text="{Binding CurTag.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Border Width="100" Height="38">
+                                <xctk:ColorPicker Name="ClrPcker_Background" 
+                                              SelectedColor="{Binding Path=CurTag.Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
+                            </Border>
+                            <Button Style="{StaticResource Btn}" Content="Add" Command="{Binding NewTagCmd}" IsEnabled="{Binding CurTag.CanSave}"/>
+                        </WrapPanel>
+                        <TextBlock Visibility="{Binding CurTag.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding CurTag.NameErr}" Style="{StaticResource Error}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                        <TextBlock Text="BOARD TAGS:" Style="{StaticResource CardHeader}" />
                     </WrapPanel>
                 </Border>
                 <ListBox ItemsSource="{Binding BoardTags}">
@@ -138,7 +159,6 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                
             </StackPanel>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">

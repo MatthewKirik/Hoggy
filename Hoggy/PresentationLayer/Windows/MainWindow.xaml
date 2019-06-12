@@ -8,6 +8,7 @@
         xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
         xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -87,6 +88,10 @@
 
         <!--BOARD-->
         <Grid Grid.Row="1" Margin="50 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
                     <ItemsControl.ItemTemplate>
@@ -111,10 +116,10 @@
                                                                 <ColumnDefinition />
                                                                 <ColumnDefinition Width="30"/>
                                                             </Grid.ColumnDefinitions>
-                                                        <WrapPanel>
-                                                            <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                                                            <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
-                                                        </WrapPanel>
+                                                            <WrapPanel>
+                                                                <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                                                                <TextBlock Text="{Binding Name}" Style="{StaticResource CardHeader}" />
+                                                            </WrapPanel>
                                                             <fa:FontAwesome Icon="Edit" Style="{StaticResource IconHover}" 
                                                                             Foreground="White" Grid.Column="1" ToolTip="Edit card">
                                                                 <fa:FontAwesome.InputBindings>
@@ -130,7 +135,7 @@
                                                             <ColumnDefinition Width="30"/>
                                                             <ColumnDefinition />
                                                         </Grid.ColumnDefinitions>
-                                                        
+
                                                         <fa:FontAwesome Icon="Tags" Style="{StaticResource TagsIcon}" >
                                                             <fa:FontAwesome.InputBindings>
                                                                 <MouseBinding Command="{Binding EditTagsCmd}" MouseAction="LeftClick" />
@@ -152,7 +157,7 @@
                                                             </ItemsControl.ItemsPanel>
                                                         </ItemsControl>
                                                     </Grid>
-                                                    
+
                                                     <Border Style="{StaticResource CardFooterBorder}">
                                                         <WrapPanel>
                                                             <fa:FontAwesome Icon="ClockOutline" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
@@ -196,6 +201,57 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
+            <!--BOARD TAGS-->
+            <StackPanel Grid.Row="1">
+                <Border Style="{StaticResource MiddleHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Tags" Style="{StaticResource IconMiddle}" Foreground="White" />
+                        <TextBlock Text="BOARD TAGS:" Style="{StaticResource MiddleHeader}" />
+                    </WrapPanel>
+                </Border>
+                <Border>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="155"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.ColumnSpan="2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding CurTag.Color}"/>
+                                </Border.Background>
+                            </Border>
+                            <TextBox  Text="{Binding CurTag.Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MiddleTextBox}"/>
+                            <WrapPanel Grid.Column="1" VerticalAlignment="Center">
+                                <Border Width="100" Margin=" 0 5">
+                                    <xctk:ColorPicker Name="ClrPcker_Background" 
+                                              SelectedColor="{Binding Path=CurTag.Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
+                                </Border>
+                                <Button Style="{StaticResource MiddleBtn}" Content="Add" Command="{Binding NewTagCmd}" IsEnabled="{Binding CurTag.CanSave}"/>
+                            </WrapPanel>
+                        </Grid>
+                        <TextBlock Visibility="{Binding CurTag.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding CurTag.NameErr}" Style="{StaticResource Error}"/>
+                        <ItemsControl Grid.Column="1" ItemsSource="{Binding CurBoard.Tags}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </Border.Background>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </Grid>
 <!--RIGHT PANEL-->
         <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}">
@@ -210,11 +266,9 @@
                 </ListBox>
             </StackPanel>
         </Border>
-
-        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+        <!--<Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
             <metro:ProgressRing />
-        </Border>
-
+        </Border>-->
     </Grid>
 </metro:MetroWindow>
