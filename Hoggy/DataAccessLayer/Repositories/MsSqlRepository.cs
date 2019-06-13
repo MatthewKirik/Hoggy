@@ -23,31 +23,27 @@ namespace DataAccessLayer.Repositories
 
         public void Delete<T>(T item) where T : BaseEntity
         {
-            T entity = context.Set<T>().FirstOrDefault(x => x.Id == item.Id);
-            if (entity == null)
-                return;
-            entity.IsDeleted = true;
-            Update(entity);
+            context.Set<T>().Remove(item);
         }
 
         public IEnumerable<T> GetList<T>() where T : BaseEntity
         {
-            return context.Set<T>().Where(x => !x.IsDeleted);
+            return context.Set<T>();
         }
 
         public IEnumerable<T> GetList<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().Where(x => !x.IsDeleted).Where(ex);
+            return context.Set<T>().Where(ex);
         }
 
         public T GetItem<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().Where(x => !x.IsDeleted).FirstOrDefault(ex);
+            return context.Set<T>().FirstOrDefault(ex);
         }
 
         public bool Contains<T>(Func<T, bool> ex) where T : BaseEntity
         {
-            return context.Set<T>().Where(x => !x.IsDeleted).FirstOrDefault(ex) != null;
+            return context.Set<T>().FirstOrDefault(ex) != null;
         }
 
         public void Save()

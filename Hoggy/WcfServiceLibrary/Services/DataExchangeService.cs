@@ -140,7 +140,7 @@ namespace WcfServiceLibrary.Services
             try
             {
                 BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == BoardId);
-                if (!Validator.HasAccess<BoardEntity>(_repository, token, board))
+                if (!Validator.HasAccess(_repository, token, board))
                     return null;
                 return Mapper.Map<ICollection<UserEntity>, List<UserDTO>>(board.Participants);
             }

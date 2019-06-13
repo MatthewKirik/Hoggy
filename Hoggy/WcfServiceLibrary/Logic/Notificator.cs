@@ -365,5 +365,26 @@ namespace WcfServiceLibrary.Logic
                 });
             }
         }
+
+        public void OnColumnEdited(ColumnDTO column)
+        {
+            foreach (var s in Subscribers.Where(x => x.SecurityGroupId == TargetSecurityGroup))
+            {
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        s.Callback.OnColumnEdited(column);
+                    }
+                    catch (Exception)
+                    {
+                        lock (_subscribersLocker)
+                        {
+                            Subscribers.Remove(s);
+                        }
+                    }
+                });
+            }
+        }
     }
 }

@@ -86,7 +86,6 @@ namespace WcfServiceLibrary.Services
                 if (!Validator.HasAccess(_repository, token, card))
                     return false;
                 card.Subscribers.Add(user);
-                user.SubscriptedCards.Add(card);
                 _repository.Update(card);
                 _repository.Update(user);
                 _repository.Save();
@@ -135,10 +134,8 @@ namespace WcfServiceLibrary.Services
                 invitation.Sender.SentInvitations.Remove(invitation);
                 BoardEntity board = _repository.GetItem<BoardEntity>(x => x.SecurityGroupId == invitation.SecurityGroup.Id);
                 board.Participants.Add(recepient);
-                recepient.ParticipatedBoards.Add(board);
                 invitation.SecurityGroup.Invitations.Remove(invitation);
                 invitation.SecurityGroup.Users.Add(recepient);
-                recepient.SecurityGroups.Add(invitation.SecurityGroup);
                 _repository.Update(invitation.SecurityGroup);
                 _repository.Update(invitation.Sender);
                 _repository.Update(recepient);

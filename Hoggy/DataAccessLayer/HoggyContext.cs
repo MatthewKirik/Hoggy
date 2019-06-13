@@ -29,7 +29,7 @@ namespace DataAccessLayer
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<TagEntity>()
                 .HasRequired(x => x.Board)
-                .WithMany()
+                .WithMany(x => x.Tags)
                 .WillCascadeOnDelete(false);
             modelBuilder.Entity<TagEntity>()
                 .HasMany(x => x.Cards)

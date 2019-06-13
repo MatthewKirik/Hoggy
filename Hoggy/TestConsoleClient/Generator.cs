@@ -121,6 +121,44 @@ namespace TestConsoleClient
             communityClient.AcceptInvitation(tokens[1], invitation.Key);
             Console.WriteLine(dataExchangeClient.GetParticipatedBoards(tokens[1], subUser.Id)[0].Name);
         }
+
+        public void DeletionTest(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
+        {
+            List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
+            List<UserDTO> users = new List<UserDTO>();
+            foreach (var token in tokens)
+            {
+                users.Add(dataExchangeClient.GetUser(token));
+            }
+            for (int i = 0; i < userAmount; i++)
+            {
+                AddBoards(tokens[i], boardAmount);
+                List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
+                foreach (var b in boards)
+                {
+                    //notificationClient.Subscribe(tokens[i], b.Id);
+                    AddTagsToBoard(tokens[i], b.Id, tagAmount);
+                    AddColumns(tokens[i], b.Id, columnAmount);
+                    List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();
+                    foreach (var c in columns)
+                    {
+                        AddCards(tokens[i], c.Id, cardAmount);
+                        List<CardDTO> cards = dataExchangeClient.GetCards(tokens[i], c.Id).ToList();
+                        foreach (var card in cards)
+                        {
+                            bool delete = deletionClient.DeleteCard(tokens[i], card.Id);
+                            Console.WriteLine(delete.ToString());
+                        }
+                    }
+                    //foreach (var c in columns)
+                    //{
+                    //    bool delete = deletionClient.DeleteColumn(tokens[i], c.Id);
+                    //    Console.WriteLine(delete.ToString());
+                    //}
+                }
+            }
+        }
+
         public void InitializeHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);

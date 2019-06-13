@@ -32,7 +32,10 @@ namespace WcfServiceLibrary.Services
                 UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == request.Token.Value).User;
                 if (user == null)
                     return null;
-                UserProfileEntity profile = user.Profile;
+                UserEntity target = _repository.GetItem<UserEntity>(x => x.Id == request.UserId);
+                if (target == null)
+                    return null;
+                UserProfileEntity profile = target.Profile;
                 MemoryStream memoryStream = new MemoryStream();
                 byte[] file = _fileRepository.GetFile(profile.Image);
                 memoryStream.Write(file, 0, file.Length);
