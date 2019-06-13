@@ -110,9 +110,9 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
                                     <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
+                                    <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -300,9 +300,9 @@
                 </ListBox>
             </StackPanel>
         </Border>
-        <!--<Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
             <metro:ProgressRing />
-        </Border>-->
+        </Border>
     </Grid>
 </metro:MetroWindow>

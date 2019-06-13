@@ -1,5 +1,5 @@
 ﻿using MahApps.Metro.Controls;
-using PresentationLayer.Models;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 
 namespace PresentationLayer.Windows
 {
-    public partial class AddEditCardWindow : MetroWindow
+    /// <summary>
+    /// Interaction logic for AddCardWindow.xaml
+    /// </summary>
+    public partial class AddCardWindow : MetroWindow
     {
-        public AddEditCardWindow(CardModel card, int colId)
+        public AddCardWindow(int ColId)
         {
-           // DataContext = new CardModel(card, colId, this);
+            DataContext =  new AddCardViewModel(ColId, this);
             InitializeComponent();
         }
     }

@@ -362,7 +362,6 @@ namespace PresentationLayer.ViewModels
                                     CardModel cardModel = Mapper.Map<CardModel>(card);
                                     cardModel.ColumnId = col.Id;
                                     cardModel.BoardId = CurBoard.Id;
-                                    cardModel.Tags = CurBoard.Tags;
                                     col.Cards.Add(cardModel);
                                 }
                             });
@@ -389,6 +388,7 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
+                    MessageBox.Show(cardId + " " + originalColumnId + " " + destinationColumnId);
                     NetProxy.InterProxy.MoveCard(NetProxy.Token, cardId, destinationColumnId);
                 }
                 catch (Exception e)
@@ -429,6 +429,7 @@ namespace PresentationLayer.ViewModels
                         col.Cards.Remove(card);
                         destcol.Cards.Add(card);
                     });
+                    card.ColumnId = destcol.Id;
                 }
                 catch (Exception e)
                 {

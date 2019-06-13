@@ -109,8 +109,8 @@ namespace PresentationLayer.Models
             {
                 return _addCardCmd ?? (_addCardCmd = new RelayCommand(() =>
                 {
-                    AddEditCardWindow addCard = new AddEditCardWindow(null, Id);
-                    addCard.ShowDialog();
+                    AddCardWindow addCardWind = new AddCardWindow(Id);
+                    addCardWind.ShowDialog();  
                 }));
             }
         }

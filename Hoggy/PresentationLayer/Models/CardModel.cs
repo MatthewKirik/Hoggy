@@ -16,12 +16,9 @@ using System.Windows.Media;
 
 namespace PresentationLayer.Models
 {
-    public class CardModel : ViewModelBase, ICloneable
+    public class CardModel : ViewModelBase
     {
         public int Id { get; set; }
-
-        int _columnId;
-        bool _isCreate;
 
         private string _name;
         public string Name
@@ -96,16 +93,16 @@ namespace PresentationLayer.Models
             }
         }
 
-        private bool _loaderVisible;
-        public bool LoaderVisible
-        {
-            get => _loaderVisible;
-            set
-            {
-                _loaderVisible = value;
-                RaisePropertyChanged(nameof(LoaderVisible));
-            }
-        }
+        //private bool _loaderVisible;
+        //public bool LoaderVisible
+        //{
+        //    get => _loaderVisible;
+        //    set
+        //    {
+        //        _loaderVisible = value;
+        //        RaisePropertyChanged(nameof(LoaderVisible));
+        //    }
+        //}
 
         private string _expDateErr;
         public string ExpDateErr
@@ -130,18 +127,16 @@ namespace PresentationLayer.Models
             }
         }
 
-        public int ColumnId { get; set; }
         public int BoardId { get; set; }
+        public int ColumnId { get; set; }
 
         public ObservableCollection<TagModel> Tags { get; set; }
-        public ObservableCollection<TagModel> BoardTags { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
 
         public CardModel()
         {
             Tags = new ObservableCollection<TagModel>();
-            BoardTags = new ObservableCollection<TagModel>();
             Comments = new ObservableCollection<CommentModel>();
             Participants = new ObservableCollection<UserModel>();
             
@@ -149,129 +144,87 @@ namespace PresentationLayer.Models
             _descErr = "Empty field";
             ExpireDate = DateTime.Now;
         }
-        Window _window;
-        public CardModel(CardModel card, int colId, Window window) : this()
-        {
-            _window = window;
-            _columnId = colId;
-            _isCreate = (card == null) ? true : false;
-        }
 
-        void AddNewCard()
-        {
-            CreationDate = DateTime.Now;
-            CardDTO card = Mapper.Map<CardDTO>(this);
-            LoaderVisible = true;
-            Task.Run(() =>
-            {
-                try
-                {
-                    if (!NetProxy.CreationProxy.AddCard(NetProxy.Token, card, _columnId))
-                        MessageBox.Show("No card added!");
-                    else
-                        App.Current.Dispatcher.Invoke(()=> { _window.Close(); });
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
-                               MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                finally
-                {
-                    LoaderVisible = false;
-                }
-            });
-        }
+        //public CardModel(CardModel card, int colId, Window window) : this()
+        //{
+        //    _window = window;
+        ////    _columnId = colId;
+        //}
 
         //COMMANDS
-        private RelayCommand _editCardCmd;
-        public RelayCommand EditCardCmd
-        {
-            get
-            {
-                return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
-                {
-                    EditCardWindow editCardwindow = new EditCardWindow((CardModel)this.Clone());
-                    editCardwindow.ShowDialog();
-                }));
-            }
-        }
+        //private RelayCommand _editCardCmd;
+        //public RelayCommand EditCardCmd
+        //{
+        //    get
+        //    {
+        //        return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
+        //        {
+        //            EditCardWindow editCardwindow = new EditCardWindow((CardModel)this.Clone());
+        //            editCardwindow.ShowDialog();
+        //        }));
+        //    }
+        //}
 
-        private RelayCommand _saveEditedCard;
-        public RelayCommand SaveEditedCardCmd
-        {
-            get
-            {
-                return _saveEditedCard ?? (_saveEditedCard = new RelayCommand(() =>
-                {
-                    LoaderVisible = true;
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            if (!NetProxy.EditionProxy.EditCard(NetProxy.Token, Mapper.Map<CardDTO>(this)))
-                                MessageBox.Show("Card is not edited!");
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
-                                       MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        finally
-                        {
-                            LoaderVisible = false;
-                        }
-                    });
-                }));
-            }
-        }
+        //private RelayCommand _saveEditedCard;
+        //public RelayCommand SaveEditedCardCmd
+        //{
+        //    get
+        //    {
+        //        return _saveEditedCard ?? (_saveEditedCard = new RelayCommand(() =>
+        //        {
+        //            LoaderVisible = true;
+        //            Task.Run(() =>
+        //            {
+        //                try
+        //                {
+        //                    if (!NetProxy.EditionProxy.EditCard(NetProxy.Token, Mapper.Map<CardDTO>(this)))
+        //                        MessageBox.Show("Card is not edited!");
+        //                }
+        //                catch (Exception e)
+        //                {
+        //                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+        //                               MessageBoxButton.OK, MessageBoxImage.Error);
+        //                }
+        //                finally
+        //                {
+        //                    LoaderVisible = false;
+        //                }
+        //            });
+        //        }));
+        //    }
+        //}
 
-        private RelayCommand _saveCmd;
-        public RelayCommand SaveCmd
-        {
-            get
-            {
-                return _saveCmd ?? (_saveCmd = new RelayCommand(() =>
-                {
-                    if (_isCreate)
-                        AddNewCard();
-                    else
-                        AddNewCard();
-                }));
-            }
-        }
+        //private RelayCommand _editTagsCmd;
+        //public RelayCommand EditTagsCmd
+        //{
+        //    get
+        //    {
+        //        return _editTagsCmd ?? (_editTagsCmd = new RelayCommand(() =>
+        //        {
+        //            TagsWindow tagsWindow = new TagsWindow(Mapper.Map<ObservableCollection<TagModel>,
+        //                                                            ObservableCollection<TagModel>>(Tags));
+        //            tagsWindow.ShowDialog();
+        //        }));
+        //    }
+        //}
 
-        private RelayCommand _editTagsCmd;
-        public RelayCommand EditTagsCmd
-        {
-            get
-            {
-                return _editTagsCmd ?? (_editTagsCmd = new RelayCommand(() =>
-                {
-                    TagsWindow tagsWindow = new TagsWindow(Mapper.Map<ObservableCollection<TagModel>,
-                                                                    ObservableCollection<TagModel>>(Tags));
-                    tagsWindow.ShowDialog();
-                }));
-            }
-        }
-
-        public object Clone()
-        {
-            return new CardModel
-            {
-                Id = Id,
-                Name = Name,
-                Description = Description,
-                CreationDate = CreationDate,
-                ExpireDate = ExpireDate,
-                ColumnId = ColumnId,
-                DateColor = DateColor,
-                BoardTags = BoardTags,
-                Tags = Tags,
-                Comments = Comments,
-                Participants = Participants,
+        //public object Clone()
+        //{
+        //    return new CardModel
+        //    {
+        //        Id = Id,
+        //        Name = Name,
+        //        Description = Description,
+        //        CreationDate = CreationDate,
+        //        ExpireDate = ExpireDate,
+        //        DateColor = DateColor,
+        //        ColumnId = ColumnId,
+        //        BoardTags = BoardTags,
+        //        Tags = Tags,
+        //        Comments = Comments,
+        //        Participants = Participants,
                 
-            };
-        }
+        //    };
+        //}
     }
 }
