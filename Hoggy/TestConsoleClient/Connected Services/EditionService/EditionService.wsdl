@@ -4,7 +4,6 @@
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
-        <msf:Streamed xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy" />
         <wsaw:UsingAddressing />
       </wsp:All>
     </wsp:ExactlyOne>
@@ -22,6 +21,12 @@
   <wsdl:message name="IEditionContract_EditCard_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditCardResponse" />
   </wsdl:message>
+  <wsdl:message name="IEditionContract_EditColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditColumn" />
+  </wsdl:message>
+  <wsdl:message name="IEditionContract_EditColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditColumnResponse" />
+  </wsdl:message>
   <wsdl:message name="IEditionContract_EditUserProfile_InputMessage">
     <wsdl:part name="parameters" element="tns:EditUserProfile" />
   </wsdl:message>
@@ -33,6 +38,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEditionContract/EditCard" message="tns:IEditionContract_EditCard_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEditionContract/EditCardResponse" message="tns:IEditionContract_EditCard_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EditColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEditionContract/EditColumn" message="tns:IEditionContract_EditColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEditionContract/EditColumnResponse" message="tns:IEditionContract_EditColumn_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EditUserProfile">
       <wsdl:input wsaw:Action="http://tempuri.org/IEditionContract/EditUserProfile" message="tns:IEditionContract_EditUserProfile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEditionContract/EditUserProfileResponse" message="tns:IEditionContract_EditUserProfile_OutputMessage" />
@@ -43,6 +52,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="EditCard">
       <soap12:operation soapAction="http://tempuri.org/IEditionContract/EditCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditColumn">
+      <soap12:operation soapAction="http://tempuri.org/IEditionContract/EditColumn" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

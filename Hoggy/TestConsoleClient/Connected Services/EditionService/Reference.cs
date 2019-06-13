@@ -21,6 +21,12 @@ namespace TestConsoleClient.EditionService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditCard", ReplyAction="http://tempuri.org/IEditionContract/EditCardResponse")]
         System.Threading.Tasks.Task<bool> EditCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditColumn", ReplyAction="http://tempuri.org/IEditionContract/EditColumnResponse")]
+        bool EditColumn(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditColumn", ReplyAction="http://tempuri.org/IEditionContract/EditColumnResponse")]
+        System.Threading.Tasks.Task<bool> EditColumnAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEditionContract/EditUserProfile", ReplyAction="http://tempuri.org/IEditionContract/EditUserProfileResponse")]
         bool EditUserProfile(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile);
         
@@ -61,6 +67,14 @@ namespace TestConsoleClient.EditionService {
         
         public System.Threading.Tasks.Task<bool> EditCardAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.CardDTO card) {
             return base.Channel.EditCardAsync(token, card);
+        }
+        
+        public bool EditColumn(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column) {
+            return base.Channel.EditColumn(token, column);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditColumnAsync(DataTransferObjects.AuthenticationToken token, DataTransferObjects.ColumnDTO column) {
+            return base.Channel.EditColumnAsync(token, column);
         }
         
         public bool EditUserProfile(DataTransferObjects.AuthenticationToken token, DataTransferObjects.UserProfileDTO userProfile) {

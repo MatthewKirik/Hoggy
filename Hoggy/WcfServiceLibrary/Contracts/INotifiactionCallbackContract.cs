@@ -38,7 +38,7 @@ namespace WcfServiceLibrary.Contracts
         [OperationContract(IsOneWay = true)]
         void OnCardEdited(CardDTO card);
         [OperationContract(IsOneWay = true)]
-        void OnColumnEdited(ColumnDTO card);
+        void OnColumnEdited(ColumnDTO column);
 
         [OperationContract(IsOneWay = true)]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);

@@ -125,8 +125,10 @@ namespace WcfServiceLibrary.Services
                     return false;
                 foreach (var card in column.Cards.ToList())
                     _repository.Delete(card);
+                int boardId = column.Board.Id;
                 _repository.Delete(column);
                 _repository.Save();
+                _notificator.WithSecurityGroup(column.SecurityGroupId).OnColumnDeleted(boardId, columnId);
                 return true;
             }
             catch (Exception)
