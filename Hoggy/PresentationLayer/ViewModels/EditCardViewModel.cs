@@ -6,6 +6,7 @@ using PresentationLayer.Helpers;
 using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,8 @@ using System.Windows;
 
 namespace PresentationLayer.ViewModels
 {
-    public class AddCardViewModel : ViewModelBase
+    public class EditCardViewModel : ViewModelBase
     {
-        int _colId;
         Window _window;
 
         CardModel _card;
@@ -40,14 +40,45 @@ namespace PresentationLayer.ViewModels
                 RaisePropertyChanged(nameof(LoaderVisible));
             }
         }
-
-        public AddCardViewModel(int colId, Window window)
+        
+        public EditCardViewModel(CardModel card, Window window)
         {
-            _colId = colId;
+            _card = card;
             _window = window;
-            _card = new CardModel();
+
+            foreach (var tag in _card.BoardTags)
+                tag.AddTagToCardAct = AddTagToCard;
         }
 
+        void AddTagToCard(TagModel tag)
+        {
+            if (Card.Tags.Where(t => t.Id == tag.Id).FirstOrDefault() != null)
+                return;
+            else
+            {
+                LoaderVisible = true;
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        CardDTO card = Mapper.Map<CardDTO>(_card);
+                        if (!NetProxy.CommProxy.AddTagToCard(NetProxy.Token, tag.Id, Card.Id))
+                            MessageBox.Show("Tag no added!");
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                                   MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        LoaderVisible = false;
+                    }
+                });
+            }
+        }
+
+        //COMMANDS
         private RelayCommand _saveCmd;
         public RelayCommand SaveCmd
         {
@@ -55,14 +86,13 @@ namespace PresentationLayer.ViewModels
             {
                 return _saveCmd ?? (_saveCmd = new RelayCommand(() =>
                 {
-                    _card.CreationDate = DateTime.Now;
-                    CardDTO card = Mapper.Map<CardDTO>(_card);
                     LoaderVisible = true;
                     Task.Run(() =>
                     {
                         try
                         {
-                            if (!NetProxy.CreationProxy.AddCard(NetProxy.Token, card, _colId))
+                            CardDTO card = Mapper.Map<CardDTO>(_card);
+                            if (!NetProxy.EditionProxy.EditCard(NetProxy.Token, card))
                                 MessageBox.Show("No card added!");
                             else
                                 App.Current.Dispatcher.Invoke(() => { _window.Close(); });
@@ -89,9 +119,8 @@ namespace PresentationLayer.ViewModels
                 return _cancelCmd ?? (_cancelCmd = new RelayCommand(() =>
                 {
                     App.Current.Dispatcher.Invoke(() => { _window.Close(); });
-                }));   
+                }));
             }
         }
-
     }
 }

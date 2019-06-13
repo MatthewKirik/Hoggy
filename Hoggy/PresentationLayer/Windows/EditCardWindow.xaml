@@ -11,7 +11,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   Title="ADD/EDIT CARD" Height="600" Width="1000" 
+                   Title="ADD/EDIT CARD" Height="800" Width="1000" 
                    Icon="pack://application:,,,/Resources/icon.ico"
                    Background="{StaticResource SecondBrushLighter}"
                    ResizeMode="NoResize">
@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition  Height="400"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -46,21 +46,21 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Name" Style="{StaticResource Lable}" />
-                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=Card.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
                 </Grid>
-                <TextBlock Visibility="{Binding NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding NameErr}" Style="{StaticResource Error}"/>
+                <TextBlock Visibility="{Binding Card.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Card.NameErr}" Style="{StaticResource Error}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Description" Style="{StaticResource Lable}" />
-                    <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox Text="{Binding Path=Card.Description, UpdateSourceTrigger=PropertyChanged}" 
                          Grid.Column="1" TextWrapping="Wrap" MinLines="5"/>
                 </Grid>
-                <TextBlock Visibility="{Binding DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding DescErr}" Style="{StaticResource Error}"/>
+                <TextBlock Visibility="{Binding Card.DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Card.DescErr}" Style="{StaticResource Error}"/>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -72,10 +72,10 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Expire date" Style="{StaticResource Lable}" />
                     <metro:DateTimePicker Grid.Row="1" Grid.Column="1" Culture="uk-UA" FontSize="16"
-                                      SelectedDate="{Binding ExpireDate}" Margin="10" SelectedTimeFormat="Short" />
+                                      SelectedDate="{Binding Card.ExpireDate}" Margin="10" SelectedTimeFormat="Short" />
                 </Grid>
-                <TextBlock Visibility="{Binding ExpDateErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding ExpDateErr}" Style="{StaticResource Error}"/>
+                <TextBlock Visibility="{Binding Card.ExpDateErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Card.ExpDateErr}" Style="{StaticResource Error}"/>
             </StackPanel>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">
@@ -83,7 +83,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding SaveEditedCardCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding CanSave}">
+                <Button Command="{Binding SaveCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding Card.CanSave}">
                     <Button.Content>
                         <WrapPanel>
                             <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
@@ -109,10 +109,10 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <Border Style="{StaticResource CardHeaderBorder}">
+                <Border Style="{StaticResource MiddleHeaderBorder}">
                     <WrapPanel>
-                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                        <TextBlock Text="CARD TAGS:" Style="{StaticResource CardHeader}" />
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource SmallIcon}" Foreground="White" />
+                        <TextBlock Text="CARD TAGS:" Style="{StaticResource MiddleHeader}" />
                     </WrapPanel>
                 </Border>
                 <ListBox ItemsSource="{Binding Tags}">
@@ -124,38 +124,32 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Border Style="{StaticResource CardHeaderBorder}">
+                <Border Style="{StaticResource MiddleHeaderBorder}">
                     <WrapPanel>
-                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                        <TextBlock Text="ADD TAG:" Style="{StaticResource CardHeader}" />
+                        <fa:FontAwesome Icon="Tags" Style="{StaticResource SmallIcon}" Foreground="White" />
+                        <TextBlock Text="BOARD TAGS:" Style="{StaticResource MiddleHeader}" />
                     </WrapPanel>
                 </Border>
-                <Border>
-                    <StackPanel>
-                        <WrapPanel HorizontalAlignment="Center">
-                            <TextBox  Width="290" Text="{Binding CurTag.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Border Width="100" Height="38">
-                                <xctk:ColorPicker Name="ClrPcker_Background" 
-                                              SelectedColor="{Binding Path=CurTag.Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
-                            </Border>
-                            <Button Style="{StaticResource Btn}" Content="Add" Command="{Binding NewTagCmd}" IsEnabled="{Binding CurTag.CanSave}"/>
-                        </WrapPanel>
-                        <TextBlock Visibility="{Binding CurTag.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding CurTag.NameErr}" Style="{StaticResource Error}"/>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource CardHeaderBorder}">
-                    <WrapPanel>
-                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                        <TextBlock Text="BOARD TAGS:" Style="{StaticResource CardHeader}" />
-                    </WrapPanel>
-                </Border>
-                <ListBox ItemsSource="{Binding BoardTags}">
+                <ListBox ItemsSource="{Binding Card.BoardTags}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border>
-                                <TextBlock Text="{Binding Name}"/>
-                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="2">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{Binding Color}"/>
+                                    </Border.Background>
+                                </Border>
+                                 <TextBlock Text="{Binding Name}"/>
+                                <Button Grid.Column="1" Command="{Binding AddTagToCartCmd}">
+                                    <Button.Content>
+                                        <fa:FontAwesome Icon="Plus"></fa:FontAwesome>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

@@ -23,7 +23,7 @@ using System.Windows.Media;
 
 namespace PresentationLayer.ViewModels
 {
-    class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         //PROPERTIES
         BoardModel _curBoard;
@@ -367,6 +367,7 @@ namespace PresentationLayer.ViewModels
                                     CardModel cardModel = Mapper.Map<CardModel>(card);
                                     cardModel.ColumnId = col.Id;
                                     cardModel.BoardId = CurBoard.Id;
+                                    cardModel.BoardTags = CurBoard.Tags;
                                     col.Cards.Add(cardModel);
                                 }
                             });
@@ -408,11 +409,17 @@ namespace PresentationLayer.ViewModels
         }
 
         //CALLBACKS
-        void AddNewCard(CardModel card, int colId)
+        void AddNewCard(CardDTO card, int colId)
         {
             ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
             if (col != null)
-                col.Cards.Add(card);
+            {
+                CardModel cardModel = Mapper.Map<CardModel>(card);
+                cardModel.ColumnId = colId;
+                cardModel.BoardId = CurBoard.Id;
+                cardModel.BoardTags = CurBoard.Tags;
+                col.Cards.Add(cardModel);
+            }
         }
 
         void MoveCardCallback(int cardId, int originalColumnId, int destinationColumnId)
@@ -474,6 +481,24 @@ namespace PresentationLayer.ViewModels
                 });
         }
 
+        void AddTagToCard(int tagId, int cardId)
+        {
+            MessageBox.Show(tagId + " " + cardId);
+            CardModel cardModel = null;
+            foreach (var col in CurBoard.Columns)
+            {
+                cardModel = col.Cards.Where(c => c.Id == cardId).FirstOrDefault();
+                if (cardModel != null)
+                    break;
+            }
+            if (cardModel == null)
+                return;
+
+            TagModel tag = CurBoard.Tags.Where(t => t.Id == tagId).FirstOrDefault();
+            if (tag != null)
+                cardModel.Tags.Add(tag);
+        }
+
         void AddColumnCallback(ColumnDTO columnDTO)
         {
             CurBoard.Columns.Add(Mapper.Map<ColumnModel>(columnDTO));
@@ -482,15 +507,15 @@ namespace PresentationLayer.ViewModels
         void EditColumnCallback(ColumnDTO col)
         {
             ColumnModel colModel = CurBoard.Columns.Where(c=>c.Id == col.Id).FirstOrDefault();
-            if (colModel == null)
-                return;
-            colModel.Name = col.Name;
-            colModel.Description = col.Description;
+            if (colModel != null)
+            {
+                colModel.Name = col.Name;
+                colModel.Description = col.Description;
+            }
         }
 
         void DeleteColumnCallback(int colId)
         {
-
             ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
             if (col != null)
                 CurBoard.Columns.Remove(col);

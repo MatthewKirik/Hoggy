@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using PresentationLayer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace PresentationLayer.Models
@@ -12,6 +14,9 @@ namespace PresentationLayer.Models
     public class TagModel : ViewModelBase
     {
         private string _name;
+        
+        public int Id { get; set; }
+
         public string Name
         {
             get => _name;
@@ -57,9 +62,25 @@ namespace PresentationLayer.Models
             }
         }
 
+        public Action<TagModel> AddTagToCardAct;
+
         public TagModel()
         {
             _nameErr = "Name is empty";
+        }
+
+
+        //COMMANDS
+        private RelayCommand _addTagToCartCmd;
+        public RelayCommand AddTagToCartCmd
+        {
+            get
+            {
+                return _addTagToCartCmd ?? (_addTagToCartCmd = new RelayCommand(() =>
+                {
+                    AddTagToCardAct.Invoke(this);
+                }));
+            }
         }
     }
 }

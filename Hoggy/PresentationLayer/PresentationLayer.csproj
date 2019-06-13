@@ -183,14 +183,12 @@
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="ViewModels\AddCardViewModel.cs" />
     <Compile Include="ViewModels\AddEditColumnViewModel.cs" />
+    <Compile Include="ViewModels\EditCardViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
     <Compile Include="ViewModels\TagsWindowViewModel.cs" />
     <Compile Include="Windows\AddCardWindow.xaml.cs">
       <DependentUpon>AddCardWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AddEditCardWindow.xaml.cs">
-      <DependentUpon>AddEditCardWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddEditColumnWindow.xaml.cs">
       <DependentUpon>AddEditColumnWindow.xaml</DependentUpon>
@@ -357,10 +355,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddCardWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AddEditCardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

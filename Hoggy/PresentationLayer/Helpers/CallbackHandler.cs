@@ -14,16 +14,17 @@ namespace PresentationLayer.Helpers
     public class CallbackHandler : INotificationContractCallback
     {
         //HANDLERS
-        static Action<CardModel, int> _actAddCard;
+        static Action<CardDTO, int> _actAddCard;
         static Action<int, int, int> _actMoveCard;
         static Action<CardDTO> _actEditCard;
         static Action<TagDTO> _actAddTagToBoard;
         static Action<ColumnDTO> _actAddColumn;
         static Action<int> _actDelColumn;
         static Action<ColumnDTO> _actEditColumn;
+        static Action<int, int> _actOnCardTagAdded;
 
         //ADD ACTIONS
-        public void AddNewCardHandler(Action<CardModel, int> actAddCard)
+        public void AddNewCardHandler(Action<CardDTO, int> actAddCard)
         {
             _actAddCard = actAddCard;
         }
@@ -52,10 +53,15 @@ namespace PresentationLayer.Helpers
         {
             _actDelColumn = actDelColumn;
         }
-
+        
         public void AddEditColumnHandler(Action<ColumnDTO> actEditColumn)
         {
             _actEditColumn = actEditColumn;
+        }
+
+        public void AddCardTagAddedHandler(Action<int, int> actOnCardTagAdded)
+        {
+            _actOnCardTagAdded = actOnCardTagAdded;
         }
 
         //CALL CALBACKS
@@ -81,7 +87,7 @@ namespace PresentationLayer.Helpers
 
         public void OnCardAdded(CardDTO card, int columnId)
         {
-            _actAddCard(Mapper.Map<CardModel>(card), columnId);
+            _actAddCard(card, columnId);
         }
 
         public void OnCardCommentAdded(CommentDTO comment, int cardId)
@@ -106,7 +112,7 @@ namespace PresentationLayer.Helpers
 
         public void OnCardTagAdded(int tagId, int cardId)
         {
-            
+            _actOnCardTagAdded(tagId, cardId);
         }
 
         public void OnCardTagDeleted(int boardId, int cardId, int tagId)

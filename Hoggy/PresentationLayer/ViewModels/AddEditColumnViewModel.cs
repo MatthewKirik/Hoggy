@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace PresentationLayer.ViewModels
 {
-    class AddEditColumnViewModel : ViewModelBase
+    public class AddEditColumnViewModel : ViewModelBase
     {
         bool _isNewColumn;
         int _boardId;
@@ -87,11 +87,10 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    MessageBox.Show(Column.Id.ToString());
                     if (!NetProxy.EditionProxy.EditColumn(NetProxy.Token, Mapper.Map<ColumnDTO>(Column)))
-                        App.Current.Dispatcher.Invoke(() => { _window.Close(); });
-                    else
                         MessageBox.Show("Can't edit column!");
+                    else
+                        App.Current.Dispatcher.Invoke(() => { _window.Close(); });
                 }
                 catch (Exception e)
                 {

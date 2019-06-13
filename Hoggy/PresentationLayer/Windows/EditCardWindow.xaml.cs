@@ -1,7 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using PresentationLayer.Models;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ namespace PresentationLayer.Windows
     {
         public EditCardWindow(CardModel card)
         {
-            DataContext = card;
+            DataContext = new EditCardViewModel(card, this);
             InitializeComponent();
         }
     }

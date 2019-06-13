@@ -266,8 +266,6 @@
                                 <Button Style="{StaticResource MiddleBtn}" Content="Add" Command="{Binding NewTagCmd}" IsEnabled="{Binding CurTag.CanSave}"/>
                             </WrapPanel>
                         </Grid>
-                        <!--<TextBlock Visibility="{Binding CurTag.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding CurTag.NameErr}" Style="{StaticResource Error}"/>-->
                         <ItemsControl Grid.Column="1" ItemsSource="{Binding CurBoard.Tags}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

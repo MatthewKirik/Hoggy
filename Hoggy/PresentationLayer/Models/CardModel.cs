@@ -131,12 +131,14 @@ namespace PresentationLayer.Models
         public int ColumnId { get; set; }
 
         public ObservableCollection<TagModel> Tags { get; set; }
+        public ObservableCollection<TagModel> BoardTags { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
         public ObservableCollection<UserModel> Participants { get; set; }
 
         public CardModel()
         {
             Tags = new ObservableCollection<TagModel>();
+            BoardTags = new ObservableCollection<TagModel>();
             Comments = new ObservableCollection<CommentModel>();
             Participants = new ObservableCollection<UserModel>();
             
@@ -152,18 +154,18 @@ namespace PresentationLayer.Models
         //}
 
         //COMMANDS
-        //private RelayCommand _editCardCmd;
-        //public RelayCommand EditCardCmd
-        //{
-        //    get
-        //    {
-        //        return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
-        //        {
-        //            EditCardWindow editCardwindow = new EditCardWindow((CardModel)this.Clone());
-        //            editCardwindow.ShowDialog();
-        //        }));
-        //    }
-        //}
+        private RelayCommand _editCardCmd;
+        public RelayCommand EditCardCmd
+        {
+            get
+            {
+                return _editCardCmd ?? (_editCardCmd = new RelayCommand(() =>
+                {
+                    EditCardWindow editCardwindow = new EditCardWindow(this);
+                    editCardwindow.ShowDialog();
+                }));
+            }
+        }
 
         //private RelayCommand _saveEditedCard;
         //public RelayCommand SaveEditedCardCmd
@@ -208,23 +210,22 @@ namespace PresentationLayer.Models
         //    }
         //}
 
-        //public object Clone()
-        //{
-        //    return new CardModel
-        //    {
-        //        Id = Id,
-        //        Name = Name,
-        //        Description = Description,
-        //        CreationDate = CreationDate,
-        //        ExpireDate = ExpireDate,
-        //        DateColor = DateColor,
-        //        ColumnId = ColumnId,
-        //        BoardTags = BoardTags,
-        //        Tags = Tags,
-        //        Comments = Comments,
-        //        Participants = Participants,
-                
-        //    };
-        //}
+        public object Clone()
+        {
+            return new CardModel
+            {
+                Id = Id,
+                Name = Name,
+                Description = Description,
+                CreationDate = CreationDate,
+                ExpireDate = ExpireDate,
+                DateColor = DateColor,
+                ColumnId = ColumnId,
+                Tags = new ObservableCollection<TagModel>(Tags),
+                BoardTags = BoardTags,
+                //Comments = Comments,
+                //Participants = Participants,
+            };
+        }
     }
 }
