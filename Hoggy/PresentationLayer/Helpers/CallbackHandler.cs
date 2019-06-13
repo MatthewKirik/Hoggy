@@ -20,6 +20,7 @@ namespace PresentationLayer.Helpers
         static Action<TagDTO> _actAddTagToBoard;
         static Action<ColumnDTO> _actAddColumn;
         static Action<int> _actDelColumn;
+        static Action<ColumnDTO> _actEditColumn;
 
         //ADD ACTIONS
         public void AddNewCardHandler(Action<CardModel, int> actAddCard)
@@ -50,6 +51,11 @@ namespace PresentationLayer.Helpers
         public void AddDelColumnHandler(Action<int> actDelColumn)
         {
             _actDelColumn = actDelColumn;
+        }
+
+        public void AddEditColumnHandler(Action<ColumnDTO> actEditColumn)
+        {
+            _actEditColumn = actEditColumn;
         }
 
         //CALL CALBACKS
@@ -131,6 +137,11 @@ namespace PresentationLayer.Helpers
         public void OnCardEdited(CardDTO card)
         {
             _actEditCard(card);
+        }
+
+        public void OnColumnEdited(ColumnDTO card)
+        {
+            _actEditColumn(card);
         }
     }
 }

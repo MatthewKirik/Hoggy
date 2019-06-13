@@ -52,7 +52,7 @@ namespace PresentationLayer.ViewModels
                 _column = new ColumnModel();
             }
             else
-                _column = Mapper.Map<ColumnModel>(column);
+                _column = (ColumnModel)column.Clone();
         }
 
         void AddColumn()
@@ -87,13 +87,11 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    //if (!NetProxy.EditionProxy.)
-
-                        //if (!NetProxy.CreationProxy.AddColumn(NetProxy.Token,
-                        //Mapper.Map<ColumnDTO>(_column), _boardId))
-                        MessageBox.Show("Can't edit column!");
-                    //else
+                    MessageBox.Show(Column.Id.ToString());
+                    if (!NetProxy.EditionProxy.EditColumn(NetProxy.Token, Mapper.Map<ColumnDTO>(Column)))
                         App.Current.Dispatcher.Invoke(() => { _window.Close(); });
+                    else
+                        MessageBox.Show("Can't edit column!");
                 }
                 catch (Exception e)
                 {

@@ -21,6 +21,12 @@
   <wsdl:message name="INotificationContract_Subscribe_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeResponse" />
   </wsdl:message>
+  <wsdl:message name="INotificationContract_UnSubscribe_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribe" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_UnSubscribe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeResponse" />
+  </wsdl:message>
   <wsdl:message name="INotificationContract_OnBoardAdded_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnBoardAdded" />
   </wsdl:message>
@@ -66,6 +72,9 @@
   <wsdl:message name="INotificationContract_OnCardEdited_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardEdited" />
   </wsdl:message>
+  <wsdl:message name="INotificationContract_OnColumnEdited_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnColumnEdited" />
+  </wsdl:message>
   <wsdl:message name="INotificationContract_OnCardMoved_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardMoved" />
   </wsdl:message>
@@ -73,6 +82,10 @@
     <wsdl:operation name="Subscribe">
       <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/Subscribe" message="tns:INotificationContract_Subscribe_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/SubscribeResponse" message="tns:INotificationContract_Subscribe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribe">
+      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/UnSubscribe" message="tns:INotificationContract_UnSubscribe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/UnSubscribeResponse" message="tns:INotificationContract_UnSubscribe_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnBoardAdded">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnBoardAdded" message="tns:INotificationContract_OnBoardAdded_OutputCallbackMessage" />
@@ -119,6 +132,9 @@
     <wsdl:operation name="OnCardEdited">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardEdited" message="tns:INotificationContract_OnCardEdited_OutputCallbackMessage" />
     </wsdl:operation>
+    <wsdl:operation name="OnColumnEdited">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnColumnEdited" message="tns:INotificationContract_OnColumnEdited_OutputCallbackMessage" />
+    </wsdl:operation>
     <wsdl:operation name="OnCardMoved">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardMoved" message="tns:INotificationContract_OnCardMoved_OutputCallbackMessage" />
     </wsdl:operation>
@@ -128,6 +144,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="Subscribe">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/Subscribe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribe">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/UnSubscribe" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -221,6 +246,12 @@
     </wsdl:operation>
     <wsdl:operation name="OnCardEdited">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardEdited" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnColumnEdited">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnColumnEdited" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

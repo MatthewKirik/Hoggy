@@ -20,6 +20,12 @@ namespace PresentationLayer.NotificationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/Subscribe", ReplyAction="http://tempuri.org/INotificationContract/SubscribeResponse")]
         System.Threading.Tasks.Task<bool> SubscribeAsync(DataTransferObjects.AuthenticationToken token, int boardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/UnSubscribe", ReplyAction="http://tempuri.org/INotificationContract/UnSubscribeResponse")]
+        bool UnSubscribe(DataTransferObjects.AuthenticationToken token, int boardId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/UnSubscribe", ReplyAction="http://tempuri.org/INotificationContract/UnSubscribeResponse")]
+        System.Threading.Tasks.Task<bool> UnSubscribeAsync(DataTransferObjects.AuthenticationToken token, int boardId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -70,6 +76,9 @@ namespace PresentationLayer.NotificationService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardEdited")]
         void OnCardEdited(DataTransferObjects.CardDTO card);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnColumnEdited")]
+        void OnColumnEdited(DataTransferObjects.ColumnDTO card);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardMoved")]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);
     }
@@ -108,6 +117,14 @@ namespace PresentationLayer.NotificationService {
         
         public System.Threading.Tasks.Task<bool> SubscribeAsync(DataTransferObjects.AuthenticationToken token, int boardId) {
             return base.Channel.SubscribeAsync(token, boardId);
+        }
+        
+        public bool UnSubscribe(DataTransferObjects.AuthenticationToken token, int boardId) {
+            return base.Channel.UnSubscribe(token, boardId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UnSubscribeAsync(DataTransferObjects.AuthenticationToken token, int boardId) {
+            return base.Channel.UnSubscribeAsync(token, boardId);
         }
     }
 }

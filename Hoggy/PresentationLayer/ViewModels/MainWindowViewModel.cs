@@ -102,7 +102,8 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddNewTagToBoardHandler(AddTagToBoardCallback);
             NetProxy.CallbackHandler.AddNewColumnHandler(AddColumnCallback);
             NetProxy.CallbackHandler.AddDelColumnHandler(DeleteColumnCallback);
-
+            NetProxy.CallbackHandler.AddEditColumnHandler(EditColumnCallback);
+            
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
 
@@ -345,10 +346,14 @@ namespace PresentationLayer.ViewModels
                     });
                     //load tags
                     TagDTO[] allTags = NetProxy.DataExchProxy.GetBoardTags(NetProxy.Token, CurBoard.Id);
-
                     if (allTags != null)
-                        CurBoard.Tags = Mapper.Map<TagDTO[], ObservableCollection<TagModel>>(allTags);
-
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            CurBoard.Tags.Clear();
+                            foreach (var tag in allTags)
+                                CurBoard.Tags.Add(Mapper.Map<TagModel>(tag));
+                        });
+                    //load cards
                     foreach (var col in CurBoard.Columns)
                     {
                         CardDTO[] cardsDTO = NetProxy.DataExchProxy.GetCards(NetProxy.Token, col.Id);
@@ -388,7 +393,6 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    MessageBox.Show(cardId + " " + originalColumnId + " " + destinationColumnId);
                     NetProxy.InterProxy.MoveCard(NetProxy.Token, cardId, destinationColumnId);
                 }
                 catch (Exception e)
@@ -475,8 +479,18 @@ namespace PresentationLayer.ViewModels
             CurBoard.Columns.Add(Mapper.Map<ColumnModel>(columnDTO));
         }
 
+        void EditColumnCallback(ColumnDTO col)
+        {
+            ColumnModel colModel = CurBoard.Columns.Where(c=>c.Id == col.Id).FirstOrDefault();
+            if (colModel == null)
+                return;
+            colModel.Name = col.Name;
+            colModel.Description = col.Description;
+        }
+
         void DeleteColumnCallback(int colId)
         {
+
             ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
             if (col != null)
                 CurBoard.Columns.Remove(col);

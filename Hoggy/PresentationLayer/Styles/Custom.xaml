@@ -339,5 +339,20 @@
         </Style.Triggers>
     </Style>
 
+    <!--TAGS-->
+    <Style x:Key="TagBorder" TargetType="Border">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Padding" Value="10 5"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="TagText" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource Header}"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
 
 </ResourceDictionary>

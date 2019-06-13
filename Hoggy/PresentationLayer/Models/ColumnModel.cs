@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace PresentationLayer.Models
 {
-    public class ColumnModel : ViewModelBase, IDropTarget
+    public class ColumnModel : ViewModelBase, IDropTarget, ICloneable
     {
         public int Id { get; set; }
 
@@ -99,6 +99,15 @@ namespace PresentationLayer.Models
         {
             MoveCardAct.Invoke((dropInfo.DragInfo.SourceItem as CardModel).Id,
                 (dropInfo.DragInfo.SourceItem as CardModel).ColumnId, Id);
+        }
+
+        public object Clone()
+        {
+            return new ColumnModel {
+                Id = Id,
+                Name = Name,
+                Description = Description
+            };
         }
 
         //COMMANDS
