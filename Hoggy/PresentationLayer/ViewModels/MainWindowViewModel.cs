@@ -103,7 +103,8 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddNewColumnHandler(AddColumnCallback);
             NetProxy.CallbackHandler.AddDelColumnHandler(DeleteColumnCallback);
             NetProxy.CallbackHandler.AddEditColumnHandler(EditColumnCallback);
-            
+            NetProxy.CallbackHandler.AddCardTagAddedHandler(AddTagToCard);
+
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
 
@@ -483,7 +484,6 @@ namespace PresentationLayer.ViewModels
 
         void AddTagToCard(int tagId, int cardId)
         {
-            MessageBox.Show(tagId + " " + cardId);
             CardModel cardModel = null;
             foreach (var col in CurBoard.Columns)
             {
@@ -566,6 +566,19 @@ namespace PresentationLayer.ViewModels
                 {
                     AddEditColumnWindow addColWind = new AddEditColumnWindow(CurBoard.Id);
                     addColWind.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand _editBoardCmd;
+        public RelayCommand EditBoardCmd
+        {
+            get
+            {
+                return _editBoardCmd ?? (_editBoardCmd = new RelayCommand(() =>
+                {
+                    EditBoardWindow editBoardWindow = new EditBoardWindow(CurBoard);
+                    editBoardWindow.ShowDialog();
                 }));
             }
         }

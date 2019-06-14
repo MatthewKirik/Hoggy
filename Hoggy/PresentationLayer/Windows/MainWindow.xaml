@@ -52,14 +52,14 @@
                 <TextBlock Text="{Binding User.Email}" Style="{StaticResource EmailTxt}"/>
             </WrapPanel>
             <WrapPanel Grid.Column="2" VerticalAlignment="Bottom">
-                <fa:FontAwesome Icon="Pagelines" Style="{StaticResource SmallIcon}"/>
+                <fa:FontAwesome Icon="ListAlt" Style="{StaticResource SmallIcon}"/>
                 <TextBlock  Text="{Binding CurBoard.Name}" Style="{StaticResource LoginTxt}"/>
             </WrapPanel>
             <WrapPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Top">
-                <fa:FontAwesome Icon="Info" Style="{StaticResource SmallIcon}"/>
+                <fa:FontAwesome Icon="InfoCircle" Style="{StaticResource SmallIcon}"/>
                 <TextBlock  Text="{Binding CurBoard.Description}" Style="{StaticResource EmailTxt}"/>
             </WrapPanel>
-            <Button Grid.Column="3" Style="{StaticResource TopBtn}" Content="Edit" Command="{Binding EditBoardCmd}" />
+            <Button Grid.Column="3" Style="{StaticResource TopBtn}" Content="Edit board" Command="{Binding EditBoardCmd}" />
             <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource TopBtn}" Content="Add column" Command="{Binding AddColumnCmd}"/>
         </Grid>
         <!--SIDE PANEL-->
@@ -102,7 +102,8 @@
         <Grid Grid.Row="1" Margin="50 15 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding CurBoard.Columns}">
@@ -181,8 +182,11 @@
                                                         <ItemsControl Grid.Column="1" ItemsSource="{Binding Tags}">
                                                             <ItemsControl.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Border>
-                                                                        <TextBlock Text="Name"/>
+                                                                    <Border Style="{StaticResource TagBorder}">
+                                                                        <Border.Background>
+                                                                            <SolidColorBrush Color="{Binding Color}"/>
+                                                                        </Border.Background>
+                                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TagText}"/>
                                                                     </Border>
                                                                 </DataTemplate>
                                                             </ItemsControl.ItemTemplate>
@@ -237,8 +241,11 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
+            <!--SPLITTER-->
+            <GridSplitter Grid.Row="1" ShowsPreview="True" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          Background="{StaticResource SecondBrushDarkest}" Margin="0 3 0 0"/>
             <!--BOARD TAGS-->
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="2">
                 <Border Style="{StaticResource MiddleHeaderBorder}">
                     <WrapPanel>
                         <fa:FontAwesome Icon="Tags" Style="{StaticResource IconMiddle}" Foreground="White" />

@@ -1,0 +1,183 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.EditBoardWindow"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="EDIT BOARD" Height="700" Width="1000" 
+                   Icon="pack://application:,,,/Resources/icon.ico"
+                   Background="{StaticResource SecondBrushLighter}"
+                   ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--MAIN INFO-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <Border Style="{StaticResource MiddleHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="Paperclip" Style="{StaticResource SmallIcon}" Foreground="White" />
+                        <TextBlock Text="BOARD INFO:" Style="{StaticResource MiddleHeader}" />
+                    </WrapPanel>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Name" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Board.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                </Grid>
+                <TextBlock Visibility="{Binding Board.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Board.NameErr}" Style="{StaticResource Error}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Description" Style="{StaticResource Lable}" />
+                    <TextBox Text="{Binding Path=Board.Description, UpdateSourceTrigger=PropertyChanged}" 
+                         Grid.Column="1" TextWrapping="Wrap" MinLines="5"/>
+                </Grid>
+                <TextBlock Visibility="{Binding Board.DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Board.DescErr}" Style="{StaticResource Error}"/>
+
+                <Grid Height="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding SaveCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding Board.CanSave}">
+                        <Button.Content>
+                            <WrapPanel>
+                                <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
+                                <TextBlock Style="{StaticResource Lable}" Text="SAVE CAHANGES"/>
+                            </WrapPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Grid.Column="1" Command="{Binding CancelCmd}" Style="{StaticResource Btn}">
+                        <Button.Content>
+                            <WrapPanel>
+                                <fa:ImageAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 15 2"/>
+                                <TextBlock Style="{StaticResource Lable}" Text="CANCEL"/>
+                            </WrapPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </StackPanel>
+
+            
+        </Grid>
+
+        <!--USERS EDIT-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Style="{StaticResource MiddleHeaderBorder}" VerticalAlignment="Top">
+                        <WrapPanel>
+                        <fa:FontAwesome Icon="UserCircle" Style="{StaticResource SmallIcon}" Foreground="White" />
+                            <TextBlock Text="PARTICIPANTS:" Style="{StaticResource MiddleHeader}" />
+                        </WrapPanel>
+                    </Border>
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ListBox ItemsSource="{Binding Board.Participants}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2">
+                                        <Image Source="{Binding AvaPath}" Style="{StaticResource Avatar}" />
+                                    </Border>
+                                    <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
+                                        <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
+                                        <TextBlock  Text="{Binding Login}" Style="{StaticResource LoginTxt}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+                                        <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
+                                        <TextBlock Text="{Binding Email}" Style="{StaticResource EmailTxt}"/>
+                                    </WrapPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Style="{StaticResource MiddleHeaderBorder}">
+                    <WrapPanel>
+                        <fa:FontAwesome Icon="UserCircle" Style="{StaticResource SmallIcon}" Foreground="White" />
+                        <TextBlock Text="ALL USERS:" Style="{StaticResource MiddleHeader}" />
+                    </WrapPanel>
+                </Border>
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ListBox ItemsSource="{Binding Users}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2">
+                                        <Image Source="{Binding AvaPath}" Style="{StaticResource Avatar}" />
+                                    </Border>
+                                    <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
+                                        <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
+                                        <TextBlock  Text="{Binding Login}" Style="{StaticResource LoginTxt}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+                                        <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
+                                        <TextBlock Text="{Binding Email}" Style="{StaticResource EmailTxt}"/>
+                                    </WrapPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Border Grid.ColumnSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+                Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
+            <metro:ProgressRing />
+        </Border>
+    </Grid>
+</metro:MetroWindow>

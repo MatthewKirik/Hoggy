@@ -17,7 +17,6 @@ namespace PresentationLayer.ViewModels
     public class EditCardViewModel : ViewModelBase
     {
         Window _window;
-
         CardModel _card;
         public CardModel Card
         {
@@ -28,7 +27,6 @@ namespace PresentationLayer.ViewModels
                 RaisePropertyChanged(nameof(Card));
             }
         }
-
 
         bool _loaderVisible;
         public bool LoaderVisible
