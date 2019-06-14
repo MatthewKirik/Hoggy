@@ -627,5 +627,18 @@ namespace PresentationLayer.ViewModels
                 }));
             }
         }
+
+        private RelayCommand _invitationsCmd;
+        public RelayCommand InvitationsCmd
+        {
+            get
+            {
+                return _invitationsCmd ?? (_invitationsCmd = new RelayCommand(() =>
+                {
+                    InvitationsWindow invitationsWindow = new InvitationsWindow(User);
+                    invitationsWindow.ShowDialog();
+                }));
+            }
+        }
     }
 }

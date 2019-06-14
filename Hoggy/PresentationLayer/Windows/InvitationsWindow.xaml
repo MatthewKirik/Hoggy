@@ -1,0 +1,81 @@
+﻿<metro:MetroWindow x:Class="PresentationLayer.Windows.InvitationsWindow"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Windows"
+        mc:Ignorable="d"
+        xmlns:custom="clr-namespace:PresentationLayer.XamlAssistants"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   Title="INVITATIONS" Height="400" Width="600" 
+                   Icon="pack://application:,,,/Resources/icon.ico"
+                   Background="{StaticResource SecondBrushLighter}"
+                   ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource CardHeaderBorder}">
+                <WrapPanel>
+                    <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
+                    <TextBlock Text="INCOMING INVITATIONS:" Style="{StaticResource CardHeader}" />
+                </WrapPanel>
+            </Border>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding User.Invitations}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource UserCard}"  Height="42"
+                                            Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="130"/>
+                                        <ColumnDefinition Width="130"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <WrapPanel>
+                                        <fa:FontAwesome Icon="Home" Style="{StaticResource SmallIcon}" VerticalAlignment="Center" Foreground="DarkRed" />
+                                        <TextBlock  Text="{Binding SenderEmail}" Foreground="{StaticResource SecondBrushDarkest}" VerticalAlignment="Center"
+                                                    Style="{StaticResource LoginTxt}" />
+                                    </WrapPanel>
+                                    <Button Grid.Column="1" Command="{Binding AcceptCmd}" Style="{StaticResource Btn}" Margin="3">
+                                        <Button.Content>
+                                            <WrapPanel>
+                                                <fa:FontAwesome Icon="Check" Foreground="Teal" Margin="2 2 5 2" FontSize="14"/>
+                                            <TextBlock Style="{StaticResource Lable}" Text="ACCEPT" FontSize="12"/>
+                                            </WrapPanel>
+                                        </Button.Content>
+                                    </Button>
+                                <Button Grid.Column="2" Command="{Binding RejectCmd}" Style="{StaticResource Btn}" Margin="3">
+                                        <Button.Content>
+                                            <WrapPanel>
+                                                <fa:FontAwesome Icon="Close" Foreground="DarkRed" Margin="2 2 5 2" FontSize="14"/>
+                                            <TextBlock Style="{StaticResource Lable}" Text="REJECT" FontSize="12"/>
+                                            </WrapPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+   
+        <Border Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
+                Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >
+            <metro:ProgressRing />
+        </Border>
+
+    </Grid>
+    </metro:MetroWindow>

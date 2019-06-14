@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -65,9 +65,12 @@
 
             <Border Grid.Column="4" Grid.RowSpan="2">
                 <Canvas>
-                <fa:FontAwesome Canvas.Left="5"
-                    Icon="Bullhorn" FontSize="45" Style="{StaticResource IconHover}"
-                                HorizontalAlignment="Center"/>
+                    <fa:FontAwesome Canvas.Left="5" Icon="Bullhorn" FontSize="45" 
+                                Style="{StaticResource IconHover}" HorizontalAlignment="Center">
+                        <fa:FontAwesome.InputBindings>
+                            <MouseBinding Command="{Binding InvitationsCmd}" MouseAction="LeftClick"/>
+                        </fa:FontAwesome.InputBindings>
+                    </fa:FontAwesome>
                     <Border Canvas.Left="35" Canvas.Top="35" Background="Red" 
                             CornerRadius="10" Width="20" Height="20" Padding="6 1 0 0 ">
                         <TextBlock Text="{Binding User.Invitations, Converter={custom:CollectionToCountConverter}}"
