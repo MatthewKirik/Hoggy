@@ -1,10 +1,12 @@
 ﻿using DataTransferObjects;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using PresentationLayer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,7 +39,7 @@ namespace PresentationLayer.Models
             {
                 _loginErr = value;
                 RaisePropertyChanged(nameof(LoginErr));
-                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr); 
+                CanSign = Validator.EmptyStrings(LoginErr, PassErr, MailErr);
             }
         }
 
@@ -110,18 +112,41 @@ namespace PresentationLayer.Models
             }
             get => _canLogin;
         }
-        
+
+        string _avatar;
+        public string Avatar
+        {
+            get => _avatar;
+            set
+            {
+                _avatar = value;
+                RaisePropertyChanged(nameof(Avatar));
+            }
+        }
+
         public ObservableCollection<BoardModel> Boards { get; set; }
         public ObservableCollection<BoardModel> PartBoards { get; set; }
-        
+
         public UserModel()
-        { 
+        {
             _loginErr = "Empty field";
             _passErr = "Empty field";
             _mailErr = "Empty field";
-
+            _avatar = ConfigurationManager.AppSettings["defaultAvaPath"];
             Boards = new ObservableCollection<BoardModel>();
             PartBoards = new ObservableCollection<BoardModel>();
+        }
+        //COMMANDS
+        private RelayCommand _inviteUserCmd;
+        public RelayCommand InviteUserCmd
+        {
+            get
+            {
+                return _inviteUserCmd ?? (_inviteUserCmd = new RelayCommand(() =>
+                {
+                    //AddTagToCardAct.Invoke(this);
+                }));
+            }
         }
 
     }

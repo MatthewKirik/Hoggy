@@ -153,7 +153,7 @@
   <xs:element name="OnColumnEdited">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="card" nillable="true" type="q12:ColumnDTO" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="column" nillable="true" type="q12:ColumnDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

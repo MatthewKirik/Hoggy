@@ -77,7 +77,7 @@ namespace PresentationLayer.NotificationService {
         void OnCardEdited(DataTransferObjects.CardDTO card);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnColumnEdited")]
-        void OnColumnEdited(DataTransferObjects.ColumnDTO card);
+        void OnColumnEdited(DataTransferObjects.ColumnDTO column);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardMoved")]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);

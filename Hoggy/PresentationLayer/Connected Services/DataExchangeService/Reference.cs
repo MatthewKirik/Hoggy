@@ -21,6 +21,12 @@ namespace PresentationLayer.DataExchangeService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUser", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserResponse")]
         System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetAllUsers", ReplyAction="http://tempuri.org/IDataExchangeContract/GetAllUsersResponse")]
+        DataTransferObjects.UserDTO[] GetAllUsers(DataTransferObjects.AuthenticationToken token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetAllUsers", ReplyAction="http://tempuri.org/IDataExchangeContract/GetAllUsersResponse")]
+        System.Threading.Tasks.Task<DataTransferObjects.UserDTO[]> GetAllUsersAsync(DataTransferObjects.AuthenticationToken token);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataExchangeContract/GetUserProfile", ReplyAction="http://tempuri.org/IDataExchangeContract/GetUserProfileResponse")]
         DataTransferObjects.UserProfileDTO GetUserProfile(DataTransferObjects.AuthenticationToken token);
         
@@ -127,6 +133,14 @@ namespace PresentationLayer.DataExchangeService {
         
         public System.Threading.Tasks.Task<DataTransferObjects.UserDTO> GetUserAsync(DataTransferObjects.AuthenticationToken token) {
             return base.Channel.GetUserAsync(token);
+        }
+        
+        public DataTransferObjects.UserDTO[] GetAllUsers(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetAllUsers(token);
+        }
+        
+        public System.Threading.Tasks.Task<DataTransferObjects.UserDTO[]> GetAllUsersAsync(DataTransferObjects.AuthenticationToken token) {
+            return base.Channel.GetAllUsersAsync(token);
         }
         
         public DataTransferObjects.UserProfileDTO GetUserProfile(DataTransferObjects.AuthenticationToken token) {

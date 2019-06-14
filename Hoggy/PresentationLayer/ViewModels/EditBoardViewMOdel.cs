@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using AutoMapper;
+using DataTransferObjects;
+using GalaSoft.MvvmLight;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models;
 using System;
@@ -36,10 +38,11 @@ namespace PresentationLayer.ViewModels
         }
 
         public ObservableCollection<UserModel> Users { get; set; }
-        
+
         Window _window;
         public EditBoardViewModel(BoardModel board, Window window)
         {
+            Users = new ObservableCollection<UserModel>();
             _board = (BoardModel)board.Clone();
             _window = window;
             LoadAllUsers();
@@ -52,10 +55,16 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    //NetProxy.DataExchProxy.U
-                    //if ();
-                    //else
-                    //App.Current.Dispatcher.Invoke(() => { _window.Close(); });
+                    UserDTO[] usersDTO = NetProxy.DataExchProxy.GetAllUsers(NetProxy.Token);
+                    if (usersDTO != null && usersDTO.Length > 0)
+                    {
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            Users.Clear();
+                            foreach (var userDTO in usersDTO)
+                                Users.Add(Mapper.Map<UserModel>(userDTO));
+                        });
+                    }
                 }
                 catch (Exception e)
                 {
@@ -64,9 +73,38 @@ namespace PresentationLayer.ViewModels
                 }
                 finally
                 {
-                    LoaderVisible = false;
+                    LoaderVisible = false; 
                 }
             });
+        }
+
+        void AddParticipants(UserModel user)
+        {
+            if (Board.Participants.Where(u => u.Id == user.Id).FirstOrDefault() != null)
+                return;
+            else
+            {
+                LoaderVisible = true;
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        if (!NetProxy.CommProxy.SendInvitation(NetProxy.Token, Board.Id, user.Email))
+                            MessageBox.Show("Invitattion is not send!");
+                        else
+                            MessageBox.Show("Invitattion is send!");
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                                   MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        LoaderVisible = false;
+                    }
+                });
+            }
         }
     }
 }

@@ -12,7 +12,6 @@
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    Title="Sign up to Hoggy" Height="450" Width="1000" 
                    Icon="pack://application:,,,/Resources/icon.ico">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
