@@ -181,6 +181,7 @@
     <Compile Include="Helpers\MapperConfigurator.cs" />
     <Compile Include="Helpers\NetProxy.cs" />
     <Compile Include="Helpers\Validator.cs" />
+    <Compile Include="Models\InvitationModel.cs" />
     <Compile Include="ViewModels\AddCardViewModel.cs" />
     <Compile Include="ViewModels\AddEditColumnViewModel.cs" />
     <Compile Include="ViewModels\EditBoardViewModel.cs" />
@@ -210,6 +211,7 @@
       <DependentUpon>TagsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlAssistants\BoolToVisibilityConverter.cs" />
+    <Compile Include="XamlAssistants\CollectionToCountConverter.cs" />
     <Compile Include="XamlAssistants\PasswordBoxAssistant.cs" />
     <Compile Include="XamlAssistants\StringNullOrEmptyToVisibilityConverter.cs" />
   </ItemGroup>

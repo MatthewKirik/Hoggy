@@ -70,7 +70,7 @@
                                 HorizontalAlignment="Center"/>
                     <Border Canvas.Left="35" Canvas.Top="35" Background="Red" 
                             CornerRadius="10" Width="20" Height="20" Padding="6 1 0 0 ">
-                    <TextBlock Text="3" 
+                        <TextBlock Text="{Binding User.Invitations, Converter={custom:CollectionToCountConverter}}"
                                FontSize="16" FontFamily="{StaticResource Header}"
                                Foreground="White"/>
                     </Border>
@@ -189,20 +189,15 @@
                                                             <ColumnDefinition />
                                                         </Grid.ColumnDefinitions>
 
-                                                        <fa:FontAwesome Icon="Tags" Style="{StaticResource TagsIcon}" >
-                                                            <fa:FontAwesome.InputBindings>
-                                                                <MouseBinding Command="{Binding EditTagsCmd}" MouseAction="LeftClick" />
-                                                            </fa:FontAwesome.InputBindings>
-                                                        </fa:FontAwesome>
-
+                                                        <fa:FontAwesome Icon="Tags" Style="{StaticResource TagsIcon}" />
                                                         <ItemsControl Grid.Column="1" ItemsSource="{Binding Tags}">
                                                             <ItemsControl.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Border Style="{StaticResource TagBorder}">
+                                                                    <Border Style="{StaticResource TagBorderSmall}">
                                                                         <Border.Background>
                                                                             <SolidColorBrush Color="{Binding Color}"/>
                                                                         </Border.Background>
-                                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TagText}"/>
+                                                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TagTextSmall}"/>
                                                                     </Border>
                                                                 </DataTemplate>
                                                             </ItemsControl.ItemTemplate>

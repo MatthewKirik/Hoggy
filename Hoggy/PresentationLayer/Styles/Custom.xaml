@@ -346,12 +346,22 @@
         <Setter Property="Margin" Value="5"/>
     </Style>
 
+    <Style x:Key="TagBorderSmall" TargetType="Border">
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="7 3"/>
+        <Setter Property="Margin" Value="4"/>
+    </Style>
+
     <Style x:Key="TagText" TargetType="TextBlock">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="0"/>
         <Setter Property="FontFamily" Value="{StaticResource Header}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style x:Key="TagTextSmall" TargetType="TextBlock" BasedOn="{StaticResource TagText}">
+        <Setter Property="FontSize" Value="9"/>
     </Style>
 
     <!--USERS-->

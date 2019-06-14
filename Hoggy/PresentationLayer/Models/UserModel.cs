@@ -126,6 +126,7 @@ namespace PresentationLayer.Models
 
         public ObservableCollection<BoardModel> Boards { get; set; }
         public ObservableCollection<BoardModel> PartBoards { get; set; }
+        public ObservableCollection<InvitationModel> Invitations { get; set; }
 
         public UserModel()
         {
@@ -135,6 +136,7 @@ namespace PresentationLayer.Models
             _avatar = ConfigurationManager.AppSettings["defaultAvaPath"];
             Boards = new ObservableCollection<BoardModel>();
             PartBoards = new ObservableCollection<BoardModel>();
+            Invitations = new ObservableCollection<InvitationModel>();
         }
         //COMMANDS
         private RelayCommand _inviteUserCmd;

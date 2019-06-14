@@ -166,4 +166,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="OnIncomeInvitation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/DataTransferObjects" minOccurs="0" name="invitation" nillable="true" type="q13:InvitationDTO" />
+        <xs:element minOccurs="0" name="recepientEmail" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnIncomeInvitationResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -81,6 +81,9 @@ namespace PresentationLayer.NotificationService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificationContract/OnCardMoved")]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotificationContract/OnIncomeInvitation", ReplyAction="http://tempuri.org/INotificationContract/OnIncomeInvitationResponse")]
+        void OnIncomeInvitation(DataTransferObjects.InvitationDTO invitation, string recepientEmail);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

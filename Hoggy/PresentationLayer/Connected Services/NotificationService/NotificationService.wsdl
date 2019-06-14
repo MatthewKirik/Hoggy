@@ -78,6 +78,12 @@
   <wsdl:message name="INotificationContract_OnCardMoved_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnCardMoved" />
   </wsdl:message>
+  <wsdl:message name="INotificationContract_OnIncomeInvitation_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnIncomeInvitation" />
+  </wsdl:message>
+  <wsdl:message name="INotificationContract_OnIncomeInvitation_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnIncomeInvitationResponse" />
+  </wsdl:message>
   <wsdl:portType name="INotificationContract">
     <wsdl:operation name="Subscribe">
       <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/Subscribe" message="tns:INotificationContract_Subscribe_InputMessage" />
@@ -137,6 +143,10 @@
     </wsdl:operation>
     <wsdl:operation name="OnCardMoved">
       <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnCardMoved" message="tns:INotificationContract_OnCardMoved_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnIncomeInvitation">
+      <wsdl:output wsaw:Action="http://tempuri.org/INotificationContract/OnIncomeInvitation" message="tns:INotificationContract_OnIncomeInvitation_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/INotificationContract/OnIncomeInvitationResponse" message="tns:INotificationContract_OnIncomeInvitation_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="notificationPoint" type="tns:INotificationContract">
@@ -258,6 +268,15 @@
     </wsdl:operation>
     <wsdl:operation name="OnCardMoved">
       <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnCardMoved" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnIncomeInvitation">
+      <soap12:operation soapAction="http://tempuri.org/INotificationContract/OnIncomeInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

@@ -20,6 +20,7 @@ namespace PresentationLayer.Helpers
                 cfg.CreateMap<ColumnDTO, ColumnModel>();
                 cfg.CreateMap<CardDTO, CardModel>();
                 cfg.CreateMap<TagDTO, TagModel>();
+                cfg.CreateMap<InvitationDTO, InvitationModel>();
             });
         }
     }

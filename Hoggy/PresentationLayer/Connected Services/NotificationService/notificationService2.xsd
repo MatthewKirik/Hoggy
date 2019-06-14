@@ -78,4 +78,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTagDTO" nillable="true" type="tns:ArrayOfTagDTO" />
+  <xs:complexType name="InvitationDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SenderEmail" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvitationDTO" nillable="true" type="tns:InvitationDTO" />
 </xs:schema>

@@ -22,8 +22,14 @@ namespace PresentationLayer.Helpers
         static Action<int> _actDelColumn;
         static Action<ColumnDTO> _actEditColumn;
         static Action<int, int> _actOnCardTagAdded;
+        static Action<InvitationDTO, string> _actOnIncomeInvitation;
 
         //ADD ACTIONS
+        public void AddOnIncomeInvitationHandler(Action<InvitationDTO, string> actOnIncomeInvitation)
+        {
+            _actOnIncomeInvitation = actOnIncomeInvitation;
+        }
+
         public void AddNewCardHandler(Action<CardDTO, int> actAddCard)
         {
             _actAddCard = actAddCard;
@@ -148,6 +154,11 @@ namespace PresentationLayer.Helpers
         public void OnColumnEdited(ColumnDTO card)
         {
             _actEditColumn(card);
+        }
+
+        public void OnIncomeInvitation(InvitationDTO invitation, string recepientEmail)
+        {
+            _actOnIncomeInvitation(invitation, recepientEmail);
         }
     }
 }

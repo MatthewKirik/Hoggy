@@ -104,6 +104,7 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddDelColumnHandler(DeleteColumnCallback);
             NetProxy.CallbackHandler.AddEditColumnHandler(EditColumnCallback);
             NetProxy.CallbackHandler.AddCardTagAddedHandler(AddTagToCard);
+            NetProxy.CallbackHandler.AddOnIncomeInvitationHandler(OnIncomeInvitationCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -143,6 +144,7 @@ namespace PresentationLayer.ViewModels
                         User.Id = userDTO.Id;
                         User.Login = userDTO.Login;
                         User.Email = userDTO.Email;
+                        GetInvitations();
                     }
                     else
                         MessageBox.Show("Cant load user");
@@ -155,6 +157,35 @@ namespace PresentationLayer.ViewModels
             });
             task.Start();
             task.Wait();
+        }
+
+        void GetInvitations()
+        {
+            LoaderVisible = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    InvitationDTO[] invitationsDTO = NetProxy.DataExchProxy.GetIncomeInvitations(
+                        NetProxy.Token, User.Id);
+                    if (invitationsDTO != null)
+                    {
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            User.Invitations.Clear();
+                            foreach (var invitationDTO in invitationsDTO)
+                                User.Invitations.Add(Mapper.Map<InvitationModel>(invitationDTO));
+                        });
+                    }
+                    else
+                        MessageBox.Show("Cant load invitations");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoaderVisible = false;
+            });
         }
 
         void GetBoards(string type)
@@ -506,7 +537,7 @@ namespace PresentationLayer.ViewModels
 
         void EditColumnCallback(ColumnDTO col)
         {
-            ColumnModel colModel = CurBoard.Columns.Where(c=>c.Id == col.Id).FirstOrDefault();
+            ColumnModel colModel = CurBoard.Columns.Where(c => c.Id == col.Id).FirstOrDefault();
             if (colModel != null)
             {
                 colModel.Name = col.Name;
@@ -519,6 +550,11 @@ namespace PresentationLayer.ViewModels
             ColumnModel col = CurBoard.Columns.Where(c => c.Id == colId).FirstOrDefault();
             if (col != null)
                 CurBoard.Columns.Remove(col);
+        }
+
+        void OnIncomeInvitationCallback(InvitationDTO invitation, string recepientEmail)
+        {
+            MessageBox.Show("OK!");
         }
 
         ////COMMANDS
