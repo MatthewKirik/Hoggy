@@ -33,11 +33,13 @@ namespace WcfServiceLibrary.Services
                 BoardEntity board = _repository.GetItem<BoardEntity>(x => x.Id == boardId);
                 if (!Validator.HasAccess(_repository, token, board))
                     return false;
+                string email = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User.Email;
 
                 SubscriberModel toAdd = new SubscriberModel()
                 {
                     Callback = OperationContext.Current.GetCallbackChannel<INotifiactionCallbackContract>(),
-                    SecurityGroupId = board.SecurityGroupId
+                    SecurityGroupId = board.SecurityGroupId,
+                    Email = email
                 };
                 _notificator.Subscribers.Add(toAdd);
                 return true;

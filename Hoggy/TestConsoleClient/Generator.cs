@@ -174,6 +174,37 @@ namespace TestConsoleClient
             }
         }
 
+        public void TeamHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
+        {
+            List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
+            List<UserDTO> users = new List<UserDTO>();
+            foreach (var token in tokens)
+            {
+                users.Add(dataExchangeClient.GetUser(token));
+            }
+            AddBoards(tokens[0], boardAmount);
+            List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[0], users[0].Id).ToList();
+            foreach (var b in boards)
+            {
+                //notificationClient.Subscribe(tokens[i], b.Id);
+                AddTagsToBoard(tokens[0], b.Id, tagAmount);
+                AddColumns(tokens[0], b.Id, columnAmount);
+                List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[0], b.Id).ToList();
+                foreach (var c in columns)
+                {
+                    AddCards(tokens[0], c.Id, cardAmount);
+                }
+
+                for (int i = 1; i < tokens.Count; i++)
+                {
+                    communityClient.SendInvitation(tokens[0], b.Id, users[i].Email);
+                    InvitationDTO invitation = dataExchangeClient.GetIncomeInvitations(tokens[i], users[i].Id)[0];
+                    bool isAccepted = communityClient.AcceptInvitation(tokens[i], invitation.Key);
+                    Console.WriteLine("User accepting invitation. Rezult: " + isAccepted.ToString());
+                }
+            }
+        }
+
         public void InitializeHierarchy(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);

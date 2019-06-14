@@ -42,5 +42,8 @@ namespace WcfServiceLibrary.Contracts
 
         [OperationContract(IsOneWay = true)]
         void OnCardMoved(int cardId, int originalColumnId, int destinationColumnId);
+
+        [OperationContract]
+        void OnIncomeInvitation(InvitationDTO invitation, string recepientEmail);
     }
 }
