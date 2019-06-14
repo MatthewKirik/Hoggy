@@ -62,7 +62,11 @@ namespace PresentationLayer.ViewModels
                         {
                             Users.Clear();
                             foreach (var userDTO in usersDTO)
-                                Users.Add(Mapper.Map<UserModel>(userDTO));
+                            {
+                                UserModel userModel = Mapper.Map<UserModel>(userDTO);
+                                userModel.AddTagToCardAct = AddParticipants;
+                                Users.Add(userModel);
+                            }
                         });
                     }
                 }

@@ -118,8 +118,8 @@ namespace PresentationLayer.ViewModels
                 NetProxy.SetToken(regModel.Token);
                 User = new UserModel();
                 GetUser();
-                GetBoards(nameof(User.Boards));
-                GetBoards(nameof(User.PartBoards));
+                //GetBoards(nameof(User.Boards));
+                // GetBoards(nameof(User.PartBoards));
 
                 if (User.Boards.Count + User.PartBoards.Count > 0)
                     CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
@@ -145,6 +145,8 @@ namespace PresentationLayer.ViewModels
                         User.Login = userDTO.Login;
                         User.Email = userDTO.Email;
                         GetInvitations();
+                        GetBoards(nameof(User.Boards));
+                        GetBoards(nameof(User.PartBoards));
                     }
                     else
                         MessageBox.Show("Cant load user");
@@ -161,31 +163,23 @@ namespace PresentationLayer.ViewModels
 
         void GetInvitations()
         {
-            LoaderVisible = true;
-            Task.Run(() =>
+            try
             {
-                try
+                InvitationDTO[] invitationsDTO = NetProxy.DataExchProxy.GetIncomeInvitations(
+                    NetProxy.Token, User.Id);
+                if (invitationsDTO != null)
                 {
-                    InvitationDTO[] invitationsDTO = NetProxy.DataExchProxy.GetIncomeInvitations(
-                        NetProxy.Token, User.Id);
-                    if (invitationsDTO != null)
-                    {
-                        App.Current.Dispatcher.Invoke(() =>
-                        {
-                            User.Invitations.Clear();
-                            foreach (var invitationDTO in invitationsDTO)
-                                User.Invitations.Add(Mapper.Map<InvitationModel>(invitationDTO));
-                        });
-                    }
-                    else
-                        MessageBox.Show("Cant load invitations");
+                    User.Invitations.Clear();
+                    foreach (var invitationDTO in invitationsDTO)
+                        User.Invitations.Add(Mapper.Map<InvitationModel>(invitationDTO));
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                LoaderVisible = false;
-            });
+                else
+                    MessageBox.Show("Cant load invitations");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         void GetBoards(string type)
@@ -554,7 +548,9 @@ namespace PresentationLayer.ViewModels
 
         void OnIncomeInvitationCallback(InvitationDTO invitation, string recepientEmail)
         {
-            MessageBox.Show("OK!");
+            User.Invitations.Add(Mapper.Map<InvitationModel>(invitation));
+            MessageBox.Show("The user " + invitation.SenderEmail + " send invitation for you! \n Check your invitations.",
+                "New invitation!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         ////COMMANDS
@@ -612,6 +608,19 @@ namespace PresentationLayer.ViewModels
             get
             {
                 return _editBoardCmd ?? (_editBoardCmd = new RelayCommand(() =>
+                {
+                    EditBoardWindow editBoardWindow = new EditBoardWindow(CurBoard);
+                    editBoardWindow.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand _createBoardCmd;
+        public RelayCommand CreateBoardCmd
+        {
+            get
+            {
+                return _createBoardCmd ?? (_createBoardCmd = new RelayCommand(() =>
                 {
                     EditBoardWindow editBoardWindow = new EditBoardWindow(CurBoard);
                     editBoardWindow.ShowDialog();

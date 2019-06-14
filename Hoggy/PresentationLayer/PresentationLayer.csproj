@@ -182,6 +182,7 @@
     <Compile Include="Helpers\NetProxy.cs" />
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Models\InvitationModel.cs" />
+    <Compile Include="ViewModels\AddBoardViewModel.cs" />
     <Compile Include="ViewModels\AddCardViewModel.cs" />
     <Compile Include="ViewModels\AddEditColumnViewModel.cs" />
     <Compile Include="ViewModels\EditBoardViewModel.cs" />
@@ -189,6 +190,9 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
     <Compile Include="ViewModels\TagsWindowViewModel.cs" />
+    <Compile Include="Windows\AddBoardWindow.xaml.cs">
+      <DependentUpon>AddBoardWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddCardWindow.xaml.cs">
       <DependentUpon>AddCardWindow.xaml</DependentUpon>
     </Compile>
@@ -357,6 +361,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Custom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddBoardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

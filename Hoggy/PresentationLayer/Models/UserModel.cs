@@ -138,6 +138,9 @@ namespace PresentationLayer.Models
             PartBoards = new ObservableCollection<BoardModel>();
             Invitations = new ObservableCollection<InvitationModel>();
         }
+
+        public Action<UserModel> AddTagToCardAct;
+
         //COMMANDS
         private RelayCommand _inviteUserCmd;
         public RelayCommand InviteUserCmd
@@ -146,7 +149,7 @@ namespace PresentationLayer.Models
             {
                 return _inviteUserCmd ?? (_inviteUserCmd = new RelayCommand(() =>
                 {
-                    //AddTagToCardAct.Invoke(this);
+                    AddTagToCardAct.Invoke(this);
                 }));
             }
         }

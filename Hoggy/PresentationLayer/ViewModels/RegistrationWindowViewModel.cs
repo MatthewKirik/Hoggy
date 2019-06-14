@@ -36,29 +36,29 @@ namespace PresentationLayer.ViewModels
             ///LOCAL TEST
             _user.Email = "user1@gmail.com";
             _user.Password = "user1";
-            LoaderVisible = true;
-            Task.Run(() =>
-            {
-                try
-                {
-                    Token = NetProxy.AuthProxy.Login(User.Email, User.Password);
-                    if (Token != null)
-                    {
-                        _window.Dispatcher.Invoke(() =>
-                        {
-                            _window.DialogResult = true;
-                            _window.Close();
-                        });
-                    }
-                    else
-                        MessageBox.Show(User.Login + User.Password + "Wrong login or password! Try again.");
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                LoaderVisible = false;
-            });
+            //LoaderVisible = true;
+            //Task.Run(() =>
+            //{
+            //    try
+            //    {
+            //        Token = NetProxy.AuthProxy.Login(User.Email, User.Password);
+            //        if (Token != null)
+            //        {
+            //            _window.Dispatcher.Invoke(() =>
+            //            {
+            //                _window.DialogResult = true;
+            //                _window.Close();
+            //            });
+            //        }
+            //        else
+            //            MessageBox.Show(User.Login + User.Password + "Wrong login or password! Try again.");
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //    LoaderVisible = false;
+            //});
         }
 
         private bool _loaderVisible;

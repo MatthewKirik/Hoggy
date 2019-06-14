@@ -111,6 +111,16 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Button Command="{Binding CreateBoardCmd}" Style="{StaticResource Btn}" IsEnabled="{Binding Column.CanSave}" Width="200"
+                        HorizontalAlignment="Left">
+                    <Button.Content>
+                        <WrapPanel>
+                            <fa:ImageAwesome Icon="Plus" Foreground="Teal" Margin="2 2 5 2" Width="20"/>
+                            <TextBlock Style="{StaticResource ColHeader}" Text="CREATE BOARD"
+                                       VerticalAlignment="Center" Margin="0"/>
+                        </WrapPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Expander>
 
