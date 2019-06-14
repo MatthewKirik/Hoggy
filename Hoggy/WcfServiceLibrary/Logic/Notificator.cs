@@ -23,6 +23,15 @@ namespace WcfServiceLibrary.Logic
             return this;
         }
 
+        public void OnIncomeInvitation(InvitationDTO invitation, string recepientEmail)
+        {
+            Task.Run(() =>
+            {
+                Subscribers.FirstOrDefault(x => x.Email == recepientEmail)
+                    ?.Callback.OnIncomeInvitation(invitation, recepientEmail);
+            });
+        }
+
         public void OnBoardAdded(BoardDTO board)
         {
             Task.Run(() =>

@@ -11,5 +11,6 @@ namespace WcfServiceLibrary.Models
     {
         public INotifiactionCallbackContract Callback { get; set; }
         public int SecurityGroupId { get; set; }
+        public string Email { get; set; }
     }
 }

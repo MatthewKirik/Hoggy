@@ -69,6 +69,19 @@ namespace WcfServiceLibrary.Services
                 securityGroup.Invitations.Add(invitation);
                 _repository.Update(securityGroup);
                 _repository.Save();
+                try
+                {
+                    InvitationDTO invitationDTO = new InvitationDTO()
+                    {
+                        Id = invitation.Id,
+                        SenderEmail = sender.Email,
+                        Key = securityGroup.Key
+                    };
+                    _notificator.OnIncomeInvitation(invitationDTO, email);
+                }
+                catch (System.Exception)
+                {
+                }
             }
             catch (System.Exception)
             {
