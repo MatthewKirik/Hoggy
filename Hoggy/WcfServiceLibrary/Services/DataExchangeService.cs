@@ -7,6 +7,7 @@ using DataAccessLayer.Interfaces;
 using DataTransferObjects;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
+using System.Linq;
 
 namespace WcfServiceLibrary.Services
 {
@@ -186,6 +187,22 @@ namespace WcfServiceLibrary.Services
             {
                 UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
                 return Mapper.Map<UserDTO>(user);
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+        }
+        
+        public List<UserDTO> GetAllUsers(AuthenticationToken token)
+        {
+            try
+            {
+                UserEntity user = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User;
+                if (user == null)
+                    return null;
+                List<UserEntity> users = _repository.GetList<UserEntity>().ToList();
+                return Mapper.Map<List<UserDTO>>(users);
             }
             catch (System.Exception)
             {

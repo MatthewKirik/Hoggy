@@ -63,6 +63,7 @@ namespace TestConsoleClient
 
         public void OnColumnDeleted(int boardId, int columnId)
         {
+            Console.WriteLine("deleted");
         }
 
         public void OnHistoryEventAdded(HistoryEventDTO historyEvent, int boardId)

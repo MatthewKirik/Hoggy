@@ -47,6 +47,8 @@ namespace TestConsoleClient
             deletionClient.Open();
             fileExchangeClient = new FileExchangeContractClient();
             fileExchangeClient.Open();
+            notificationClient = new NotificationContractClient(new InstanceContext(new NotificationCallbackHandler()));
+            notificationClient.Open();
         }
 
         public void TestFiles()
@@ -122,6 +124,20 @@ namespace TestConsoleClient
             Console.WriteLine(dataExchangeClient.GetParticipatedBoards(tokens[1], subUser.Id)[0].Name);
         }
 
+        public void EditionTest()
+        {
+            AuthenticationToken token = RegisterAndLoginUsers(1)[0];
+            UserDTO user = dataExchangeClient.GetUser(token);
+            AddBoards(token, 1);
+            BoardDTO board = dataExchangeClient.GetBoards(token, user.Id)[0];
+            AddColumns(token, board.Id, 1);
+            ColumnDTO column = dataExchangeClient.GetColumns(token, board.Id)[0];
+            column.Description = "Haha";
+            Console.WriteLine(editionClient.EditColumn(token, column).ToString());
+            column.Description = "Hehe";
+            Console.WriteLine(editionClient.EditColumn(token, column).ToString());
+        }
+
         public void DeletionTest(int userAmount, int boardAmount, int tagAmount, int columnAmount, int cardAmount)
         {
             List<AuthenticationToken> tokens = RegisterAndLoginUsers(userAmount);
@@ -136,7 +152,6 @@ namespace TestConsoleClient
                 List<BoardDTO> boards = dataExchangeClient.GetBoards(tokens[i], users[i].Id).ToList();
                 foreach (var b in boards)
                 {
-                    //notificationClient.Subscribe(tokens[i], b.Id);
                     AddTagsToBoard(tokens[i], b.Id, tagAmount);
                     AddColumns(tokens[i], b.Id, columnAmount);
                     List<ColumnDTO> columns = dataExchangeClient.GetColumns(tokens[i], b.Id).ToList();
@@ -144,11 +159,11 @@ namespace TestConsoleClient
                     {
                         AddCards(tokens[i], c.Id, cardAmount);
                         List<CardDTO> cards = dataExchangeClient.GetCards(tokens[i], c.Id).ToList();
-                        foreach (var card in cards)
-                        {
-                            bool delete = deletionClient.DeleteCard(tokens[i], card.Id);
-                            Console.WriteLine(delete.ToString());
-                        }
+                        //foreach (var card in cards)
+                        //{
+                        //    bool delete = deletionClient.DeleteCard(tokens[i], card.Id);
+                        //    Console.WriteLine(delete.ToString());
+                        //}
                     }
                     //foreach (var c in columns)
                     //{
