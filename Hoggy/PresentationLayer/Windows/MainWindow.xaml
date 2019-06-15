@@ -73,7 +73,7 @@
                     </fa:FontAwesome>
                     <Border Canvas.Left="35" Canvas.Top="35" Background="Red" 
                             CornerRadius="10" Width="20" Height="20" Padding="6 1 0 0 ">
-                        <TextBlock Text="{Binding User.Invitations, Converter={custom:CollectionToCountConverter}}"
+                        <TextBlock Text="{Binding Path=User.Invitations.Count}"
                                FontSize="16" FontFamily="{StaticResource Header}"
                                Foreground="White"/>
                     </Border>

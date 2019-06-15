@@ -62,7 +62,7 @@
                 <Button.Content>
                     <WrapPanel>
                         <fa:ImageAwesome Icon="Check" Foreground="Teal" Margin="2 2 15 2" />
-                        <TextBlock Style="{StaticResource Lable}" Text="SAVE CAHANGES"/>
+                        <TextBlock Style="{StaticResource Lable}" Text="SAVE CHANGES"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>

@@ -77,6 +77,7 @@ namespace WcfServiceLibrary.Services
                 };
                 _repository.Add(historyEvent);
                 _repository.Save();
+                card.Id = toAdd.Id;
                 _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
                 _notificator.WithSecurityGroup(dest.SecurityGroupId)
                     .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), dest.Board.Id);
@@ -112,6 +113,7 @@ namespace WcfServiceLibrary.Services
                 };
                 _repository.Add(historyEvent);
                 _repository.Save();
+                column.Id = toAdd.Id;
                 _notificator.WithSecurityGroup(dest.SecurityGroupId).OnColumnAdded(column, boardId);
                 _notificator.WithSecurityGroup(dest.SecurityGroupId)
                     .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), boardId);
@@ -136,6 +138,7 @@ namespace WcfServiceLibrary.Services
                 _repository.Add(toAdd);
                 _repository.Update(dest);
                 _repository.Save();
+                tag.Id = toAdd.Id;
                 _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);
             }
             catch (Exception)

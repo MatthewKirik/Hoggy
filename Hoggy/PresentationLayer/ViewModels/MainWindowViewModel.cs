@@ -341,8 +341,9 @@ namespace PresentationLayer.ViewModels
         void ChangeCurrentBoard(int id)
         {
             OpenExpander = false;
-            if (id == CurBoard.Id)
-                return;
+            if(CurBoard != null)
+                if (id == CurBoard.Id)
+                    return;
 
             BoardModel board = User.Boards.Where(x => x.Id == id).FirstOrDefault();
             if (board == null)
@@ -592,7 +593,7 @@ namespace PresentationLayer.ViewModels
         void OnHistoryEventAddedCallback(HistoryEventDTO historyEvent)
         {
             HistoryEventModel historyEventModel = Mapper.Map<HistoryEventModel>(historyEvent);
-            CurBoard.HistoryEvents.Add(historyEventModel);
+            CurBoard.HistoryEvents.Insert(0, historyEventModel);
         }
         
         void ParticipantAddedCallback(UserDTO userDTO)

@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Entities;
 using DataTransferObjects;
 using System.ServiceModel;
@@ -34,6 +35,16 @@ namespace WcfServiceLibrary.Services
                 _repository.Update(card);
                 _repository.Save();
                 _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardMoved(cardId, origId, destinationColumnId);
+                HistoryEventEntity historyEvent = new HistoryEventEntity()
+                {
+                    Board = column.Board,
+                    Producer = _repository.GetItem<AuthenticationTokenEntity>(x => x.Value == token.Value).User,
+                    SecurityGroupId = card.SecurityGroupId,
+                    Text = $"Card \"{card.Name}\" moved to column \"{column.Name}\""
+                };
+                _repository.Add(historyEvent);
+                _repository.Save();
+                _notificator.WithSecurityGroup(card.SecurityGroupId).OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), 0);
                 return true;
             }
             catch (System.Exception)

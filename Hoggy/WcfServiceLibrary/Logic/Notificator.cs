@@ -214,7 +214,6 @@ namespace WcfServiceLibrary.Logic
                 {
                     try
                     {
-                        Console.WriteLine("Participant added");
                         s.Callback.OnParticipantAdded(user, boardId);
                     }
                     catch (Exception)
