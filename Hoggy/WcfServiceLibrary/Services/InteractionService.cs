@@ -2,6 +2,7 @@
 using DataAccessLayer.Entities;
 using DataTransferObjects;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
 using WcfServiceLibrary.Interfaces;
@@ -33,7 +34,10 @@ namespace WcfServiceLibrary.Services
                 card.Column = column;
                 _repository.Update(card);
                 _repository.Save();
-                _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardMoved(cardId, origId, destinationColumnId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardMoved(cardId, origId, destinationColumnId);
+                });
                 return true;
             }
             catch (System.Exception)

@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.Threading.Tasks;
 using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
@@ -34,7 +35,10 @@ namespace WcfServiceLibrary.Services
                 _repository.Add(toAdd);
                 _repository.Update(dest);
                 _repository.Save();
-                _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardCommentAdded(comment, cardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardCommentAdded(comment, cardId);
+                });
             }
             catch (System.Exception)
             {
@@ -77,7 +81,10 @@ namespace WcfServiceLibrary.Services
                         SenderEmail = sender.Email,
                         Key = securityGroup.Key
                     };
-                    _notificator.OnIncomeInvitation(invitationDTO, email);
+                    Task.Run(() =>
+                    {
+                        _notificator.OnIncomeInvitation(invitationDTO, email);
+                    });
                 }
                 catch (System.Exception)
                 {
@@ -102,7 +109,10 @@ namespace WcfServiceLibrary.Services
                 _repository.Update(card);
                 _repository.Update(user);
                 _repository.Save();
-                _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardSubscribersAdded(AutoMapper.Mapper.Map<UserDTO>(user), cardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardSubscribersAdded(AutoMapper.Mapper.Map<UserDTO>(user), cardId);
+                });
             }
             catch (System.Exception)
             {
@@ -125,7 +135,10 @@ namespace WcfServiceLibrary.Services
                 tag.Cards.Add(dest);
                 _repository.Update(tag);
                 _repository.Save();
-                _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardTagAdded(tagId, cardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardTagAdded(tagId, cardId);
+                });
             }
             catch (System.Exception)
             {
@@ -153,7 +166,8 @@ namespace WcfServiceLibrary.Services
                 _repository.Update(invitation.Sender);
                 _repository.Update(recepient);
                 _repository.Update(board);
-                _notificator.WithSecurityGroup(board.SecurityGroupId).OnParticipantAdded(Mapper.Map<UserDTO>(recepient), board.Id);
+                _repository.Delete(invitation);
+                _repository.Save();
                 HistoryEventEntity historyEvent = new HistoryEventEntity()
                 {
                     Board = board,
@@ -163,10 +177,12 @@ namespace WcfServiceLibrary.Services
                 };
                 _repository.Add(historyEvent);
                 _repository.Save();
-                _notificator.WithSecurityGroup(board.SecurityGroupId)
-                    .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), board.Id);
-                _repository.Delete(invitation);
-                _repository.Save();
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(board.SecurityGroupId).OnParticipantAdded(Mapper.Map<UserDTO>(recepient), board.Id);
+                    _notificator.WithSecurityGroup(board.SecurityGroupId)
+                        .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), board.Id);
+                });
             }
             catch (System.Exception)
             {

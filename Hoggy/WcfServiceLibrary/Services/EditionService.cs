@@ -37,7 +37,10 @@ namespace WcfServiceLibrary.Services
                 original.Name = card.Name;
                 _repository.Update(original);
                 _repository.Save();
-                _notificator.WithSecurityGroup(original.SecurityGroupId).OnCardEdited(card);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(original.SecurityGroupId).OnCardEdited(card);
+                });
                 return true;
             }
             catch (Exception)
@@ -57,7 +60,10 @@ namespace WcfServiceLibrary.Services
                 original.Name = column.Name;
                 _repository.Update(original);
                 _repository.Save();
-                _notificator.WithSecurityGroup(original.SecurityGroupId).OnColumnEdited(column);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(original.SecurityGroupId).OnColumnEdited(column);
+                });
                 return true;
             }
             catch (Exception)

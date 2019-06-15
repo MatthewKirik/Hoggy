@@ -44,7 +44,10 @@ namespace WcfServiceLibrary.Services
                 _repository.Delete(board);
                 _repository.Delete(securityGroup);
                 _repository.Save();
-                _notificator.WithSecurityGroup(board.SecurityGroupId).OnBoardDeleted(boardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(board.SecurityGroupId).OnBoardDeleted(boardId);
+                };
                 return true;
             }
             catch (Exception)
@@ -64,7 +67,10 @@ namespace WcfServiceLibrary.Services
                 tag.Cards.Clear();
                 _repository.Delete(tag);
                 _repository.Save();
-                _notificator.WithSecurityGroup(tag.SecurityGroupId).OnBoardTagDeleted(boardId, tagId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(tag.SecurityGroupId).OnBoardTagDeleted(boardId, tagId);
+                });
                 return true;
             }
             catch (Exception)
@@ -84,7 +90,10 @@ namespace WcfServiceLibrary.Services
                 int columnId = card.Column.Id;
                 _repository.Delete(card);
                 _repository.Save();
-                _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardDeleted(boardId, columnId, cardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardDeleted(boardId, columnId, cardId);
+                });
                 return true;
             }
             catch (Exception)
@@ -107,7 +116,10 @@ namespace WcfServiceLibrary.Services
                 card.Tags.Remove(tag);
                 _repository.Update(card);
                 _repository.Save();
-                _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardTagDeleted(boardId, cardId, tag.Id);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(card.SecurityGroupId).OnCardTagDeleted(boardId, cardId, tag.Id);
+                });
                 return true;
             }
             catch (Exception)
@@ -128,7 +140,10 @@ namespace WcfServiceLibrary.Services
                 int boardId = column.Board.Id;
                 _repository.Delete(column);
                 _repository.Save();
-                _notificator.WithSecurityGroup(column.SecurityGroupId).OnColumnDeleted(boardId, columnId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(column.SecurityGroupId).OnColumnDeleted(boardId, columnId);
+                });
                 return true;
             }
             catch (Exception)

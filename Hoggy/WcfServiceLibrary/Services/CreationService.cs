@@ -6,6 +6,7 @@ using System;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using WcfServiceLibrary.Contracts;
 using WcfServiceLibrary.Helpers;
 using WcfServiceLibrary.Interfaces;
@@ -45,7 +46,10 @@ namespace WcfServiceLibrary.Services
                 _repository.Add(toAdd);
                 _repository.Update(user);
                 _repository.Save();
-                _notificator.OnBoardAdded(board);
+                Task.Run(() =>
+                {
+                    _notificator.OnBoardAdded(board);
+                });
             }
             catch (Exception)
             {
@@ -77,9 +81,12 @@ namespace WcfServiceLibrary.Services
                 };
                 _repository.Add(historyEvent);
                 _repository.Save();
-                _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
-                _notificator.WithSecurityGroup(dest.SecurityGroupId)
-                    .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), dest.Board.Id);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId).OnCardAdded(card, columnId);
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId)
+                        .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), dest.Board.Id);
+                });
             }
             catch (Exception)
             {
@@ -112,9 +119,12 @@ namespace WcfServiceLibrary.Services
                 };
                 _repository.Add(historyEvent);
                 _repository.Save();
-                _notificator.WithSecurityGroup(dest.SecurityGroupId).OnColumnAdded(column, boardId);
-                _notificator.WithSecurityGroup(dest.SecurityGroupId)
-                    .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), boardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId).OnColumnAdded(column, boardId);
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId)
+                        .OnHistoryEventAdded(Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent), boardId);
+                });
             }
             catch (Exception)
             {
@@ -136,7 +146,10 @@ namespace WcfServiceLibrary.Services
                 _repository.Add(toAdd);
                 _repository.Update(dest);
                 _repository.Save();
-                _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);
+                Task.Run(() =>
+                {
+                    _notificator.WithSecurityGroup(dest.SecurityGroupId).OnBoardTagAdded(tag, boardId);
+                });
             }
             catch (Exception)
             {
