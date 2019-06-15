@@ -38,11 +38,13 @@ namespace PresentationLayer.ViewModels
         }
 
         Window _window;
+        Action _refreshAct;
 
-        public AddBoardViewModel(Window window)
+        public AddBoardViewModel(Window window, Action action)
         {
             _board = new BoardModel();
             _window = window;
+            _refreshAct = action;
         }
 
         private RelayCommand _saveCmd;
@@ -62,7 +64,10 @@ namespace PresentationLayer.ViewModels
                             if (!NetProxy.CreationProxy.AddBoard(NetProxy.Token, boardDTO))
                                 MessageBox.Show("Can't add board!");
                             else
+                            {
                                 App.Current.Dispatcher.Invoke(() => { _window.Close(); });
+                                _refreshAct.Invoke(); 
+                            }
                         }
                         catch (Exception e)
                         {

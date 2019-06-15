@@ -22,9 +22,9 @@ namespace PresentationLayer.Windows
     /// </summary>
     public partial class InvitationsWindow : MetroWindow
     {
-        public InvitationsWindow(UserModel user)
+        public InvitationsWindow(UserModel user, Action action)
         {
-            DataContext = new InvitationsViewModel(user);
+            DataContext = new InvitationsViewModel(user, action);
             InitializeComponent();
         }
     }

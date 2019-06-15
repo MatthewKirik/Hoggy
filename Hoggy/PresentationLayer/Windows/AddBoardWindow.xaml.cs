@@ -21,9 +21,9 @@ namespace PresentationLayer.Windows
     /// </summary>
     public partial class AddBoardWindow : MetroWindow
     {
-        public AddBoardWindow()
+        public AddBoardWindow(Action action)
         {
-            DataContext = new AddBoardViewModel(this);
+            DataContext = new AddBoardViewModel(this, action);
             InitializeComponent();
         }
     }

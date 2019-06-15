@@ -108,7 +108,7 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddCardTagAddedHandler(AddTagToCard);
             NetProxy.CallbackHandler.AddOnIncomeInvitationHandler(OnIncomeInvitationCallback);
             NetProxy.CallbackHandler.AddOnHistoryEventAddedHandler(OnHistoryEventAddedCallback);
-            NetProxy.CallbackHandler.AddOnBoardAddedHandler(OnBoardAddedCallback);
+            NetProxy.CallbackHandler.AddOnParticipantAddedHandler(ParticipantAddedCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -209,16 +209,22 @@ namespace PresentationLayer.ViewModels
                 switch (type)
                 {
                     case nameof(User.PartBoards):
-                        User.PartBoards = new ObservableCollection<BoardModel>
-                        (Mapper.Map<BoardDTO[], BoardModel[]>(boardsDTO));
-                        foreach (var board in User.PartBoards)
+                        User.PartBoards.Clear();
+                        foreach (var boardDTO in boardsDTO)
+                        {
+                            BoardModel board = Mapper.Map<BoardModel>(boardDTO);
                             board.ChangeBoard = ChangeCurrentBoard;
+                            User.PartBoards.Add(board);
+                        }
                         break;
                     case nameof(User.Boards):
-                        User.Boards = new ObservableCollection<BoardModel>
-                        (Mapper.Map<BoardDTO[], BoardModel[]>(boardsDTO));
-                        foreach (var board in User.Boards)
+                        User.Boards.Clear();
+                        foreach (var boardDTO in boardsDTO)
+                        {
+                            BoardModel board = Mapper.Map<BoardModel>(boardDTO);
                             board.ChangeBoard = ChangeCurrentBoard;
+                            User.Boards.Add(board);
+                        }
                         break;
                     default:
                         break;
@@ -300,7 +306,7 @@ namespace PresentationLayer.ViewModels
                         CurBoard.Participants.Clear();
                         foreach (var part in partsDTO)
                             CurBoard.Participants.Add(Mapper.Map<UserModel>(part));
-                    }); 
+                    });
                 }
             }
             catch (Exception e)
@@ -585,14 +591,72 @@ namespace PresentationLayer.ViewModels
             HistoryEventModel historyEventModel = Mapper.Map<HistoryEventModel>(historyEvent);
             CurBoard.HistoryEvents.Add(historyEventModel);
         }
-
-        void OnBoardAddedCallback(BoardDTO boardDTO)
+        
+        void ParticipantAddedCallback(UserDTO userDTO)
         {
-            BoardModel boardModel = Mapper.Map<BoardModel>(boardDTO);
-            if (boardModel == null)
-                return;
-            User.Boards.Add(boardModel);
-            //ChangeCurrentBoard(boardModel.Id);
+            UserModel userModel = Mapper.Map<UserModel>(userDTO);
+            if (userModel != null)
+                CurBoard.Participants.Add(userModel);
+        }
+
+        void RefreshBoards()
+        {
+            LoaderVisible = true;
+            try
+            {
+                BoardDTO[] boardsDTO = NetProxy.DataExchProxy.GetBoards(NetProxy.Token, User.Id);
+                if (boardsDTO != null)
+                {
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        User.Boards.Clear();
+                        foreach (var boardDTO in boardsDTO)
+                        {
+                            BoardModel board = Mapper.Map<BoardModel>(boardDTO);
+                            board.ChangeBoard = ChangeCurrentBoard;
+                            User.Boards.Add(board);
+                        }
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                LoaderVisible = false;
+            }
+        }
+
+        void RefreshParticipantBoards()
+        {
+            LoaderVisible = true;
+            try
+            {
+                BoardDTO[] boardsDTO = NetProxy.DataExchProxy.GetParticipatedBoards(NetProxy.Token, User.Id);
+                if (boardsDTO != null)
+                {
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        User.PartBoards.Clear();
+                        foreach (var boardDTO in boardsDTO)
+                        {
+                            BoardModel board = Mapper.Map<BoardModel>(boardDTO);
+                            board.ChangeBoard = ChangeCurrentBoard;
+                            User.PartBoards.Add(board);
+                        }
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                LoaderVisible = false;
+            }
         }
 
         ////COMMANDS
@@ -664,7 +728,7 @@ namespace PresentationLayer.ViewModels
             {
                 return _createBoardCmd ?? (_createBoardCmd = new RelayCommand(() =>
                 {
-                    AddBoardWindow addBoardWindow = new AddBoardWindow();
+                    AddBoardWindow addBoardWindow = new AddBoardWindow(RefreshBoards);
                     addBoardWindow.ShowDialog();
                 }));
             }
@@ -677,7 +741,7 @@ namespace PresentationLayer.ViewModels
             {
                 return _invitationsCmd ?? (_invitationsCmd = new RelayCommand(() =>
                 {
-                    InvitationsWindow invitationsWindow = new InvitationsWindow(User);
+                    InvitationsWindow invitationsWindow = new InvitationsWindow(User, RefreshParticipantBoards);
                     invitationsWindow.ShowDialog();
                 }));
             }

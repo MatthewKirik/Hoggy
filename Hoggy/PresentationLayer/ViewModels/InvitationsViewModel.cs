@@ -35,9 +35,12 @@ namespace PresentationLayer.ViewModels
             }
         }
 
-        public InvitationsViewModel(UserModel user)
+        Action _refreshBoardsAct;
+
+        public InvitationsViewModel(UserModel user , Action refreshBoardsAct)
         {
             _user = user;
+            _refreshBoardsAct = refreshBoardsAct; 
             foreach (var invitation in User.Invitations)
             {
                 invitation.AcceptAct = Accept;
@@ -60,6 +63,7 @@ namespace PresentationLayer.ViewModels
                             if (invit != null)
                                 User.Invitations.Remove(invit);
                         });
+                        _refreshBoardsAct();
                     }
                 }
                 catch (Exception e)
@@ -76,7 +80,10 @@ namespace PresentationLayer.ViewModels
 
         void Reject(InvitationModel invitation)
         {
-            MessageBox.Show("Reject!");
+            InvitationModel invit = User.Invitations.Where(i => i.Id == invitation.Id).FirstOrDefault();
+        
+                if (invit != null)
+                    User.Invitations.Remove(invit);
         }
 }
 }
