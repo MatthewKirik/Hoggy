@@ -588,10 +588,10 @@ namespace PresentationLayer.ViewModels
 
         void OnBoardAddedCallback(BoardDTO boardDTO)
         {
-            //BoardModel boardModel = Mapper.Map<BoardModel>(boardDTO);
-            //if (boardModel == null)
-            //    return;
-            //User.Boards.Add(boardModel);
+            BoardModel boardModel = Mapper.Map<BoardModel>(boardDTO);
+            if (boardModel == null)
+                return;
+            User.Boards.Add(boardModel);
             //ChangeCurrentBoard(boardModel.Id);
         }
 

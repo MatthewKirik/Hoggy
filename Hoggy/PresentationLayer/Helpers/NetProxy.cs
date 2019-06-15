@@ -14,6 +14,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PresentationLayer.Helpers
 {
@@ -54,33 +55,33 @@ namespace PresentationLayer.Helpers
         
         public static void Configure()
         {
-            _callbackHandler = new CallbackHandler();
-            _authProxy = new AuthenticationContractClient();
-            _authProxy.Open();
+                _callbackHandler = new CallbackHandler();
+                _authProxy = new AuthenticationContractClient();
+                _authProxy.Open();
 
-            _commProxy = new CommunityContractClient();
-            _commProxy.Open();
+                _commProxy = new CommunityContractClient();
+                _commProxy.Open();
 
-            _creationProxy = new CreationContractClient();
-            _creationProxy.Open();
+                _creationProxy = new CreationContractClient();
+                _creationProxy.Open();
 
-            _dataExchangeProxy = new DataExchangeContractClient();
-            _dataExchangeProxy.Open();
+                _dataExchangeProxy = new DataExchangeContractClient();
+                _dataExchangeProxy.Open();
 
-            _deletionProxy = new DeletionContractClient();
-            _deletionProxy.Open();
+                _deletionProxy = new DeletionContractClient();
+                _deletionProxy.Open();
 
-            _editionProxy = new EditionContractClient();
-            _editionProxy.Open();
+                _editionProxy = new EditionContractClient();
+                _editionProxy.Open();
 
-            _interProxy = new InteractionContractClient();
-            _interProxy.Open();
+                _interProxy = new InteractionContractClient();
+                _interProxy.Open();
 
-            _notificationProxy = new NotificationContractClient(new InstanceContext(new CallbackHandler()));
-            _notificationProxy.Open();
+                _notificationProxy = new NotificationContractClient(new InstanceContext(new CallbackHandler()));
+                _notificationProxy.Open();
 
-            _regProxy = new RegistrationContractClient();
-            _regProxy.Open();
+                _regProxy = new RegistrationContractClient();
+                _regProxy.Open();
         }
 
         public static void SetToken(AuthenticationToken token)

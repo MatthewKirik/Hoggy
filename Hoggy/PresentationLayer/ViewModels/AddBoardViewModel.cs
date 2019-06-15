@@ -58,7 +58,7 @@ namespace PresentationLayer.ViewModels
                         try
                         {
                             BoardDTO boardDTO = Mapper.Map<BoardDTO>(_board);
-                            
+                            boardDTO.CreationDate = DateTime.Now;
                             if (!NetProxy.CreationProxy.AddBoard(NetProxy.Token, boardDTO))
                                 MessageBox.Show("Can't add board!");
                             else
