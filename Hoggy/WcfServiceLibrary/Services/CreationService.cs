@@ -39,6 +39,7 @@ namespace WcfServiceLibrary.Services
                 _repository.Save();
 
                 BoardEntity toAdd = AutoMapper.Mapper.Map<BoardEntity>(board);
+                toAdd.CreationDate = DateTime.Now;
                 toAdd.SecurityGroupId = securityGroup.Id;
                 toAdd.Creator = user;
                 _repository.Add(toAdd);
