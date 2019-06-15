@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace PresentationLayer.Windows
     {
         public AddBoardWindow()
         {
-            
+            DataContext = new AddBoardViewModel(this);
             InitializeComponent();
         }
     }

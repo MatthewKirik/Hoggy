@@ -79,12 +79,14 @@ namespace PresentationLayer.Models
         public ObservableCollection<UserModel> Participants { get; set; }
         public ObservableCollection<ColumnModel> Columns { get; set; }
         public ObservableCollection<TagModel> Tags { get; set; }
+        public ObservableCollection<HistoryEventModel> HistoryEvents { get; set; }
 
         public BoardModel()
         {
             Tags = new ObservableCollection<TagModel>();
             Columns = new ObservableCollection<ColumnModel>();
             Participants = new ObservableCollection<UserModel>();
+            HistoryEvents = new ObservableCollection<HistoryEventModel>();
             _nameErr = "Empty field"; 
             _descErr = "Empty field";
         }

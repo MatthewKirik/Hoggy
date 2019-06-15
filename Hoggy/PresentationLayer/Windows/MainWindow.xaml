@@ -79,7 +79,7 @@
                     </Border>
                 </Canvas>
             </Border>
-            
+
         </Grid>
         <!--SIDE PANEL-->
         <Expander Grid.Row="0" Grid.RowSpan="2" Header="MENU" ExpandDirection="Right" Panel.ZIndex="100" IsExpanded="{Binding OpenExpander}">
@@ -320,14 +320,105 @@
         </Grid>
         <!--RIGHT PANEL-->
         <Border Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource RightBorder}">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--PARITICIPANTS-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                 <WrapPanel Style="{StaticResource RightWrap}">
                     <fa:FontAwesome Icon="UserCircle" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
                     <TextBlock Text="PARTICIPANTS" Style="{StaticResource RightHeader}"/>
                 </WrapPanel>
-                <ListBox ItemsSource="{Binding CurBoard.Participants}">
-                </ListBox>
-            </StackPanel>
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding CurBoard.Participants}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource UserCard}"
+                                            Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2" Background="{StaticResource SecondBrushDark}">
+                                            <Image Source="{Binding Avatar}" Style="{StaticResource Avatar}" />
+                                        </Border>
+                                        <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
+                                            <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
+                                            <TextBlock  Text="{Binding Login}" Foreground="{StaticResource FirstBrushMiddle}" Style="{StaticResource LoginTxt}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+                                            <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
+                                            <TextBlock Text="{Binding Email}" Style="{StaticResource EmailTxt}"/>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+                </Grid>
+                <GridSplitter Grid.Row="1" ShowsPreview="True" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          Background="{StaticResource SecondBrushDarkest}" Margin="0 3 0 0"/>
+                <!--EVENTS-->
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                <WrapPanel Style="{StaticResource RightWrap}">
+                    <fa:FontAwesome Icon="History" Style="{StaticResource Icon}" Foreground="{StaticResource SecondBrushDark}"/>
+                    <TextBlock Text="EVENTS" Style="{StaticResource RightHeader}"/>
+                </WrapPanel>
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding CurBoard.HistoryEvents}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource EventBorder}"
+                                           Grid.RowSpan="2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <WrapPanel VerticalAlignment="Bottom">
+                                            <TextBlock  Text="{Binding Text}" Style="{StaticResource EventTxt}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                            <fa:FontAwesome Icon="UserCircleOutline" Style="{StaticResource SmallIcon}" 
+                                                            Foreground="{StaticResource SecondBrushDark}"/>
+                                            <TextBlock Text="{Binding ProducerLogin}" Style="{StaticResource ProducerTxt}"/>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+                </Grid>
+
+            </Grid>
         </Border>
         <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#664BFF8D" Panel.ZIndex="120" 
                 Visibility="{Binding LoaderVisible, Converter={custom:BoolToVisibilityConverter}}" >

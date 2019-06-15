@@ -37,6 +37,8 @@ namespace PresentationLayer.ViewModels
             }
         }
 
+        bool isSubscribe;
+
         string _avaPath;
         public string AvaPath
         {
@@ -105,6 +107,8 @@ namespace PresentationLayer.ViewModels
             NetProxy.CallbackHandler.AddEditColumnHandler(EditColumnCallback);
             NetProxy.CallbackHandler.AddCardTagAddedHandler(AddTagToCard);
             NetProxy.CallbackHandler.AddOnIncomeInvitationHandler(OnIncomeInvitationCallback);
+            NetProxy.CallbackHandler.AddOnHistoryEventAddedHandler(OnHistoryEventAddedCallback);
+            NetProxy.CallbackHandler.AddOnBoardAddedHandler(OnBoardAddedCallback);
 
             _mainWindow = mainWindow;
             MapperConfigurator.Configure();
@@ -118,12 +122,8 @@ namespace PresentationLayer.ViewModels
                 NetProxy.SetToken(regModel.Token);
                 User = new UserModel();
                 GetUser();
-                //GetBoards(nameof(User.Boards));
-                // GetBoards(nameof(User.PartBoards));
-
                 if (User.Boards.Count + User.PartBoards.Count > 0)
                     CurBoard = (User.Boards.Count > 0) ? User.Boards[0] : User.PartBoards[0];
-
                 LoadCurrentBoard();
                 AvaPath = ConfigurationManager.AppSettings["defaultAvaPath"];
                 CurTag = new TagModel();
@@ -190,7 +190,10 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
-                    boardsDTO = NetProxy.DataExchProxy.GetBoards(NetProxy.Token, User.Id);
+                    boardsDTO = (type == nameof(User.PartBoards)) ?
+                    NetProxy.DataExchProxy.GetParticipatedBoards(NetProxy.Token, User.Id) :
+                    NetProxy.DataExchProxy.GetBoards(NetProxy.Token, User.Id);
+
                 }
                 catch (Exception e)
                 {
@@ -285,28 +288,48 @@ namespace PresentationLayer.ViewModels
             }
         }
 
-        void GetParticipants(int id)
+        void GetParticipants()
         {
-            LoaderVisible = true;
-            UserDTO[] partsDTO = null;
-            Task task = new Task(() =>
+            try
             {
-                try
+                UserDTO[] partsDTO = NetProxy.DataExchProxy.GetParticipants(NetProxy.Token, CurBoard.Id);
+                if (partsDTO != null)
                 {
-                    partsDTO = NetProxy.DataExchProxy.GetParticipants(NetProxy.Token, id);
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        CurBoard.Participants.Clear();
+                        foreach (var part in partsDTO)
+                            CurBoard.Participants.Add(Mapper.Map<UserModel>(part));
+                    }); 
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                LoaderVisible = false;
-            });
-            task.Start();
-            task.Wait();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
-            if (partsDTO != null)
-                CurBoard.Participants = new ObservableCollection<UserModel>(Mapper.Map<UserDTO[], UserModel[]>(partsDTO));
+        void GetEvents()
+        {
+            try
+            {
+                HistoryEventDTO[] eventsDTO = NetProxy.DataExchProxy.GetHistoryEvents(NetProxy.Token, CurBoard.Id);
+                if (eventsDTO != null)
+                {
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        CurBoard.HistoryEvents.Clear();
+                        foreach (var eventDTO in eventsDTO)
+                            CurBoard.HistoryEvents.Add(Mapper.Map<HistoryEventModel>(eventDTO));
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         void ChangeCurrentBoard(int id)
@@ -327,6 +350,8 @@ namespace PresentationLayer.ViewModels
             {
                 try
                 {
+                    if (isSubscribe)
+                        NetProxy.NotificationProxy.UnSubscribe(NetProxy.Token, CurBoard.Id);
                     Thread.Sleep(3000);
                     CurBoard = board;
                     LoadCurrentBoard();
@@ -351,7 +376,6 @@ namespace PresentationLayer.ViewModels
             LoaderVisible = true;
             Task.Run(() =>
             {
-                bool isSubscribe = false;
                 try
                 {
                     //NetProxy.Configure();
@@ -379,6 +403,9 @@ namespace PresentationLayer.ViewModels
                             foreach (var tag in allTags)
                                 CurBoard.Tags.Add(Mapper.Map<TagModel>(tag));
                         });
+                    //participants and events
+                    GetParticipants();
+                    GetEvents();
                     //load cards
                     foreach (var col in CurBoard.Columns)
                     {
@@ -553,6 +580,21 @@ namespace PresentationLayer.ViewModels
                 "New invitation!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
+        void OnHistoryEventAddedCallback(HistoryEventDTO historyEvent)
+        {
+            HistoryEventModel historyEventModel = Mapper.Map<HistoryEventModel>(historyEvent);
+            CurBoard.HistoryEvents.Add(historyEventModel);
+        }
+
+        void OnBoardAddedCallback(BoardDTO boardDTO)
+        {
+            //BoardModel boardModel = Mapper.Map<BoardModel>(boardDTO);
+            //if (boardModel == null)
+            //    return;
+            //User.Boards.Add(boardModel);
+            //ChangeCurrentBoard(boardModel.Id);
+        }
+
         ////COMMANDS
         private RelayCommand _newTagCmd;
         public RelayCommand NewTagCmd
@@ -622,8 +664,8 @@ namespace PresentationLayer.ViewModels
             {
                 return _createBoardCmd ?? (_createBoardCmd = new RelayCommand(() =>
                 {
-                    EditBoardWindow editBoardWindow = new EditBoardWindow(CurBoard);
-                    editBoardWindow.ShowDialog();
+                    AddBoardWindow addBoardWindow = new AddBoardWindow();
+                    addBoardWindow.ShowDialog();
                 }));
             }
         }

@@ -93,17 +93,6 @@ namespace PresentationLayer.Models
             }
         }
 
-        //private bool _loaderVisible;
-        //public bool LoaderVisible
-        //{
-        //    get => _loaderVisible;
-        //    set
-        //    {
-        //        _loaderVisible = value;
-        //        RaisePropertyChanged(nameof(LoaderVisible));
-        //    }
-        //}
-
         private string _expDateErr;
         public string ExpDateErr
         {
@@ -147,12 +136,6 @@ namespace PresentationLayer.Models
             ExpireDate = DateTime.Now;
         }
 
-        //public CardModel(CardModel card, int colId, Window window) : this()
-        //{
-        //    _window = window;
-        ////    _columnId = colId;
-        //}
-
         //COMMANDS
         private RelayCommand _editCardCmd;
         public RelayCommand EditCardCmd
@@ -167,49 +150,6 @@ namespace PresentationLayer.Models
             }
         }
 
-        //private RelayCommand _saveEditedCard;
-        //public RelayCommand SaveEditedCardCmd
-        //{
-        //    get
-        //    {
-        //        return _saveEditedCard ?? (_saveEditedCard = new RelayCommand(() =>
-        //        {
-        //            LoaderVisible = true;
-        //            Task.Run(() =>
-        //            {
-        //                try
-        //                {
-        //                    if (!NetProxy.EditionProxy.EditCard(NetProxy.Token, Mapper.Map<CardDTO>(this)))
-        //                        MessageBox.Show("Card is not edited!");
-        //                }
-        //                catch (Exception e)
-        //                {
-        //                    MessageBox.Show(e.Message + "\n" + e.StackTrace, "Error!",
-        //                               MessageBoxButton.OK, MessageBoxImage.Error);
-        //                }
-        //                finally
-        //                {
-        //                    LoaderVisible = false;
-        //                }
-        //            });
-        //        }));
-        //    }
-        //}
-
-        //private RelayCommand _editTagsCmd;
-        //public RelayCommand EditTagsCmd
-        //{
-        //    get
-        //    {
-        //        return _editTagsCmd ?? (_editTagsCmd = new RelayCommand(() =>
-        //        {
-        //            TagsWindow tagsWindow = new TagsWindow(Mapper.Map<ObservableCollection<TagModel>,
-        //                                                            ObservableCollection<TagModel>>(Tags));
-        //            tagsWindow.ShowDialog();
-        //        }));
-        //    }
-        //}
-
         public object Clone()
         {
             return new CardModel
@@ -223,8 +163,6 @@ namespace PresentationLayer.Models
                 ColumnId = ColumnId,
                 Tags = new ObservableCollection<TagModel>(Tags),
                 BoardTags = BoardTags,
-                //Comments = Comments,
-                //Participants = Participants,
             };
         }
     }

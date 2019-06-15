@@ -399,5 +399,51 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <!--EVENTS-->
+    <Style x:Key="EventTxt" TargetType="TextBlock" BasedOn="{StaticResource LoginTxt}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{StaticResource SecondBrushDarkest}" />
+    </Style>
+
+    <Style x:Key="ProducerTxt" TargetType="TextBlock" BasedOn="{StaticResource EmailTxt}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Foreground" Value="{StaticResource FirstBrushDark}" />
+    </Style>
+
+    <Style x:Key="EventBorder" TargetType="Border">
+        <Setter Property="Background" Value="#FFA7FFEB"/>
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Border.Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#FF68D1B9" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard FillBehavior="Stop">
+                            <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#FFA7FFEB" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+                <Setter Property="Border.Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="2" Color="#555" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

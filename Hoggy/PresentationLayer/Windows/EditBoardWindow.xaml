@@ -88,7 +88,7 @@
             
         </Grid>
 
-        <!--USERS EDIT-->
+        <!--PARTICIPANTS -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -106,33 +106,45 @@
                         </WrapPanel>
                     </Border>
                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <ListBox ItemsSource="{Binding Board.Participants}">
-                        <ListBox.ItemTemplate>
+                    <ItemsControl ItemsSource="{Binding Board.Participants}">
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Width="300">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2">
-                                        <Image Source="{Binding Avatar}" Style="{StaticResource Avatar}" />
-                                    </Border>
-                                    <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
-                                        <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
-                                        <TextBlock  Text="{Binding Login}" Style="{StaticResource LoginTxt}"/>
-                                    </WrapPanel>
-                                    <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
-                                        <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
-                                        <TextBlock Text="{Binding Email}" Style="{StaticResource EmailTxt}"/>
-                                    </WrapPanel>
-                                </Grid>
+                                <Border Style="{StaticResource UserCard}"
+                                            Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Border Style="{StaticResource AvatarBorder}" Grid.RowSpan="2" Background="{StaticResource SecondBrushDark}">
+                                            <Image Source="{Binding Avatar}" Style="{StaticResource Avatar}" />
+                                        </Border>
+                                        <WrapPanel Grid.Column="1" VerticalAlignment="Bottom">
+                                            <fa:FontAwesome Icon="Pencil" Style="{StaticResource SmallIcon}"/>
+                                            <TextBlock  Text="{Binding Login}" Foreground="{StaticResource FirstBrushMiddle}" Style="{StaticResource LoginTxt}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+                                            <fa:FontAwesome Icon="AddressBook" Style="{StaticResource SmallIcon}" />
+                                            <TextBlock Text="{Binding Email}" Style="{StaticResource EmailTxt}"/>
+                                        </WrapPanel>
+                                        <Button Grid.Column="2" Grid.RowSpan="2"
+                                            Style="{StaticResource MiddleBtn}" Content="Remove" 
+                                            Command="{Binding InviteUserCmd}" />
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </ScrollViewer>
             </Grid>
             <!--ALL USERS-->

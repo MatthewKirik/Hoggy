@@ -10,7 +10,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   Title="ADD/EDIT COLUMN" Height="400" Width="500" 
+                   Title="ADD BOARD" Height="400" Width="500" 
                    Icon="pack://application:,,,/Resources/icon.ico"
                    Background="{StaticResource SecondBrushLighter}"
                    ResizeMode="NoResize">
@@ -27,7 +27,7 @@
             <Border Style="{StaticResource CardHeaderBorder}">
                 <WrapPanel>
                     <fa:FontAwesome Icon="Paperclip" Style="{StaticResource Icon}" Foreground="White" />
-                    <TextBlock Text="COLUMN INFO:" Style="{StaticResource CardHeader}" />
+                    <TextBlock Text="BOARD INFO:" Style="{StaticResource CardHeader}" />
                 </WrapPanel>
             </Border>
             <Grid>
@@ -36,21 +36,21 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Name" Style="{StaticResource Lable}" />
-                <TextBox Text="{Binding Path=Column.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                <TextBox Text="{Binding Path=Board.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
             </Grid>
-            <TextBlock Visibility="{Binding Column.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding Column.NameErr}" Style="{StaticResource Error}"/>
+            <TextBlock Visibility="{Binding Board.NameErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Board.NameErr}" Style="{StaticResource Error}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Description" Style="{StaticResource Lable}" />
-                <TextBox Text="{Binding Path=Column.Description, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox Text="{Binding Path=Board.Description, UpdateSourceTrigger=PropertyChanged}" 
                          Grid.Column="1" TextWrapping="Wrap" MinLines="5"/>
             </Grid>
-            <TextBlock Visibility="{Binding Column.DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
-                                   Text="{Binding Column.DescErr}" Style="{StaticResource Error}"/>
+            <TextBlock Visibility="{Binding Board.DescErr, Converter={custom:StringNullOrEmptyToVisibilityConverter}}" 
+                                   Text="{Binding Board.DescErr}" Style="{StaticResource Error}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="50">

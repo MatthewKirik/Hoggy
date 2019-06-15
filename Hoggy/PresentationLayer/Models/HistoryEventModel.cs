@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,29 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.Models
 {
-    public class HistoryEventModel
+    public class HistoryEventModel : ViewModelBase
     {
-        public string Text { get; set; }
-        public string ProducerName { get; set; }
-        
+        private string _text;
+        public string Text
+        {
+            get => _text;
+            set
+            {
+                _text = value;
+                RaisePropertyChanged(nameof(Text));
+            }
+        }
+
+        private string _producerLogin;
+        public string ProducerLogin
+        {
+            get => _producerLogin;
+            set
+            {
+                _producerLogin = value;
+                RaisePropertyChanged(nameof(ProducerLogin));
+            }
+        }
+
     }
 }
