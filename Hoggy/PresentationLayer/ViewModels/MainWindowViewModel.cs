@@ -559,7 +559,10 @@ namespace PresentationLayer.ViewModels
 
         void AddColumnCallback(ColumnDTO columnDTO)
         {
-            CurBoard.Columns.Add(Mapper.Map<ColumnModel>(columnDTO));
+            ColumnModel col = Mapper.Map<ColumnModel>(columnDTO);
+            col.MoveCardAct = MoveCard;
+            col.MainWindow = _mainWindow;
+            CurBoard.Columns.Add(col);
         }
 
         void EditColumnCallback(ColumnDTO col)
